@@ -1,0 +1,99 @@
+---
+import siteData from '../data/site.json';
+
+const { social } = siteData;
+---
+
+<footer>
+  <p>&copy; 2026 Rishi Films. All rights reserved.</p>
+  <div class="footer-social">
+    <a href={social.instagram} title="Instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37"></path>
+        <circle cx="17.5" cy="6.5" r="1.5"></circle>
+      </svg>
+    </a>
+    <a href={social.whatsapp} title="WhatsApp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+        ></path>
+      </svg>
+    </a>
+    <a href={social.email} title="Email" aria-label="Email">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+        <path d="m22 7-10 5L2 7"></path>
+      </svg>
+    </a>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: rgba(0, 0, 0, 0.5);
+    border-top: 1px solid var(--color-border);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    color: var(--color-accent);
+    transition: var(--transition);
+  }
+
+  .footer-social a:hover {
+    background: var(--color-accent);
+    color: var(--color-dark);
+    transform: translateY(-3px);
+  }
+</style>

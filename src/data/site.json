@@ -1,0 +1,17 @@
+{
+  "profileImage": "https://res.cloudinary.com/dhjj1svoh/image/upload/f_auto,q_auto/v1781944293/IMG_9401_ftdy5j.jpg",
+  "contact": {
+    "name": "Rishiram",
+    "phone": "+91 6382-950456",
+    "email": "rishi-flims23@gmail.com",
+    "location": "Tamil Nadu, India",
+    "whatsapp": "https://wa.me/916382950456",
+    "instagram": "https://www.instagram.com/rishi_.films_",
+    "instagram_secondary": "https://www.instagram.com/iam_.anonymous__"
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/rishi_.films_",
+    "whatsapp": "https://wa.me/916382950456",
+    "email": "mailto:rishi-flims23@gmail.com"
+  }
+}
