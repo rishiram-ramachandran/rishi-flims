@@ -1,0 +1,38 @@
+---
+import VideoCarousel from './VideoCarousel.astro';
+import videosData from '../data/videos.json';
+
+// To add a new video to any category, simply add a new object to the videos array in src/data/videos.json
+// Example: { "id": "new-id", "platform": "instagram", "url": "...", "label": "Brand Name" }
+// No code changes needed — the component will automatically render the new video.
+
+// To add a new category entirely, add a new object to the categories array in videos.json
+// Example: { "id": "new-category", "title": "Category Title", "videos": [...] }
+// A new carousel will automatically appear on the portfolio page.
+---
+
+<section id="portfolio" class="portfolio">
+  <div class="container">
+    <div class="section-heading text-center">
+      <h2>Video Portfolio</h2>
+      <p>A selection of commercial and cinematic work</p>
+    </div>
+    <div class="carousels">
+      {videosData.categories.map((category) => (
+        <VideoCarousel category={category} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .portfolio {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .carousels {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+</style>

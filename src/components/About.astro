@@ -1,0 +1,97 @@
+---
+import siteData from '../data/site.json';
+
+// To update the profile photo, simply replace the profileImage URL in src/data/site.json
+// No other code changes needed.
+const { profileImage } = siteData;
+---
+
+<section id="about" class="about">
+  <div class="container">
+    <div class="grid-2">
+      <div class="about-image slide-in-left">
+        <div class="profile-frame">
+          <img
+            src={profileImage}
+            alt="Rishiram - Videographer & Video Editor"
+            width="400"
+            height="400"
+            loading="eager"
+          />
+        </div>
+      </div>
+      <div class="about-content slide-in-right">
+        <h2>About Me</h2>
+        <p class="bio">
+          I'm Rishiram, a videographer and video editor based in Tamil Nadu. I help business owners
+          turn their products and moments into cinematic content — I shoot it, I edit it, I deliver it. I've
+          collaborated with brands like TVS, TVS Racing, Oppo India, Vivo, and Insta360, creating promotional
+          content that's been featured and pushed live on their own channels. One-man crew, full-service output:
+          concept to final cut.
+        </p>
+        <p class="bio-subtitle">Edited on DaVinci Resolve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .about-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile-frame {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--color-accent);
+    box-shadow: 0 0 40px rgba(212, 165, 116, 0.2), inset 0 0 40px rgba(212, 165, 116, 0.05);
+    transition: var(--transition-slow);
+  }
+
+  .profile-frame:hover {
+    box-shadow: 0 0 60px rgba(212, 165, 116, 0.4), inset 0 0 40px rgba(212, 165, 116, 0.1);
+  }
+
+  .profile-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-content h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .bio {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+    color: var(--color-light);
+  }
+
+  .bio-subtitle {
+    font-size: 0.95rem;
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .profile-frame {
+      max-width: 300px;
+    }
+
+    .bio {
+      font-size: 1rem;
+    }
+  }
+</style>

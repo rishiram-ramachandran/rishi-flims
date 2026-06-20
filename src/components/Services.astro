@@ -1,0 +1,99 @@
+---
+// Services Section - Grid of service offerings with icons
+// Icons are simple SVG inline; can be replaced with icon font or lucide-icon components
+
+interface Service {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+const services: Service[] = [
+  {
+    id: 'videography',
+    title: 'Business Videography',
+    description: 'On-location shoots for business owners: products, spaces, processes, people.',
+    icon: 'camera'
+  },
+  {
+    id: 'editing',
+    title: 'Video Editing',
+    description: 'Color grading, sound design, pacing — turning raw footage into a finished story.',
+    icon: 'scissors'
+  },
+  {
+    id: 'branding',
+    title: 'Brand Promotions',
+    description: 'Created and published promotional content for TVS, Oppo, Vivo, and Insta360.',
+    icon: 'trending-up'
+  },
+  {
+    id: 'storytelling',
+    title: 'Cinematic Storytelling',
+    description: 'Narrative-driven short films and reels that captivate and convert.',
+    icon: 'film'
+  },
+  {
+    id: 'talking-head',
+    title: 'Talking Head / Interview Content',
+    description: 'Clean, professional presenter-style videos for founders, creators, and brands.',
+    icon: 'mic'
+  }
+];
+
+const getIcon = (iconName: string) => {
+  const icons: Record<string, string> = {
+    camera:
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>',
+    scissors:
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>',
+    'trending-up':
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>',
+    film: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>',
+    mic: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>'
+  };
+  return icons[iconName] || '';
+};
+---
+
+<section id="services" class="services">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Services</h2>
+      <p>What I offer to bring your vision to life</p>
+    </div>
+    <div class="grid-4">
+      {services.map((service) => (
+        <div class="card service-card fade-in">
+          <div class="service-icon" set:html={getIcon(service.icon)} />
+          <h3>{service.title}</h3>
+          <p>{service.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .service-card h3 {
+    color: var(--color-light);
+  }
+</style>

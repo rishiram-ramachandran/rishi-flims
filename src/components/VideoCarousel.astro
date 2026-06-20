@@ -1,0 +1,182 @@
+---
+export interface Props {
+  category: {
+    id: string;
+    title: string;
+    videos: Array<{
+      id: string;
+      platform: 'instagram' | 'youtube';
+      url: string;
+      label?: string;
+    }>;
+  };
+}
+
+const { category } = Astro.props;
+
+// Helper function to convert YouTube share URL to embed URL
+const getYouTubeEmbedUrl = (url: string): string => {
+  const shortUrlMatch = url.match(/youtube\.com\/shorts\/([\w-]+)/);
+  const regularMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+  const videoId = shortUrlMatch?.[1] || regularMatch?.[1];
+  return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+};
+---
+
+<div class="carousel-section fade-in">
+  <h3 class="carousel-title">{category.title}</h3>
+  <div class="carousel-container" data-carousel-id={category.id}>
+    {category.videos.map((video) => (
+      <div class="carousel-item">
+        <div class="carousel-item-inner">
+          {video.platform === 'instagram' ? (
+            <blockquote
+              class="instagram-media"
+              data-instgrm-permalink={video.url}
+              data-instgrm-version="14"
+            ></blockquote>
+          ) : video.platform === 'youtube' ? (
+            <iframe
+              width="100%"
+              height="100%"
+              src={getYouTubeEmbedUrl(video.url)}
+              title="YouTube video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+              style="border: none; border-radius: 8px;"
+            ></iframe>
+          ) : null}
+        </div>
+        {video.label && <div class="carousel-label">{video.label}</div>}
+      </div>
+    ))}
+  </div>
+</div>
+
+<script define:vars={{ categoryId: category.id }}>
+  // Initialize Instagram embeds after the element loads
+  if (window.instgrm && window.instgrm.Embeds) {
+    // Reprocess embeds for this carousel
+    window.instgrm.Embeds.process();
+  }
+
+  // Optional: Add touch swipe support and carousel controls
+  const carousel = document.querySelector(`[data-carousel-id="${categoryId}"]`);
+  if (carousel) {
+    let isDown = false;
+    let startX: number;
+    let scrollLeft: number;
+
+    carousel.addEventListener('mousedown', (e: MouseEvent) => {
+      isDown = true;
+      startX = e.pageX - carousel.offsetLeft;
+      scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+      isDown = false;
+    });
+
+    carousel.addEventListener('mouseup', () => {
+      isDown = false;
+    });
+
+    carousel.addEventListener('mousemove', (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - carousel.offsetLeft;
+      const walk = (x - startX) * 1;
+      carousel.scrollLeft = scrollLeft - walk;
+    });
+  }
+</script>
+
+<style>
+  .carousel-section {
+    margin-bottom: 4rem;
+  }
+
+  .carousel-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-light);
+  }
+
+  .carousel-container {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 1rem 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .carousel-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-item {
+    flex: 0 0 320px;
+    scroll-snap-align: start;
+    aspect-ratio: 9 / 16;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    transition: var(--transition);
+  }
+
+  .carousel-item:hover {
+    transform: scale(1.02);
+  }
+
+  .carousel-item-inner {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .carousel-item-inner iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .carousel-label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(212, 165, 116, 0.9);
+    color: var(--color-dark);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    z-index: 10;
+  }
+
+  @media (max-width: 768px) {
+    .carousel-item {
+      flex: 0 0 280px;
+    }
+
+    .carousel-title {
+      font-size: 1.3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .carousel-item {
+      flex: 0 0 220px;
+    }
+  }
+</style>
