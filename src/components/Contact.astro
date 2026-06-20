@@ -21,6 +21,10 @@ const { contact, social } = siteData;
           <label>Phone / WhatsApp</label>
           <p>
             <a href={`tel:${contact.phone.replace(/[\s-]/g, '')}`}>{contact.phone}</a>
+            <span class="separator" style="margin: 0 0.5rem; color: rgba(255,255,255,0.15);">|</span>
+            <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" class="whatsapp-direct" style="color: #25D366; font-weight: 600;">
+              Chat
+            </a>
           </p>
         </div>
         <div class="info-item">
@@ -47,11 +51,11 @@ const { contact, social } = siteData;
       <div class="social-links mt-lg">
         <p class="social-label">Also on Instagram:</p>
         <div class="social-links-list">
-          <a href={contact.instagram} class="social-link" target="_blank" rel="noopener noreferrer">
+          <a href={contact.instagram_secondary} class="social-link" target="_blank" rel="noopener noreferrer">
             @rishi_.films_
           </a>
           <span class="separator">•</span>
-          <a href={contact.instagram_secondary} class="social-link" target="_blank" rel="noopener noreferrer">
+          <a href={contact.instagram} class="social-link" target="_blank" rel="noopener noreferrer">
             @iam_.anonymous__
           </a>
         </div>
