@@ -1,16 +1,47 @@
 ---
-// Hero Section - Main landing area with tagline and CTAs
+import siteData from "../data/site.json";
+
+const { contact } = siteData;
 ---
 
 <section id="hero" class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content fade-in">
     <h1 class="hero-title">Rishi Films</h1>
-    <p class="hero-tagline">Cinematic stories for businesses that mean business.</p>
-    <p class="hero-subtext">Videography & Video Editing for Brands and Business Owners</p>
+    <p class="hero-tagline">
+      Cinematic stories for businesses that mean business.
+    </p>
+    <p class="hero-subtext">
+      Videography & Video Editing for Brands and Business Owners
+    </p>
     <div class="btn-group mt-lg">
       <a href="#portfolio" class="btn">View My Work</a>
       <a href="#contact" class="btn btn-primary">Get In Touch</a>
+    </div>
+
+    <div class="hero-social mt-lg">
+      <a
+        href={contact.instagram}
+        class="hero-social-link secondary-badge"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Follow Travel & Vlogs on Instagram"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37"></path>
+          <circle cx="17.5" cy="6.5" r="1.5"></circle>
+        </svg>
+        <span>@iam_.anonymous__</span>
+      </a>
     </div>
   </div>
 </section>
@@ -46,13 +77,72 @@
     font-size: clamp(1.2rem, 3vw, 2rem);
     color: var(--color-light);
     margin-bottom: 1rem;
-    font-weight: 400;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
   }
 
   .hero-subtext {
     font-size: clamp(1rem, 2vw, 1.3rem);
     color: var(--color-text-secondary);
     margin-bottom: 2rem;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    line-height: 1.6;
+  }
+
+  .hero-social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .hero-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--color-light);
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+  }
+
+  .hero-social-link svg {
+    width: 16px;
+    height: 16px;
+    color: var(--color-accent);
+  }
+
+  .badge-tag {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-tag.accent {
+    background: rgba(212, 165, 116, 0.15);
+    color: var(--color-accent);
+  }
+
+  .hero-social-link:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212, 165, 116, 0.15);
   }
 
   @media (max-width: 768px) {
