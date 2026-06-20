@@ -2,9 +2,13 @@
 import siteData from '../data/site.json';
 
 const { contact, social } = siteData;
+
+const base = import.meta.env.BASE_URL;
+const baseUrl = base.endsWith('/') ? base : `${base}/`;
 ---
 
 <section id="contact" class="contact">
+  <div class="section-bg" style={`background-image: url('${baseUrl}images/studio-bg.jpg');`}></div>
   <div class="container">
     <div class="contact-content max-w-800 text-center fade-in">
       <h2>Let's Make Something Cinematic</h2>
@@ -72,6 +76,29 @@ const { contact, social } = siteData;
       rgba(212, 165, 116, 0.02) 100%
     );
     border-top: 1px solid var(--color-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.03;
+    filter: blur(2px);
+    transform: scale(1.02);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .contact .container {
+    position: relative;
+    z-index: 1;
   }
 
   .contact-subtext {
