@@ -4,14 +4,15 @@
   "description": "Premium portfolio website for Rishi Films - Videography & Video Editing",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/download-thumbnails.cjs && astro dev",
+    "start": "node scripts/download-thumbnails.cjs && astro dev",
+    "build": "node scripts/download-thumbnails.cjs && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.4.0"
+    "astro": "^4.4.0",
+    "swiper": "^12.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

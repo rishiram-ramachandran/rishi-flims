@@ -20,7 +20,7 @@ const { contact, social } = siteData;
         <div class="info-item">
           <label>Phone / WhatsApp</label>
           <p>
-            <a href={`tel:${contact.phone}`}>{contact.phone}</a>
+            <a href={`tel:${contact.phone.replace(/[\s-]/g, '')}`}>{contact.phone}</a>
           </p>
         </div>
         <div class="info-item">

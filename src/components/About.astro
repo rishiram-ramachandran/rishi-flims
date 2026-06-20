@@ -22,13 +22,16 @@ const { profileImage } = siteData;
       </div>
       <div class="about-content slide-in-right">
         <h2>About Me</h2>
-        <p class="bio">
-          I'm Rishiram, a videographer and video editor based in Tamil Nadu. I help business owners
-          turn their products and moments into cinematic content — I shoot it, I edit it, I deliver it. I've
-          collaborated with brands like TVS, TVS Racing, Oppo India, Vivo, and Insta360, creating promotional
-          content that's been featured and pushed live on their own channels. One-man crew, full-service output:
-          concept to final cut.
-        </p>
+        <div class="bio-text">
+          <p>
+            I'm Rishiram, a videographer and video editor based in Tamil Nadu, helping business owners turn their products and moments into cinematic content. From concept to final cut, I shoot it, edit it, and deliver it — so you get a finished story, not just footage.
+          <p>
+            I've collaborated with brands like TVS, TVS Racing, Oppo India, Vivo, and Insta360, creating promotional content that's been featured and pushed live on their own channels.
+          </p>
+          <p>
+            Beyond production, I run influencer-style promotions for brands — creating content published directly on my own platform to drive real engagement and reach, not just deliver a video file.
+          </p>
+        </div>
         <p class="bio-subtitle">Edited on DaVinci Resolve.</p>
       </div>
     </div>
@@ -72,11 +75,19 @@ const { profileImage } = siteData;
     margin-bottom: 1.5rem;
   }
 
-  .bio {
+  .bio-text {
     font-size: 1.1rem;
-    line-height: 1.9;
+    line-height: 1.8;
     margin-bottom: 1.5rem;
     color: var(--color-light);
+  }
+
+  .bio-text p {
+    margin-bottom: 1.25rem;
+  }
+
+  .bio-text p:last-child {
+    margin-bottom: 0;
   }
 
   .bio-subtitle {
@@ -90,7 +101,7 @@ const { profileImage } = siteData;
       max-width: 300px;
     }
 
-    .bio {
+    .bio-text {
       font-size: 1rem;
     }
   }

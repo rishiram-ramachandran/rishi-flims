@@ -10,6 +10,9 @@ const brands = ['TVS', 'TVS Racing', 'Oppo India', 'Vivo', 'Insta360'];
     <div class="section-heading text-center">
       <h2>Trusted By</h2>
       <p>Brands I've created promotional content for</p>
+      <p class="brands-supporting">
+        Multiple brand partnerships across two-wheeler, smartphone, and camera tech industries — from product reveals to influencer-style promotional reels.
+      </p>
     </div>
     <div class="brands-marquee fade-in">
       {brands.map((brand) => (
@@ -18,6 +21,21 @@ const brands = ['TVS', 'TVS Racing', 'Oppo India', 'Vivo', 'Insta360'];
       {brands.map((brand) => (
         <div class="brand-badge" aria-hidden="true">{brand}</div>
       ))}
+    </div>
+
+    <div class="brands-stats fade-in">
+      <div class="stat-item">
+        <span class="stat-number">5+</span>
+        <span class="stat-label">Brand Collaborations</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">3+</span>
+        <span class="stat-label">Tech Industries</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Concept to Publish</span>
+      </div>
     </div>
   </div>
 </section>
@@ -38,6 +56,14 @@ const brands = ['TVS', 'TVS Racing', 'Oppo India', 'Vivo', 'Insta360'];
     .brands {
       padding: 8rem 6rem;
     }
+  }
+
+  .brands-supporting {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0.75rem auto 0 auto;
+    line-height: 1.6;
   }
 
   .brands-marquee {
@@ -69,6 +95,37 @@ const brands = ['TVS', 'TVS Racing', 'Oppo India', 'Vivo', 'Insta360'];
     box-shadow: 0 0 20px rgba(212, 165, 116, 0.2);
   }
 
+  .brands-stats {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 3.5rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
   @media (max-width: 768px) {
     .brands-marquee {
       gap: 1rem;
@@ -77,6 +134,19 @@ const brands = ['TVS', 'TVS Racing', 'Oppo India', 'Vivo', 'Insta360'];
     .brand-badge {
       padding: 0.75rem 1.5rem;
       font-size: 0.85rem;
+    }
+
+    .brands-stats {
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
     }
   }
 </style>

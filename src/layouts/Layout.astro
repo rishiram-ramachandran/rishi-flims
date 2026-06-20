@@ -12,6 +12,9 @@ const {
 } = Astro.props;
 
 const profileImage = 'https://res.cloudinary.com/dhjj1svoh/image/upload/f_auto,q_auto/v1781944293/IMG_9401_ftdy5j.jpg';
+
+const base = import.meta.env.BASE_URL;
+const baseUrl = base.endsWith('/') ? base : `${base}/`;
 ---
 
 <!DOCTYPE html>
@@ -38,8 +41,8 @@ const profileImage = 'https://res.cloudinary.com/dhjj1svoh/image/upload/f_auto,q
     <meta name="twitter:image" content={profileImage} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
+    <link rel="shortcut icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,11 +52,23 @@ const profileImage = 'https://res.cloudinary.com/dhjj1svoh/image/upload/f_auto,q
       rel="stylesheet"
     />
 
-    <!-- Instagram Embed Script -->
-    <script async src="https://www.instagram.com/embed.js"></script>
   </head>
   <body>
     <slot />
+
+    <!-- Video Lightbox Modal -->
+    <div id="video-lightbox" class="lightbox-modal" aria-hidden="true" role="dialog">
+      <div class="lightbox-backdrop"></div>
+      <div class="lightbox-content">
+        <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close modal">&times;</button>
+        <div class="lightbox-body">
+          <div class="lightbox-loader">
+            <div class="spinner"></div>
+          </div>
+          <div id="lightbox-video-container"></div>
+        </div>
+      </div>
+    </div>
 
     <script>
       // Navbar scroll behavior
@@ -106,6 +121,146 @@ const profileImage = 'https://res.cloudinary.com/dhjj1svoh/image/upload/f_auto,q
             }
           }
         });
+      });
+
+      // Scroll spy active link highlighting
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('nav a');
+
+      window.addEventListener('scroll', () => {
+        let currentSectionId = '';
+        const scrollPosition = window.scrollY + 120; // Offset for sticky navbar height
+
+        sections.forEach((section) => {
+          const top = (section as HTMLElement).offsetTop;
+          const height = (section as HTMLElement).offsetHeight;
+          const id = section.getAttribute('id');
+
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            if (id) {
+              currentSectionId = id;
+            }
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove('active');
+          const href = link.getAttribute('href');
+          if (href === `#${currentSectionId}` || (currentSectionId === 'hero' && href === '#hero')) {
+            link.classList.add('active');
+          }
+        });
+      });
+
+      // Lightbox Modal Logic
+      const lightbox = document.getElementById('video-lightbox');
+      const lightboxBackdrop = lightbox?.querySelector('.lightbox-backdrop');
+      const lightboxCloseBtn = document.getElementById('lightbox-close-btn');
+      const videoContainer = document.getElementById('lightbox-video-container');
+      const loader = lightbox?.querySelector('.lightbox-loader') as HTMLElement;
+
+      const getYouTubeEmbedUrl = (url: string): string => {
+        const shortUrlMatch = url.match(/youtube\.com\/shorts\/([\w-]+)/);
+        const regularMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+        const videoId = shortUrlMatch?.[1] || regularMatch?.[1];
+        return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0` : url;
+      };
+
+      const openLightbox = (platform: string, url: string) => {
+        if (!lightbox || !videoContainer || !loader) return;
+
+        // Reset scroll position and loader
+        loader.style.display = 'flex';
+        videoContainer.innerHTML = '';
+
+        // Add class to body to lock scroll
+        document.body.classList.add('lightbox-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+
+        if (platform === 'youtube') {
+          const iframe = document.createElement('iframe');
+          iframe.src = getYouTubeEmbedUrl(url);
+          iframe.title = 'YouTube video player';
+          iframe.frameBorder = '0';
+          iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+          iframe.allowFullscreen = true;
+          iframe.onload = () => {
+            loader.style.display = 'none';
+          };
+          videoContainer.appendChild(iframe);
+        } else if (platform === 'instagram') {
+          // Render blockquote for Instagram oEmbed processing
+          const blockquote = document.createElement('blockquote');
+          blockquote.className = 'instagram-media';
+          blockquote.setAttribute('data-instgrm-permalink', url);
+          blockquote.setAttribute('data-instgrm-version', '14');
+          blockquote.style.width = '100%';
+          blockquote.style.height = '100%';
+          blockquote.style.margin = '0';
+          videoContainer.appendChild(blockquote);
+
+          // Setup MutationObserver to watch for when Instagram replaces blockquote with an iframe
+          const mutationObserver = new MutationObserver(() => {
+            const iframe = videoContainer.querySelector('iframe');
+            if (iframe) {
+              iframe.onload = () => {
+                loader.style.display = 'none';
+              };
+              // Fallback if load event doesn't trigger cleanly
+              setTimeout(() => {
+                loader.style.display = 'none';
+              }, 2000);
+              mutationObserver.disconnect();
+            }
+          });
+          mutationObserver.observe(videoContainer, { childList: true, subtree: true });
+
+          // Load script dynamically if not loaded, or process embeds
+          if (!(window as any).instgrm) {
+            const script = document.createElement('script');
+            script.src = 'https://www.instagram.com/embed.js';
+            script.async = true;
+            script.onload = () => {
+              if ((window as any).instgrm?.Embeds) {
+                (window as any).instgrm.Embeds.process();
+              }
+            };
+            document.body.appendChild(script);
+          } else {
+            if ((window as any).instgrm.Embeds) {
+              (window as any).instgrm.Embeds.process();
+            }
+          }
+        }
+      };
+
+      const closeLightbox = () => {
+        if (!lightbox || !videoContainer) return;
+        document.body.classList.remove('lightbox-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        videoContainer.innerHTML = '';
+      };
+
+      // Listen to video card clicks on the document
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const card = target.closest('.video-card');
+        if (card) {
+          const platform = card.getAttribute('data-platform');
+          const url = card.getAttribute('data-url');
+          if (platform && url) {
+            openLightbox(platform, url);
+          }
+        }
+      });
+
+      // Close handlers
+      lightboxCloseBtn?.addEventListener('click', closeLightbox);
+      lightboxBackdrop?.addEventListener('click', closeLightbox);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox?.getAttribute('aria-hidden') === 'false') {
+          closeLightbox();
+        }
       });
     </script>
   </body>
