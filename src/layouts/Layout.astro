@@ -67,7 +67,6 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
 
     <script>
       (function() {
-        // IntersectionObserver for scroll animations
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
@@ -77,8 +76,8 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
             });
           },
           {
-            threshold: 0.1,
-            rootMargin: '0px 0px -60px 0px'
+            threshold: 0.08,
+            rootMargin: '0px 0px -50px 0px'
           }
         );
 
@@ -86,7 +85,6 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
           observer.observe(el);
         });
 
-        // Lightbox
         const lightbox = document.getElementById('video-lightbox');
         const lightboxBackdrop = lightbox?.querySelector('.lightbox-backdrop');
         const lightboxCloseBtn = document.getElementById('lightbox-close-btn');
@@ -113,7 +111,6 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
             const iframe = document.createElement('iframe');
             iframe.src = getYouTubeEmbedUrl(url);
             iframe.title = 'YouTube video player';
-            iframe.frameBorder = '0';
             iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
             iframe.allowFullscreen = true;
             iframe.onload = () => { loader.style.display = 'none'; };

@@ -3,19 +3,19 @@ import VideoCarousel from './VideoCarousel.astro';
 import videosData from '../data/videos.json';
 ---
 
-<section id="portfolio" class="py-32 md:py-40 lg:py-48">
+<section id="portfolio" class="py-20 md:py-28 lg:py-32">
   <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-    <div class="mb-16 md:mb-24 animate-on-scroll">
-      <p class="text-[var(--color-accent)] text-sm font-semibold tracking-[0.2em] uppercase mb-4">Portfolio</p>
-      <h2 class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-6">
+    <div class="mb-10 md:mb-14 animate-on-scroll">
+      <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Portfolio</p>
+      <h2 class="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-4">
         SELECTED WORK
       </h2>
-      <p class="text-[var(--color-text-muted)] text-lg max-w-xl">
+      <p class="text-[var(--color-text-muted)] text-base max-w-lg">
         A curated collection of brand collaborations, cinematic reels, and talking head content.
       </p>
     </div>
 
-    <div class="space-y-20 md:space-y-28">
+    <div class="space-y-14 md:space-y-20">
       {videosData.categories.map((category) => (
         <VideoCarousel category={category} />
       ))}

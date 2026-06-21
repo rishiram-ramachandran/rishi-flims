@@ -25,46 +25,36 @@ const getYouTubeThumbnail = (url: string): string => {
 
 const base = import.meta.env.BASE_URL;
 const baseUrl = base.endsWith("/") ? base : `${base}/`;
-
-const getSlidesPerView = () => {
-  if (typeof window === 'undefined') return 4;
-  const w = window.innerWidth;
-  if (w < 480) return 1;
-  if (w < 768) return 1.5;
-  if (w < 1024) return 2.2;
-  if (w < 1440) return 3.5;
-  return 4;
-};
 ---
 
 <div class="carousel-section animate-on-scroll">
-  <div class="flex items-end justify-between mb-8">
+  <div class="flex items-end justify-between mb-6">
     <div>
-      <h3 class="font-display text-2xl md:text-3xl lg:text-4xl tracking-wide text-[var(--color-text)]">
+      <h3 class="font-display text-xl md:text-2xl lg:text-3xl tracking-wide text-[var(--color-text)]">
         {category.title}
       </h3>
-      <p class="text-[var(--color-text-muted)] text-sm mt-2">
+      <p class="text-[var(--color-text-muted)] text-xs mt-1">
         {category.videos.length} {category.videos.length === 1 ? 'video' : 'videos'}
       </p>
     </div>
 
     <!-- Desktop arrows -->
-    <div class="hidden md:flex items-center gap-3">
+    <div class="hidden md:flex items-center gap-2">
       <button
-        class="carousel-prev w-11 h-11 rounded-full border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)]/60 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all duration-300"
+        class="carousel-prev w-9 h-9 rounded-full border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)]/60 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all duration-300"
         data-target={category.id}
         aria-label="Previous"
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="15 18 9 12 15 6"/>
         </svg>
       </button>
       <button
-        class="carousel-next w-11 h-11 rounded-full border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)]/60 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all duration-300"
+        class="carousel-next w-9 h-9 rounded-full border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)]/60 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/40 transition-all duration-300"
         data-target={category.id}
         aria-label="Next"
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="9 18 15 12 9 6"/>
         </svg>
       </button>
@@ -79,18 +69,19 @@ const getSlidesPerView = () => {
     >
       {category.videos.map((video) => (
         <div
-          class="carousel-item video-card w-[280px] md:w-[320px] lg:w-[360px]"
+          class="carousel-item video-card flex-shrink-0 w-[260px] md:w-[280px] lg:w-[300px]"
           data-video-id={video.id}
           data-platform={video.platform}
           data-url={video.url}
         >
-          <div class="relative aspect-[9/16] rounded-3xl overflow-hidden bg-[var(--color-bg-secondary)] border border-[var(--color-border)] cursor-pointer group transition-all duration-500 hover:border-[var(--color-accent)]/30 hover:shadow-[0_20px_60px_-15px_rgba(200,169,107,0.15)] hover:scale-[1.03]">
+          <div class="relative aspect-[9/16] rounded-2xl overflow-hidden bg-[var(--color-bg-secondary)] border border-[var(--color-border)] cursor-pointer group transition-all duration-500 hover:border-[var(--color-accent)]/25 hover:shadow-[0_16px_48px_-12px_rgba(200,169,107,0.12)] hover:scale-[1.02]">
             {video.platform === "instagram" ? (
               <img
                 src={`${baseUrl}images/thumbnails/${video.id}.jpg`}
                 alt={video.label ? `Rishi Films - ${video.label}` : "Rishi Films Reel"}
                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
+                style="object-position: center;"
               />
             ) : video.platform === "youtube" ? (
               <img
@@ -98,13 +89,14 @@ const getSlidesPerView = () => {
                 alt={video.label ? `Rishi Films - ${video.label}` : "Rishi Films YouTube"}
                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
+                style="object-position: center;"
               />
             ) : null}
 
             <!-- Label badge -->
             {video.label && (
-              <div class="absolute top-4 left-4 z-10">
-                <span class="px-3 py-1.5 rounded-full bg-[var(--color-bg)]/80 backdrop-blur-md text-[var(--color-accent)] text-xs font-semibold tracking-wide border border-[var(--color-border-light)]">
+              <div class="absolute top-3 left-3 z-10">
+                <span class="px-2.5 py-1 rounded-full bg-[var(--color-bg)]/80 backdrop-blur-md text-[var(--color-accent)] text-[10px] font-semibold tracking-wide border border-[var(--color-border-light)]">
                   {video.label}
                 </span>
               </div>
@@ -112,15 +104,15 @@ const getSlidesPerView = () => {
 
             <!-- Play button -->
             <div class="absolute inset-0 flex items-center justify-center z-10">
-              <div class="w-14 h-14 rounded-full bg-[var(--color-bg)]/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-white transition-all duration-500 group-hover:bg-[var(--color-accent)] group-hover:text-[var(--color-bg)] group-hover:scale-110 group-hover:border-[var(--color-accent)]">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+              <div class="w-12 h-12 rounded-full bg-[var(--color-bg)]/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-white transition-all duration-500 group-hover:bg-[var(--color-accent)] group-hover:text-[var(--color-bg)] group-hover:scale-110 group-hover:border-[var(--color-accent)]">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none">
                   <polygon points="8 5 19 12 8 19"/>
                 </svg>
               </div>
             </div>
 
             <!-- Gradient overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)]/60 via-transparent to-transparent pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)]/50 via-transparent to-transparent pointer-events-none"></div>
           </div>
         </div>
       ))}
@@ -130,7 +122,6 @@ const getSlidesPerView = () => {
 
 <script>
   (function() {
-    // Carousel navigation
     document.querySelectorAll('.carousel-prev, .carousel-next').forEach((btn) => {
       btn.addEventListener('click', () => {
         const targetId = btn.getAttribute('data-target');
@@ -138,8 +129,8 @@ const getSlidesPerView = () => {
         if (!track) return;
 
         const isNext = btn.classList.contains('carousel-next');
-        const cardWidth = track.querySelector('.carousel-item')?.clientWidth || 300;
-        const gap = 20;
+        const cardWidth = track.querySelector('.carousel-item')?.clientWidth || 280;
+        const gap = 16;
         const scrollAmount = cardWidth + gap;
 
         track.scrollBy({
@@ -149,7 +140,6 @@ const getSlidesPerView = () => {
       });
     });
 
-    // Video card click -> lightbox
     document.querySelectorAll('.video-card').forEach((card) => {
       card.addEventListener('click', () => {
         const platform = card.getAttribute('data-platform');

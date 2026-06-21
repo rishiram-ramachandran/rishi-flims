@@ -1,6 +1,5 @@
 ---
 // Brand Collaborations Section
-// Logo SVGs can be added later by placing them in /public/logos/ and referencing them here
 
 const brands = [
   "TVS",
@@ -17,25 +16,25 @@ const stats = [
 ];
 ---
 
-<section id="brands" class="py-24 md:py-32 overflow-hidden">
+<section id="brands" class="py-16 md:py-20 overflow-hidden">
   <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-    <div class="text-center mb-16 animate-on-scroll">
-      <p class="text-[var(--color-accent)] text-sm font-semibold tracking-[0.2em] uppercase mb-4">Trusted By</p>
-      <h2 class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
+    <div class="text-center mb-10 animate-on-scroll">
+      <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Trusted By</p>
+      <h2 class="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
         BRANDS I'VE WORKED WITH
       </h2>
     </div>
   </div>
 
   <!-- Marquee -->
-  <div class="marquee-container relative mb-20 animate-on-scroll">
-    <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[var(--color-bg)] to-transparent z-10 pointer-events-none"></div>
-    <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[var(--color-bg)] to-transparent z-10 pointer-events-none"></div>
+  <div class="marquee-container relative mb-12 animate-on-scroll">
+    <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[var(--color-bg)] to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[var(--color-bg)] to-transparent z-10 pointer-events-none"></div>
     <div class="overflow-hidden">
       <div class="marquee-track">
         {[...brands, ...brands, ...brands, ...brands].map((brand) => (
-          <div class="flex-shrink-0 px-8 py-4 rounded-full border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)]/50 backdrop-blur-sm">
-            <span class="font-display text-xl md:text-2xl tracking-wider text-[var(--color-text)] whitespace-nowrap">
+          <div class="flex-shrink-0 px-6 py-3 rounded-full border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)]/40 backdrop-blur-sm">
+            <span class="font-display text-lg md:text-xl tracking-wider text-[var(--color-text)] whitespace-nowrap">
               {brand}
             </span>
           </div>
@@ -46,13 +45,13 @@ const stats = [
 
   <!-- Stats -->
   <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 stagger-children">
+    <div class="grid grid-cols-3 gap-6 md:gap-10 stagger-children">
       {stats.map((stat) => (
         <div class="animate-on-scroll text-center">
-          <span class="font-display text-[clamp(3rem,6vw,5rem)] text-[var(--color-accent)] leading-none">
+          <span class="font-display text-[clamp(2rem,5vw,3.5rem)] text-[var(--color-accent)] leading-none">
             {stat.number}
           </span>
-          <p class="mt-2 text-[var(--color-text-muted)] text-sm tracking-wide uppercase">
+          <p class="mt-1 text-[var(--color-text-muted)] text-[10px] md:text-xs tracking-wide uppercase">
             {stat.label}
           </p>
         </div>

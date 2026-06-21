@@ -3,15 +3,21 @@ const navLinks = [
   { label: 'Work', href: '#portfolio' },
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
-  { label: 'Brands', href: '#brands' },
   { label: 'Contact', href: '#contact' },
 ];
 ---
 
 <nav id="navbar" class="fixed top-5 left-1/2 -translate-x-1/2 z-[1000] opacity-0 -translate-y-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
   <div class="glass rounded-full px-6 py-3 flex items-center gap-8">
-    <a href="#hero" class="font-display text-lg tracking-wider text-[var(--color-accent)] hover:text-[var(--color-text)] transition-colors duration-300">
-      RISHI FILMS
+    <a href="#hero" class="flex items-center gap-2.5 group" aria-label="Rishi Films Home">
+      <!-- Logo Mark -->
+      <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-[var(--color-accent)]">
+        <rect x="2" y="2" width="36" height="36" rx="8" stroke="currentColor" stroke-width="2.5"/>
+        <path d="M12 28V12h4l6 10V12h4v16h-4l-6-10v10h-4z" fill="currentColor"/>
+      </svg>
+      <span class="font-display text-lg tracking-wider text-[var(--color-accent)] group-hover:text-[var(--color-text)] transition-colors duration-300">
+        RISHI FILMS
+      </span>
     </a>
 
     <!-- Desktop Links -->
@@ -104,30 +110,24 @@ const navLinks = [
     const navLinks = document.querySelectorAll('.nav-link');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-    // Show navbar on scroll
-    let lastScroll = 0;
     window.addEventListener('scroll', () => {
       const currentScroll = window.scrollY;
       if (currentScroll > 80) {
         navbar?.classList.add('visible');
       } else {
         navbar?.classList.remove('visible');
-        // Close mobile menu when scrolling to top
         mobileMenuBtn?.classList.remove('open');
         mobileMenu?.classList.remove('open');
         mobileMenuBtn?.setAttribute('aria-expanded', 'false');
       }
-      lastScroll = currentScroll;
     });
 
-    // Mobile menu toggle
     mobileMenuBtn?.addEventListener('click', () => {
       const isOpen = mobileMenuBtn.classList.toggle('open');
       mobileMenu?.classList.toggle('open');
       mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
     });
 
-    // Close mobile menu on link click
     mobileNavLinks.forEach((link) => {
       link.addEventListener('click', () => {
         mobileMenuBtn?.classList.remove('open');
@@ -136,12 +136,10 @@ const navLinks = [
       });
     });
 
-    // Scroll spy for active link
     const sections = document.querySelectorAll('section[id]');
     window.addEventListener('scroll', () => {
       let current = '';
       const scrollPos = window.scrollY + 150;
-
       sections.forEach((section) => {
         const sectionTop = (section as HTMLElement).offsetTop;
         const sectionHeight = (section as HTMLElement).offsetHeight;
@@ -150,7 +148,6 @@ const navLinks = [
           current = id;
         }
       });
-
       navLinks.forEach((link) => {
         link.classList.remove('active');
         const target = link.getAttribute('data-target');
@@ -160,7 +157,6 @@ const navLinks = [
       });
     });
 
-    // Smooth scroll for all anchor links
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
