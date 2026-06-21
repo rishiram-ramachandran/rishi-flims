@@ -4,42 +4,53 @@ import siteData from '../data/site.json';
 const { profileImage } = siteData;
 ---
 
-<section id="about" class="relative py-20 md:py-28 lg:py-32 overflow-hidden">
+<section id="about" class="relative py-16 md:py-20 lg:py-24 overflow-hidden">
   <!-- Subtle background texture -->
-  <div class="absolute inset-0 opacity-30">
+  <div class="absolute inset-0 opacity-20">
     <img
       src="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1920"
       alt=""
       class="w-full h-full object-cover"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-[var(--color-bg)]/85"></div>
+    <div class="absolute inset-0 bg-[var(--color-bg)]/90"></div>
   </div>
 
   <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-      <!-- Image -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <!-- Image with aesthetic frame -->
       <div class="animate-on-scroll fade-left">
-        <div class="relative aspect-[3/4] max-w-md mx-auto lg:mx-0 overflow-hidden rounded-2xl">
-          <img
-            src={profileImage}
-            alt="Rishiram - Videographer & Video Editor"
-            class="w-full h-full object-cover"
-            loading="lazy"
-            width="600"
-            height="800"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)]/50 to-transparent"></div>
+        <div class="relative max-w-sm mx-auto lg:mx-0">
+          <!-- Outer decorative frame -->
+          <div class="absolute -inset-3 border border-[var(--color-accent)]/20 rounded-2xl"></div>
+          <div class="absolute -inset-1.5 border border-[var(--color-accent)]/10 rounded-xl"></div>
+          <!-- Corner accents -->
+          <div class="absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 border-[var(--color-accent)] rounded-tl-lg"></div>
+          <div class="absolute -top-1 -right-1 w-6 h-6 border-t-2 border-r-2 border-[var(--color-accent)] rounded-tr-lg"></div>
+          <div class="absolute -bottom-1 -left-1 w-6 h-6 border-b-2 border-l-2 border-[var(--color-accent)] rounded-bl-lg"></div>
+          <div class="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-[var(--color-accent)] rounded-br-lg"></div>
+
+          <div class="relative aspect-[3/4] overflow-hidden rounded-xl bg-[var(--color-bg-secondary)]">
+            <img
+              src={profileImage}
+              alt="Rishiram - Videographer & Video Editor"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="800"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)]/40 via-transparent to-transparent"></div>
+          </div>
         </div>
       </div>
 
       <!-- Content -->
       <div class="animate-on-scroll fade-right">
         <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-3">About</p>
-        <h2 class="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-6">
-          ONE-MAN CREW.<br/>FULL-SERVICE OUTPUT.
+        <h2 class="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-5">
+          FROM CONCEPT<br/>TO FINAL CUT.
         </h2>
-        <div class="space-y-4 text-[var(--color-text-muted)] text-base leading-relaxed max-w-lg">
+        <div class="space-y-3 text-[var(--color-text-muted)] text-base leading-relaxed max-w-lg">
           <p>
             I'm Rishiram, a videographer and video editor based in Tamil Nadu. I help business owners turn their products and moments into cinematic content — I shoot it, I edit it, I deliver it.
           </p>
@@ -47,11 +58,11 @@ const { profileImage } = siteData;
             I've collaborated with brands like <span class="text-[var(--color-text)]">TVS</span>, <span class="text-[var(--color-text)]">TVS Racing</span>, <span class="text-[var(--color-text)]">Oppo India</span>, <span class="text-[var(--color-text)]">Vivo</span>, and <span class="text-[var(--color-text)]">Insta360</span>, creating promotional content that's been featured and pushed live on their own channels.
           </p>
           <p>
-            One-man crew, full-service output: concept to final cut.
+            Concept to final cut — end to end.
           </p>
         </div>
 
-        <div class="mt-8 pt-6 border-t border-[var(--color-border)]">
+        <div class="mt-6 pt-5 border-t border-[var(--color-border)]">
           <p class="text-[var(--color-accent)] text-sm font-medium tracking-wide flex items-center gap-2">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/>

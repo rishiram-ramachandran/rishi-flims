@@ -42,11 +42,11 @@ const testimonials = [
 const starSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
 ---
 
-<section id="testimonials" class="py-16 md:py-20 overflow-hidden">
+<section id="testimonials" class="py-14 md:py-16 overflow-hidden">
   <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-    <div class="text-center mb-10 md:mb-12 animate-on-scroll">
-      <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Testimonials</p>
-      <h2 class="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-3">
+    <div class="text-center mb-8 md:mb-10 animate-on-scroll">
+      <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-2">Testimonials</p>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-2">
         WHAT CLIENTS SAY
       </h2>
       <p class="text-[var(--color-text-muted)] text-sm max-w-md mx-auto">
@@ -55,28 +55,23 @@ const starSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentCo
     </div>
 
     <!-- Desktop: 2-column grid -->
-    <div class="hidden md:grid md:grid-cols-2 gap-4 lg:gap-5 stagger-children">
+    <div class="hidden md:grid md:grid-cols-2 gap-3 lg:gap-4 stagger-children">
       {testimonials.map((t) => (
-        <div class="animate-on-scroll scale-in group relative p-6 lg:p-7 rounded-2xl bg-[var(--color-bg-secondary)]/50 border border-[var(--color-border)]/60 backdrop-blur-sm transition-all duration-500 hover:border-[var(--color-accent)]/15 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_-12px_rgba(200,169,107,0.08)]">
+        <div class="animate-on-scroll scale-in group relative p-5 lg:p-6 rounded-2xl bg-[var(--color-bg-secondary)]/50 border border-[var(--color-border)]/60 backdrop-blur-sm transition-all duration-500 hover:border-[var(--color-accent)]/15 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_-12px_rgba(212,175,55,0.08)]">
           <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-accent)]/[0.015] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
           <div class="relative z-10">
-            <!-- Stars -->
-            <div class="flex items-center gap-0.5 mb-4 text-[var(--color-accent)]">
+            <div class="flex items-center gap-0.5 mb-3 text-[var(--color-accent)]">
               {Array.from({ length: t.rating }).map(() => (
                 <Fragment set:html={starSvg} />
               ))}
             </div>
-
-            <!-- Quote icon -->
-            <svg class="w-7 h-7 text-[var(--color-accent)]/20 mb-3" viewBox="0 0 24 24" fill="currentColor">
+            <svg class="w-6 h-6 text-[var(--color-accent)]/20 mb-2" viewBox="0 0 24 24" fill="currentColor">
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
             </svg>
-
-            <p class="text-[var(--color-text)] text-sm leading-relaxed mb-5">
+            <p class="text-[var(--color-text)] text-sm leading-relaxed mb-4">
               {t.quote}
             </p>
-
-            <div class="pt-4 border-t border-[var(--color-border)]/60">
+            <div class="pt-3 border-t border-[var(--color-border)]/60">
               <p class="text-[var(--color-text)] font-medium text-sm">{t.author}</p>
               <p class="text-[var(--color-accent)] text-xs tracking-wide mt-0.5">{t.company}</p>
               {t.location && <p class="text-[var(--color-text-muted)] text-[10px] mt-0.5">{t.location}</p>}
@@ -88,22 +83,22 @@ const starSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentCo
 
     <!-- Mobile: horizontal swipe carousel -->
     <div class="md:hidden">
-      <div class="testimonial-carousel flex gap-4 overflow-x-auto scroll-snap-x pb-2 -mx-6 px-6" id="testimonial-track">
+      <div class="testimonial-carousel flex gap-3 overflow-x-auto scroll-snap-x pb-2 -mx-6 px-6" id="testimonial-track">
         {testimonials.map((t) => (
           <div class="testimonial-card flex-shrink-0 w-[85vw] max-w-[340px] scroll-snap-start">
-            <div class="relative p-5 rounded-2xl bg-[var(--color-bg-secondary)]/50 border border-[var(--color-border)]/60 backdrop-blur-sm">
-              <div class="flex items-center gap-0.5 mb-3 text-[var(--color-accent)]">
+            <div class="relative p-4 rounded-2xl bg-[var(--color-bg-secondary)]/50 border border-[var(--color-border)]/60 backdrop-blur-sm">
+              <div class="flex items-center gap-0.5 mb-2 text-[var(--color-accent)]">
                 {Array.from({ length: t.rating }).map(() => (
                   <Fragment set:html={starSvg} />
                 ))}
               </div>
-              <svg class="w-6 h-6 text-[var(--color-accent)]/20 mb-2" viewBox="0 0 24 24" fill="currentColor">
+              <svg class="w-5 h-5 text-[var(--color-accent)]/20 mb-2" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
               </svg>
-              <p class="text-[var(--color-text)] text-sm leading-relaxed mb-4">
+              <p class="text-[var(--color-text)] text-sm leading-relaxed mb-3">
                 {t.quote}
               </p>
-              <div class="pt-3 border-t border-[var(--color-border)]/60">
+              <div class="pt-2.5 border-t border-[var(--color-border)]/60">
                 <p class="text-[var(--color-text)] font-medium text-sm">{t.author}</p>
                 <p class="text-[var(--color-accent)] text-xs tracking-wide mt-0.5">{t.company}</p>
                 {t.location && <p class="text-[var(--color-text-muted)] text-[10px] mt-0.5">{t.location}</p>}
@@ -113,8 +108,7 @@ const starSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentCo
         ))}
       </div>
 
-      <!-- Mobile carousel dots -->
-      <div class="flex items-center justify-center gap-2 mt-4" id="testimonial-dots">
+      <div class="flex items-center justify-center gap-2 mt-3" id="testimonial-dots">
         {testimonials.map((_, i) => (
           <button
             class="testimonial-dot w-1.5 h-1.5 rounded-full bg-[var(--color-text-muted)]/30 transition-all duration-300"
@@ -158,7 +152,7 @@ const starSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentCo
     const updateDots = () => {
       const scrollLeft = track.scrollLeft;
       const cardWidth = track.querySelector('.testimonial-card')?.clientWidth || 340;
-      const gap = 16;
+      const gap = 12;
       const index = Math.round(scrollLeft / (cardWidth + gap));
       dots.forEach((dot, i) => {
         dot.classList.toggle('active', i === index);
@@ -171,12 +165,11 @@ const starSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentCo
       dot.addEventListener('click', () => {
         const idx = parseInt(dot.getAttribute('data-index') || '0');
         const cardWidth = track.querySelector('.testimonial-card')?.clientWidth || 340;
-        const gap = 16;
+        const gap = 12;
         track.scrollTo({ left: idx * (cardWidth + gap), behavior: 'smooth' });
       });
     });
 
-    // Initialize first dot
     updateDots();
   })();
 </script>

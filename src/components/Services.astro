@@ -51,26 +51,26 @@ const getIcon = (iconName: string) => {
 };
 ---
 
-<section id="services" class="py-20 md:py-28 lg:py-32">
+<section id="services" class="py-16 md:py-20 lg:py-24">
   <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-    <div class="text-center mb-12 md:mb-16 animate-on-scroll">
+    <div class="text-center mb-10 md:mb-12 animate-on-scroll">
       <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Services</p>
-      <h2 class="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
         WHAT I DO
       </h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 stagger-children">
       {services.map((service, index) => (
         <div
-          class={`group animate-on-scroll scale-in relative p-7 md:p-8 rounded-2xl bg-[var(--color-bg-secondary)]/60 border border-[var(--color-border)]/60 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[var(--color-accent)]/20 hover:-translate-y-1.5 hover:shadow-[0_16px_48px_-12px_rgba(200,169,107,0.1)] ${index === 0 || index === 3 ? 'md:col-span-2 lg:col-span-2' : ''}`}
+          class={`group animate-on-scroll scale-in relative p-6 md:p-7 rounded-2xl bg-[var(--color-bg-secondary)]/60 border border-[var(--color-border)]/60 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[var(--color-accent)]/20 hover:-translate-y-1 hover:shadow-[0_16px_48px_-12px_rgba(212,175,55,0.1)] ${index === 0 || index === 3 ? 'md:col-span-2 lg:col-span-2' : ''}`}
         >
           <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-accent)]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
           <div class="relative z-10">
-            <div class="w-10 h-10 rounded-xl bg-[var(--color-accent)]/8 flex items-center justify-center text-[var(--color-accent)] mb-5 group-hover:scale-105 transition-transform duration-500">
+            <div class="w-9 h-9 rounded-xl bg-[var(--color-accent)]/8 flex items-center justify-center text-[var(--color-accent)] mb-4 group-hover:scale-105 transition-transform duration-500">
               <Fragment set:html={getIcon(service.icon)} />
             </div>
-            <h3 class="font-display text-xl md:text-2xl tracking-wide text-[var(--color-text)] mb-2">
+            <h3 class="font-display text-lg md:text-xl tracking-wide text-[var(--color-text)] mb-1.5">
               {service.title}
             </h3>
             <p class="text-[var(--color-text-muted)] leading-relaxed text-sm">

@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #0B0B0B;
-  --color-bg-secondary: #141414;
-  --color-accent: #C8A96B;
-  --color-text: #F5F5F5;
-  --color-text-muted: #888888;
-  --color-border: #1E1E1E;
-  --color-border-light: #2A2A2A;
+  --color-bg: #0A0A0A;
+  --color-bg-secondary: #111111;
+  --color-accent: #D4AF37;
+  --color-accent-light: #E8C96A;
+  --color-accent-dark: #A88B2F;
+  --color-text: #F0F0F0;
+  --color-text-muted: #7A7A7A;
+  --color-border: #1A1A1A;
+  --color-border-light: #252525;
 
   --font-display: 'Bebas Neue', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -97,6 +99,7 @@ img {
 .stagger-children > .animate-on-scroll:nth-child(3) { transition-delay: 160ms; }
 .stagger-children > .animate-on-scroll:nth-child(4) { transition-delay: 240ms; }
 .stagger-children > .animate-on-scroll:nth-child(5) { transition-delay: 320ms; }
+.stagger-children > .animate-on-scroll:nth-child(6) { transition-delay: 400ms; }
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
@@ -273,7 +276,7 @@ body.lightbox-open {
 .spinner {
   width: 32px;
   height: 32px;
-  border: 2.5px solid rgba(200, 169, 107, 0.12);
+  border: 2.5px solid rgba(212, 175, 55, 0.12);
   border-top: 2.5px solid var(--color-accent);
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -339,7 +342,7 @@ body.lightbox-open {
    ============================================ */
 
 .glass {
-  background: rgba(20, 20, 20, 0.55);
+  background: rgba(17, 17, 17, 0.55);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -362,7 +365,7 @@ textarea:focus-visible {
    ============================================ */
 
 ::selection {
-  background: rgba(200, 169, 107, 0.25);
+  background: rgba(212, 175, 55, 0.25);
   color: var(--color-text);
 }
 
@@ -377,9 +380,28 @@ textarea::placeholder {
 }
 
 /* ============================================
-   BACKGROUND ACCENT
+   TESTIMONIAL CAROUSEL
    ============================================ */
 
-.bg-accent-8 {
-  background-color: rgba(200, 169, 107, 0.08);
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-snap-x::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-snap-start {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.testimonial-dot.active {
+  background-color: var(--color-accent);
+  width: 1.25rem;
+  border-radius: 9999px;
 }
