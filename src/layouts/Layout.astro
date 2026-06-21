@@ -6,7 +6,7 @@ interface Props {
   description?: string;
 }
 
-const { 
+const {
   title = 'Rishi Films | Videography & Video Editing',
   description = 'Professional videography and video editing for business owners and brands. Worked with TVS, Oppo, Vivo, and Insta360.'
 } = Astro.props;
@@ -24,17 +24,17 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#0B0B0B" />
 
-    <!-- Open Graph / Meta Tags for Link Previews -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={profileImage} />
     <meta property="og:image:alt" content="Rishi Films - Professional Videographer & Video Editor" />
-    <meta property="og:url" content="https://rishifilms.com" />
+    <meta property="og:url" content="https://rishiram-ramachandran.github.io/rishi-flims/" />
 
-    <!-- Twitter Card -->
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -42,25 +42,20 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
-    <link rel="shortcut icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
 
-    <!-- Google Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <slot />
 
-    <!-- Video Lightbox Modal -->
+    <!-- Lightbox Modal -->
     <div id="video-lightbox" class="lightbox-modal" aria-hidden="true" role="dialog">
       <div class="lightbox-backdrop"></div>
       <div class="lightbox-content">
-        <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close modal">&times;</button>
+        <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close">&times;</button>
         <div class="lightbox-body">
           <div class="lightbox-loader">
             <div class="spinner"></div>
@@ -71,197 +66,115 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
     </div>
 
     <script>
-      // Navbar scroll behavior
-      const navbar = document.querySelector('nav');
-      let lastScrollY = 0;
-
-      window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-
-        if (currentScrollY > 100) {
-          navbar?.classList.add('visible');
-        } else {
-          navbar?.classList.remove('visible');
-        }
-
-        lastScrollY = currentScrollY;
-      });
-
-      // Scroll animation observer
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              // Optionally unobserve after animation
-              // observer.unobserve(entry.target);
-            }
-          });
-        },
-        {
-          threshold: 0.1,
-          rootMargin: '0px 0px -100px 0px'
-        }
-      );
-
-      // Observe all animatable elements
-      document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in').forEach((el) => {
-        observer.observe(el);
-      });
-
-      // Handle smooth scroll anchor links
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener('click', function (e) {
-          const href = this.getAttribute('href');
-          if (href && href !== '#') {
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-              target.scrollIntoView({ behavior: 'smooth' });
-            }
+      (function() {
+        // IntersectionObserver for scroll animations
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+            rootMargin: '0px 0px -60px 0px'
           }
-        });
-      });
+        );
 
-      // Scroll spy active link highlighting
-      const sections = document.querySelectorAll('section');
-      const navLinks = document.querySelectorAll('nav a');
-
-      window.addEventListener('scroll', () => {
-        let currentSectionId = '';
-        const scrollPosition = window.scrollY + 120; // Offset for sticky navbar height
-
-        sections.forEach((section) => {
-          const top = (section as HTMLElement).offsetTop;
-          const height = (section as HTMLElement).offsetHeight;
-          const id = section.getAttribute('id');
-
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            if (id) {
-              currentSectionId = id;
-            }
-          }
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+          observer.observe(el);
         });
 
-        navLinks.forEach((link) => {
-          link.classList.remove('active');
-          const href = link.getAttribute('href');
-          if (href === `#${currentSectionId}` || (currentSectionId === 'hero' && href === '#hero')) {
-            link.classList.add('active');
-          }
-        });
-      });
+        // Lightbox
+        const lightbox = document.getElementById('video-lightbox');
+        const lightboxBackdrop = lightbox?.querySelector('.lightbox-backdrop');
+        const lightboxCloseBtn = document.getElementById('lightbox-close-btn');
+        const videoContainer = document.getElementById('lightbox-video-container');
+        const loader = lightbox?.querySelector('.lightbox-loader') as HTMLElement;
 
-      // Lightbox Modal Logic
-      const lightbox = document.getElementById('video-lightbox');
-      const lightboxBackdrop = lightbox?.querySelector('.lightbox-backdrop');
-      const lightboxCloseBtn = document.getElementById('lightbox-close-btn');
-      const videoContainer = document.getElementById('lightbox-video-container');
-      const loader = lightbox?.querySelector('.lightbox-loader') as HTMLElement;
+        const getYouTubeEmbedUrl = (url: string): string => {
+          const shortUrlMatch = url.match(/youtube\.com\/shorts\/([\w-]+)/);
+          const regularMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+          const videoId = shortUrlMatch?.[1] || regularMatch?.[1];
+          return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0` : url;
+        };
 
-      const getYouTubeEmbedUrl = (url: string): string => {
-        const shortUrlMatch = url.match(/youtube\.com\/shorts\/([\w-]+)/);
-        const regularMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
-        const videoId = shortUrlMatch?.[1] || regularMatch?.[1];
-        return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0` : url;
-      };
+        const openLightbox = (platform: string, url: string) => {
+          if (!lightbox || !videoContainer || !loader) return;
 
-      const openLightbox = (platform: string, url: string) => {
-        if (!lightbox || !videoContainer || !loader) return;
+          loader.style.display = 'flex';
+          videoContainer.innerHTML = '';
 
-        // Reset scroll position and loader
-        loader.style.display = 'flex';
-        videoContainer.innerHTML = '';
+          document.body.classList.add('lightbox-open');
+          lightbox.setAttribute('aria-hidden', 'false');
 
-        // Add class to body to lock scroll
-        document.body.classList.add('lightbox-open');
-        lightbox.setAttribute('aria-hidden', 'false');
+          if (platform === 'youtube') {
+            const iframe = document.createElement('iframe');
+            iframe.src = getYouTubeEmbedUrl(url);
+            iframe.title = 'YouTube video player';
+            iframe.frameBorder = '0';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            iframe.allowFullscreen = true;
+            iframe.onload = () => { loader.style.display = 'none'; };
+            videoContainer.appendChild(iframe);
+          } else if (platform === 'instagram') {
+            const blockquote = document.createElement('blockquote');
+            blockquote.className = 'instagram-media';
+            blockquote.setAttribute('data-instgrm-permalink', url);
+            blockquote.setAttribute('data-instgrm-version', '14');
+            blockquote.style.width = '100%';
+            blockquote.style.height = '100%';
+            blockquote.style.margin = '0';
+            videoContainer.appendChild(blockquote);
 
-        if (platform === 'youtube') {
-          const iframe = document.createElement('iframe');
-          iframe.src = getYouTubeEmbedUrl(url);
-          iframe.title = 'YouTube video player';
-          iframe.frameBorder = '0';
-          iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-          iframe.allowFullscreen = true;
-          iframe.onload = () => {
-            loader.style.display = 'none';
-          };
-          videoContainer.appendChild(iframe);
-        } else if (platform === 'instagram') {
-          // Render blockquote for Instagram oEmbed processing
-          const blockquote = document.createElement('blockquote');
-          blockquote.className = 'instagram-media';
-          blockquote.setAttribute('data-instgrm-permalink', url);
-          blockquote.setAttribute('data-instgrm-version', '14');
-          blockquote.style.width = '100%';
-          blockquote.style.height = '100%';
-          blockquote.style.margin = '0';
-          videoContainer.appendChild(blockquote);
+            const mutationObserver = new MutationObserver(() => {
+              const iframe = videoContainer.querySelector('iframe');
+              if (iframe) {
+                iframe.onload = () => { loader.style.display = 'none'; };
+                setTimeout(() => { loader.style.display = 'none'; }, 2000);
+                mutationObserver.disconnect();
+              }
+            });
+            mutationObserver.observe(videoContainer, { childList: true, subtree: true });
 
-          // Setup MutationObserver to watch for when Instagram replaces blockquote with an iframe
-          const mutationObserver = new MutationObserver(() => {
-            const iframe = videoContainer.querySelector('iframe');
-            if (iframe) {
-              iframe.onload = () => {
-                loader.style.display = 'none';
+            if (!(window as any).instgrm) {
+              const script = document.createElement('script');
+              script.src = 'https://www.instagram.com/embed.js';
+              script.async = true;
+              script.onload = () => {
+                if ((window as any).instgrm?.Embeds) {
+                  (window as any).instgrm.Embeds.process();
+                }
               };
-              // Fallback if load event doesn't trigger cleanly
-              setTimeout(() => {
-                loader.style.display = 'none';
-              }, 2000);
-              mutationObserver.disconnect();
-            }
-          });
-          mutationObserver.observe(videoContainer, { childList: true, subtree: true });
-
-          // Load script dynamically if not loaded, or process embeds
-          if (!(window as any).instgrm) {
-            const script = document.createElement('script');
-            script.src = 'https://www.instagram.com/embed.js';
-            script.async = true;
-            script.onload = () => {
-              if ((window as any).instgrm?.Embeds) {
+              document.body.appendChild(script);
+            } else {
+              if ((window as any).instgrm.Embeds) {
                 (window as any).instgrm.Embeds.process();
               }
-            };
-            document.body.appendChild(script);
-          } else {
-            if ((window as any).instgrm.Embeds) {
-              (window as any).instgrm.Embeds.process();
             }
           }
-        }
-      };
+        };
 
-      const closeLightbox = () => {
-        if (!lightbox || !videoContainer) return;
-        document.body.classList.remove('lightbox-open');
-        lightbox.setAttribute('aria-hidden', 'true');
-        videoContainer.innerHTML = '';
-      };
+        const closeLightbox = () => {
+          if (!lightbox || !videoContainer) return;
+          document.body.classList.remove('lightbox-open');
+          lightbox.setAttribute('aria-hidden', 'true');
+          videoContainer.innerHTML = '';
+        };
 
-      // Listen to video card clicks on the document
-      document.addEventListener('click', (e) => {
-        const target = e.target as HTMLElement;
-        const card = target.closest('.video-card');
-        if (card) {
-          const platform = card.getAttribute('data-platform');
-          const url = card.getAttribute('data-url');
-          if (platform && url) {
-            openLightbox(platform, url);
+        window.addEventListener('open-lightbox', (e: any) => {
+          openLightbox(e.detail.platform, e.detail.url);
+        });
+
+        lightboxCloseBtn?.addEventListener('click', closeLightbox);
+        lightboxBackdrop?.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && lightbox?.getAttribute('aria-hidden') === 'false') {
+            closeLightbox();
           }
-        }
-      });
-
-      // Close handlers
-      lightboxCloseBtn?.addEventListener('click', closeLightbox);
-      lightboxBackdrop?.addEventListener('click', closeLightbox);
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox?.getAttribute('aria-hidden') === 'false') {
-          closeLightbox();
-        }
-      });
+        });
+      })();
     </script>
   </body>
 </html>

@@ -1,136 +1,51 @@
 ---
 import siteData from '../data/site.json';
 
-// To update the profile photo, simply replace the profileImage URL in src/data/site.json
-// No other code changes needed.
 const { profileImage } = siteData;
-
-const base = import.meta.env.BASE_URL;
-const baseUrl = base.endsWith('/') ? base : `${base}/`;
 ---
 
-<section id="about" class="about">
-  <div class="section-bg" style={`background-image: url('${baseUrl}images/travel-bg.jpg');`}></div>
-  <div class="container">
-    <div class="grid-2">
-      <div class="about-image slide-in-left">
-        <div class="profile-frame">
+<section id="about" class="relative py-32 md:py-40 lg:py-48 overflow-hidden">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <!-- Image -->
+      <div class="animate-on-scroll fade-left">
+        <div class="relative aspect-[3/4] max-w-lg mx-auto lg:mx-0 overflow-hidden rounded-3xl">
           <img
             src={profileImage}
             alt="Rishiram - Videographer & Video Editor"
-            width="400"
-            height="400"
-            loading="eager"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            width="600"
+            height="800"
           />
+          <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)]/40 to-transparent"></div>
         </div>
       </div>
-      <div class="about-content slide-in-right">
-        <h2>About Me</h2>
-        <div class="bio-text">
+
+      <!-- Content -->
+      <div class="animate-on-scroll fade-right">
+        <p class="text-[var(--color-accent)] text-sm font-semibold tracking-[0.2em] uppercase mb-4">About</p>
+        <h2 class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-8">
+          ONE-MAN CREW,<br/>FULL-SERVICE OUTPUT
+        </h2>
+        <div class="space-y-6 text-[var(--color-text-muted)] text-base md:text-lg leading-relaxed max-w-xl">
           <p>
-            I'm Rishiram, a videographer and video editor based in Tamil Nadu, helping business owners turn their products and moments into cinematic content. From concept to final cut, I shoot it, edit it, and deliver it — so you get a finished story, not just footage.
+            I'm Rishiram, a videographer and video editor based in Tamil Nadu. I help business owners turn their products and moments into cinematic content — I shoot it, I edit it, I deliver it.
           </p>
           <p>
-            I've collaborated with brands like TVS, TVS Racing, Oppo India, Vivo, and Insta360, creating promotional content that's been featured and pushed live on their own channels.
+            I've collaborated with brands like <span class="text-[var(--color-text)]">TVS</span>, <span class="text-[var(--color-text)]">TVS Racing</span>, <span class="text-[var(--color-text)]">Oppo India</span>, <span class="text-[var(--color-text)]">Vivo</span>, and <span class="text-[var(--color-text)]">Insta360</span>, creating promotional content that's been featured and pushed live on their own channels.
           </p>
           <p>
-            Beyond production, I run influencer-style promotions for brands. Through my travel and vlogging platform, <a href="https://www.instagram.com/iam_.anonymous__" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent); text-decoration: underline;">@iam_.anonymous__</a> (which has over <strong>194K+ followers</strong>), I create and publish high-engagement reels that drive real reach and brand awareness, going beyond just delivering a video file.
+            One-man crew, full-service output: concept to final cut.
           </p>
         </div>
-        <p class="bio-subtitle">Edited on DaVinci Resolve.</p>
+
+        <div class="mt-10 pt-8 border-t border-[var(--color-border)]">
+          <p class="text-[var(--color-accent)] text-sm font-medium tracking-wide">
+            Edited on DaVinci Resolve
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  .about {
-    background: rgba(255, 255, 255, 0.02);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .section-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.03;
-    filter: blur(2px);
-    transform: scale(1.02);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .about .container {
-    position: relative;
-    z-index: 1;
-  }
-
-  .about-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .profile-frame {
-    width: 100%;
-    max-width: 400px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid var(--color-accent);
-    box-shadow: 0 0 40px rgba(212, 165, 116, 0.2), inset 0 0 40px rgba(212, 165, 116, 0.05);
-    transition: var(--transition-slow);
-  }
-
-  .profile-frame:hover {
-    box-shadow: 0 0 60px rgba(212, 165, 116, 0.4), inset 0 0 40px rgba(212, 165, 116, 0.1);
-  }
-
-  .profile-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .about-content h2 {
-    margin-bottom: 1.5rem;
-  }
-
-  .bio-text {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    color: var(--color-light);
-  }
-
-  .bio-text p {
-    margin-bottom: 1.25rem;
-  }
-
-  .bio-text p:last-child {
-    margin-bottom: 0;
-  }
-
-  .bio-subtitle {
-    font-size: 0.95rem;
-    color: var(--color-accent);
-    font-weight: 500;
-  }
-
-  @media (max-width: 768px) {
-    .profile-frame {
-      max-width: 300px;
-    }
-
-    .bio-text {
-      font-size: 1rem;
-    }
-  }
-</style>

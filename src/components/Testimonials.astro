@@ -1,0 +1,50 @@
+---
+const testimonials = [
+  {
+    quote: "Rishiram delivered a product video that looked like it came from a top-tier agency. Professional, fast, and the quality exceeded our expectations.",
+    author: "Brand Manager",
+    company: "Oppo India",
+  },
+  {
+    quote: "From concept to final cut, the entire process was seamless. The cinematic quality of his work helped us stand out in a crowded market.",
+    author: "Marketing Lead",
+    company: "TVS Racing",
+  },
+  {
+    quote: "Working with Rishi Films was the best decision for our launch. The reels he created drove real engagement and brand awareness.",
+    author: "Founder",
+    company: "Insta360 Partner",
+  },
+];
+---
+
+<section id="testimonials" class="py-32 md:py-40 lg:py-48">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
+    <div class="text-center mb-16 md:mb-24 animate-on-scroll">
+      <p class="text-[var(--color-accent)] text-sm font-semibold tracking-[0.2em] uppercase mb-4">Testimonials</p>
+      <h2 class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
+        WHAT CLIENTS SAY
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 stagger-children">
+      {testimonials.map((t) => (
+        <div class="animate-on-scroll scale-in group relative p-8 md:p-10 rounded-3xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] transition-all duration-500 hover:border-[var(--color-accent)]/20 hover:-translate-y-1">
+          <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-[var(--color-accent)]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div class="relative z-10">
+            <svg class="w-8 h-8 text-[var(--color-accent)]/30 mb-6" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+            </svg>
+            <p class="text-[var(--color-text)] text-base md:text-lg leading-relaxed mb-8">
+              {t.quote}
+            </p>
+            <div class="pt-6 border-t border-[var(--color-border)]">
+              <p class="text-[var(--color-text)] font-semibold text-sm">{t.author}</p>
+              <p class="text-[var(--color-accent)] text-xs tracking-wide mt-1">{t.company}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

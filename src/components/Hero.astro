@@ -1,162 +1,72 @@
 ---
-import siteData from "../data/site.json";
+import siteData from '../data/site.json';
 
 const { contact } = siteData;
-
-const base = import.meta.env.BASE_URL;
-const baseUrl = base.endsWith('/') ? base : `${base}/`;
 ---
 
-<section id="hero" class="hero">
-  <div class="hero-bg" style={`background-image: linear-gradient(to bottom, rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.8)), url('${baseUrl}images/hero-bg.jpg');`}></div>
-  <div class="hero-content fade-in">
-    <h1 class="hero-title">Rishi Films</h1>
-    <p class="hero-tagline">
+<section id="hero" class="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
+  <!-- Background layers -->
+  <div class="absolute inset-0 bg-[var(--color-bg)]"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--color-bg)] opacity-80"></div>
+  <div class="absolute inset-0 noise-overlay vignette"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+    <h1 class="font-display text-[clamp(4rem,15vw,12rem)] leading-[0.85] tracking-[0.08em] text-[var(--color-text)] animate-on-scroll">
+      RISHI FILMS
+    </h1>
+
+    <p class="mt-8 text-[clamp(1.1rem,2.5vw,1.75rem)] font-light text-[var(--color-text)] tracking-wide leading-relaxed max-w-2xl mx-auto animate-on-scroll" style="transition-delay: 100ms;">
       Cinematic stories for businesses that mean business.
     </p>
-    <p class="hero-subtext">
+
+    <p class="mt-4 text-[clamp(0.9rem,1.5vw,1.1rem)] text-[var(--color-text-muted)] tracking-wide max-w-xl mx-auto animate-on-scroll" style="transition-delay: 200ms;">
       Videography & Video Editing for Brands and Business Owners
     </p>
-    <div class="btn-group mt-lg">
-      <a href="#portfolio" class="btn">View My Work</a>
-      <a href="#contact" class="btn btn-primary">Get In Touch</a>
+
+    <div class="mt-12 flex flex-wrap items-center justify-center gap-4 animate-on-scroll" style="transition-delay: 300ms;">
+      <a
+        href="#portfolio"
+        class="group inline-flex items-center gap-2 px-8 py-4 border border-[var(--color-accent)] text-[var(--color-accent)] text-sm font-semibold tracking-wider uppercase rounded-full hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] transition-all duration-300"
+      >
+        View My Work
+        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a
+        href="#contact"
+        class="group inline-flex items-center gap-2 px-8 py-4 bg-[var(--color-accent)] text-[var(--color-bg)] text-sm font-semibold tracking-wider uppercase rounded-full hover:bg-[var(--color-text)] hover:text-[var(--color-bg)] transition-all duration-300"
+      >
+        Book a Project
+        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
     </div>
 
-    <div class="hero-social mt-lg">
+    <div class="mt-10 animate-on-scroll" style="transition-delay: 400ms;">
       <a
         href={contact.instagram}
-        class="hero-social-link secondary-badge"
         target="_blank"
         rel="noopener noreferrer"
-        title="Follow Travel & Vlogs on Instagram"
+        class="inline-flex items-center gap-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors duration-300 text-sm"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37"></path>
-          <circle cx="17.5" cy="6.5" r="1.5"></circle>
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37"/>
+          <circle cx="17.5" cy="6.5" r="1.5"/>
         </svg>
-        <span>@iam_.anonymous__</span>
+        <span class="tracking-wide">@iam_.anonymous__</span>
       </a>
     </div>
   </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-on-scroll" style="transition-delay: 600ms;">
+    <div class="flex flex-col items-center gap-2 text-[var(--color-text-muted)]">
+      <span class="text-[10px] tracking-[0.2em] uppercase">Scroll</span>
+      <div class="w-px h-8 bg-gradient-to-b from-[var(--color-accent)] to-transparent"></div>
+    </div>
+  </div>
 </section>
-
-<style>
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    padding: 4rem 2rem;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .hero-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2.5rem, 8vw, 5.5rem);
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.18em; /* Wide spacing for high-end cinematic title card */
-    text-transform: uppercase;
-    background: linear-gradient(135deg, #ffffff 0%, var(--color-accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: float 4s ease-in-out infinite;
-  }
-
-  .hero-tagline {
-    font-size: clamp(1.2rem, 3vw, 2rem);
-    color: var(--color-light);
-    margin-bottom: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    line-height: 1.4;
-  }
-
-  .hero-subtext {
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    color: var(--color-text-secondary);
-    margin-bottom: 2rem;
-    font-weight: 400;
-    letter-spacing: 0.2px;
-    line-height: 1.6;
-  }
-
-  .hero-social {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-
-  .hero-social-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    color: var(--color-light);
-    font-weight: 500;
-    padding: 0.6rem 1.2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50px;
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(10px);
-    transition: var(--transition);
-    font-size: 0.9rem;
-    letter-spacing: 0.3px;
-  }
-
-  .hero-social-link svg {
-    width: 16px;
-    height: 16px;
-    color: var(--color-accent);
-  }
-
-  .badge-tag {
-    font-size: 0.75rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--color-text-secondary);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .badge-tag.accent {
-    background: rgba(212, 165, 116, 0.15);
-    color: var(--color-accent);
-  }
-
-  .hero-social-link:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--color-accent);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(212, 165, 116, 0.15);
-  }
-
-  @media (max-width: 768px) {
-    .hero {
-      min-height: auto;
-      padding: 6rem 2rem 4rem;
-    }
-  }
-</style>

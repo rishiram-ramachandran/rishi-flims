@@ -1,196 +1,103 @@
 ---
 import siteData from '../data/site.json';
 
-const { contact, social } = siteData;
-
-const base = import.meta.env.BASE_URL;
-const baseUrl = base.endsWith('/') ? base : `${base}/`;
+const { contact } = siteData;
 ---
 
-<section id="contact" class="contact">
-  <div class="section-bg" style={`background-image: url('${baseUrl}images/studio-bg.jpg');`}></div>
-  <div class="container">
-    <div class="contact-content max-w-800 text-center fade-in">
-      <h2>Let's Make Something Cinematic</h2>
-      <p class="contact-subtext">
-        Got a product, a launch, or a story to tell? Let's create something that gets noticed.
-      </p>
+<section id="contact" class="relative py-32 md:py-40 lg:py-48 overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)] via-[var(--color-bg-secondary)] to-[var(--color-bg)]"></div>
+  <div class="absolute inset-0 noise-overlay"></div>
 
-      <div class="contact-info mt-lg">
-        <div class="info-item">
-          <label>Name</label>
-          <p>{contact.name}</p>
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="animate-on-scroll">
+        <!-- Availability badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 mb-8">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent)]"></span>
+          </span>
+          <span class="text-[var(--color-accent)] text-xs font-semibold tracking-wider uppercase">Currently accepting projects</span>
         </div>
-        <div class="info-item">
-          <label>Phone / WhatsApp</label>
-          <p>
-            <a href={`tel:${contact.phone.replace(/[\s-]/g, '')}`}>{contact.phone}</a>
-            <span class="separator" style="margin: 0 0.5rem; color: rgba(255,255,255,0.15);">|</span>
-            <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" class="whatsapp-direct" style="color: #25D366; font-weight: 600;">
-              Chat
+
+        <h2 class="font-display text-[clamp(2.5rem,6vw,5rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-6">
+          LET'S MAKE SOMETHING CINEMATIC
+        </h2>
+
+        <p class="text-[var(--color-text-muted)] text-lg md:text-xl leading-relaxed max-w-xl mx-auto mb-12">
+          Got a product, a launch, or a story to tell? Let's create something that gets noticed.
+        </p>
+      </div>
+
+      <!-- Contact card -->
+      <div class="animate-on-scroll scale-in glass rounded-3xl p-8 md:p-12 max-w-lg mx-auto">
+        <div class="space-y-6 text-left">
+          <div>
+            <p class="text-[var(--color-text-muted)] text-xs font-semibold tracking-wider uppercase mb-1">Name</p>
+            <p class="text-[var(--color-text)] text-lg font-medium">{contact.name}</p>
+          </div>
+
+          <div>
+            <p class="text-[var(--color-text-muted)] text-xs font-semibold tracking-wider uppercase mb-1">Location</p>
+            <p class="text-[var(--color-text)] text-lg font-medium">{contact.location}</p>
+          </div>
+
+          <div>
+            <p class="text-[var(--color-text-muted)] text-xs font-semibold tracking-wider uppercase mb-1">Phone</p>
+            <a href={`tel:${contact.phone.replace(/[\s-]/g, '')}`} class="text-[var(--color-text)] text-lg font-medium hover:text-[var(--color-accent)] transition-colors duration-300">
+              {contact.phone}
             </a>
-          </p>
-        </div>
-        <div class="info-item">
-          <label>Email</label>
-          <p>
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>
-          </p>
-        </div>
-        <div class="info-item">
-          <label>Location</label>
-          <p>{contact.location}</p>
-        </div>
-      </div>
+          </div>
 
-      <div class="contact-buttons btn-group mt-lg">
-        <a href={contact.whatsapp} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-          Message on WhatsApp
-        </a>
-        <a href={`mailto:${contact.email}`} class="btn">
-          Email Me
-        </a>
-      </div>
+          <div>
+            <p class="text-[var(--color-text-muted)] text-xs font-semibold tracking-wider uppercase mb-1">Email</p>
+            <a href={`mailto:${contact.email}`} class="text-[var(--color-text)] text-lg font-medium hover:text-[var(--color-accent)] transition-colors duration-300">
+              {contact.email}
+            </a>
+          </div>
+        </div>
 
-      <div class="social-links mt-lg">
-        <p class="social-label">Also on Instagram:</p>
-        <div class="social-links-list">
-          <a href={contact.instagram_secondary} class="social-link" target="_blank" rel="noopener noreferrer">
-            @rishi_.films_
+        <div class="mt-10 pt-8 border-t border-[var(--color-border-light)] flex flex-col gap-3">
+          <a
+            href={contact.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group w-full inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#25D366] text-white text-sm font-semibold tracking-wider uppercase rounded-full hover:bg-[#128C7E] transition-all duration-300"
+          >
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Message on WhatsApp
           </a>
-          <span class="separator">•</span>
-          <a href={contact.instagram} class="social-link" target="_blank" rel="noopener noreferrer">
-            @iam_.anonymous__
-          </a>
+
+          <div class="flex gap-3">
+            <a
+              href={contact.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-[var(--color-border-light)] text-[var(--color-text)] text-sm font-medium tracking-wide rounded-full hover:border-[var(--color-accent)]/40 hover:text-[var(--color-accent)] transition-all duration-300"
+            >
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37"/>
+                <circle cx="17.5" cy="6.5" r="1.5"/>
+              </svg>
+              Instagram
+            </a>
+            <a
+              href={`mailto:${contact.email}`}
+              class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-[var(--color-border-light)] text-[var(--color-text)] text-sm font-medium tracking-wide rounded-full hover:border-[var(--color-accent)]/40 hover:text-[var(--color-accent)] transition-all duration-300"
+            >
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m22 7-10 5L2 7"/>
+              </svg>
+              Email Me
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  .contact {
-    background: linear-gradient(
-      135deg,
-      rgba(212, 165, 116, 0.05) 0%,
-      rgba(212, 165, 116, 0.02) 100%
-    );
-    border-top: 1px solid var(--color-border);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .section-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.03;
-    filter: blur(2px);
-    transform: scale(1.02);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .contact .container {
-    position: relative;
-    z-index: 1;
-  }
-
-  .contact-subtext {
-    font-size: 1.1rem;
-    color: var(--color-text-secondary);
-    margin-top: 1rem;
-  }
-
-  .contact-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-  }
-
-  .info-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .info-item label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .info-item p {
-    font-size: 1rem;
-    color: var(--color-light);
-  }
-
-  .info-item a {
-    color: var(--color-accent);
-    transition: var(--transition);
-  }
-
-  .info-item a:hover {
-    text-decoration: underline;
-  }
-
-  .contact-buttons {
-    flex-direction: column;
-  }
-
-  .contact-buttons .btn {
-    min-width: 250px;
-  }
-
-  .social-label {
-    color: var(--color-text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .social-links-list {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .social-link {
-    color: var(--color-accent);
-    font-weight: 500;
-    transition: var(--transition);
-  }
-
-  .social-link:hover {
-    text-decoration: underline;
-  }
-
-  .separator {
-    color: var(--color-text-secondary);
-  }
-
-  @media (max-width: 768px) {
-    .contact-buttons {
-      flex-direction: column;
-    }
-
-    .contact-buttons .btn {
-      width: 100%;
-      min-width: auto;
-    }
-
-    .contact-info {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-  }
-</style>

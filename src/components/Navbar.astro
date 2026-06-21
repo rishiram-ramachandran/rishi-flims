@@ -1,15 +1,177 @@
 ---
-// Navbar component - sticky navigation that appears on scroll
-// Links are smooth-scroll anchors to each section
+const navLinks = [
+  { label: 'Work', href: '#portfolio' },
+  { label: 'About', href: '#about' },
+  { label: 'Services', href: '#services' },
+  { label: 'Brands', href: '#brands' },
+  { label: 'Contact', href: '#contact' },
+];
 ---
 
-<nav>
-  <ul>
-    <li><a href="#hero">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#brands">Brands</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+<nav id="navbar" class="fixed top-5 left-1/2 -translate-x-1/2 z-[1000] opacity-0 -translate-y-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+  <div class="glass rounded-full px-6 py-3 flex items-center gap-8">
+    <a href="#hero" class="font-display text-lg tracking-wider text-[var(--color-accent)] hover:text-[var(--color-text)] transition-colors duration-300">
+      RISHI FILMS
+    </a>
+
+    <!-- Desktop Links -->
+    <ul class="hidden md:flex items-center gap-6">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="nav-link text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors duration-300 tracking-wide"
+            data-target={link.href}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden flex flex-col gap-1.5 p-1"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <span class="block w-5 h-px bg-[var(--color-text)] transition-transform duration-300 origin-center"></span>
+      <span class="block w-5 h-px bg-[var(--color-text)] transition-opacity duration-300"></span>
+      <span class="block w-5 h-px bg-[var(--color-text)] transition-transform duration-300 origin-center"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden absolute top-full left-1/2 -translate-x-1/2 mt-3 glass rounded-2xl p-6 opacity-0 pointer-events-none scale-95 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] min-w-[240px]"
+  >
+    <ul class="flex flex-col gap-4">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="mobile-nav-link block text-base font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors duration-300 tracking-wide"
+            data-target={link.href}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
 </nav>
+
+<style>
+  nav.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  nav.visible .glass {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .nav-link.active {
+    color: var(--color-accent);
+  }
+
+  #mobile-menu-btn.open span:nth-child(1) {
+    transform: rotate(45deg) translate(3px, 3px);
+  }
+
+  #mobile-menu-btn.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  #mobile-menu-btn.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(3px, -3px);
+  }
+
+  #mobile-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) scale(1);
+  }
+</style>
+
+<script>
+  (function() {
+    const navbar = document.getElementById('navbar');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    // Show navbar on scroll
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > 80) {
+        navbar?.classList.add('visible');
+      } else {
+        navbar?.classList.remove('visible');
+        // Close mobile menu when scrolling to top
+        mobileMenuBtn?.classList.remove('open');
+        mobileMenu?.classList.remove('open');
+        mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+      }
+      lastScroll = currentScroll;
+    });
+
+    // Mobile menu toggle
+    mobileMenuBtn?.addEventListener('click', () => {
+      const isOpen = mobileMenuBtn.classList.toggle('open');
+      mobileMenu?.classList.toggle('open');
+      mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close mobile menu on link click
+    mobileNavLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenuBtn?.classList.remove('open');
+        mobileMenu?.classList.remove('open');
+        mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Scroll spy for active link
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      const scrollPos = window.scrollY + 150;
+
+      sections.forEach((section) => {
+        const sectionTop = (section as HTMLElement).offsetTop;
+        const sectionHeight = (section as HTMLElement).offsetHeight;
+        const id = section.getAttribute('id');
+        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight && id) {
+          current = id;
+        }
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.remove('active');
+        const target = link.getAttribute('data-target');
+        if (target === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Smooth scroll for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        if (href && href !== '#') {
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,64 @@
+---
+const steps = [
+  {
+    number: "01",
+    title: "Discovery",
+    description: "We discuss your vision, goals, and the story you want to tell. I understand your brand, audience, and the message that needs to land."
+  },
+  {
+    number: "02",
+    title: "Shoot",
+    description: "On-location or studio filming with professional gear. I handle the lighting, composition, and direction to capture every frame with intent."
+  },
+  {
+    number: "03",
+    title: "Edit",
+    description: "Color grading, sound design, pacing, and polish. Every cut is deliberate. Every transition serves the story. Delivered in DaVinci Resolve."
+  },
+  {
+    number: "04",
+    title: "Delivery",
+    description: "Final files delivered in your preferred formats. Revisions included. Your content is ready to publish, promote, and perform."
+  }
+];
+---
+
+<section id="process" class="py-32 md:py-40 lg:py-48">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
+    <div class="text-center mb-16 md:mb-24 animate-on-scroll">
+      <p class="text-[var(--color-accent)] text-sm font-semibold tracking-[0.2em] uppercase mb-4">Process</p>
+      <h2 class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
+        HOW IT WORKS
+      </h2>
+    </div>
+
+    <div class="relative">
+      <!-- Timeline line -->
+      <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-[var(--color-border)] -translate-x-1/2"></div>
+
+      <div class="space-y-16 md:space-y-24">
+        {steps.map((step, index) => (
+          <div class={`relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center ${index % 2 === 1 ? 'md:[direction:rtl]' : ''}`}>
+            <!-- Content -->
+            <div class={`animate-on-scroll ${index % 2 === 0 ? 'fade-left md:text-right' : 'fade-right md:text-left'} md:[direction:ltr]`}>
+              <span class="font-display text-6xl md:text-7xl text-[var(--color-accent)]/20 leading-none">
+                {step.number}
+              </span>
+              <h3 class="font-display text-2xl md:text-3xl tracking-wide text-[var(--color-text)] mt-2 mb-4">
+                {step.title}
+              </h3>
+              <p class="text-[var(--color-text-muted)] leading-relaxed max-w-md md:ml-auto md:mr-0">
+                {step.description}
+              </p>
+            </div>
+
+            <!-- Dot on timeline -->
+            <div class="hidden md:flex items-center justify-center">
+              <div class="w-4 h-4 rounded-full bg-[var(--color-accent)] border-4 border-[var(--color-bg)] shadow-[0_0_20px_rgba(200,169,107,0.3)] z-10"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
