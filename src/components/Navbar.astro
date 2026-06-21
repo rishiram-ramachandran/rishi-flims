@@ -1,4 +1,6 @@
 ---
+import LogoFull from './icons/LogoFull.astro';
+
 const navLinks = [
   { label: 'Work', href: '#portfolio' },
   { label: 'About', href: '#about' },
@@ -7,26 +9,17 @@ const navLinks = [
 ];
 ---
 
-<nav id="navbar" class="fixed top-5 left-1/2 -translate-x-1/2 z-[1000] opacity-0 -translate-y-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+<nav
+  id="navbar"
+  class="fixed top-5 left-1/2 -translate-x-1/2 z-[1000] opacity-0 -translate-y-24 transition-all duration-500 ease-[var(--ease-out-expo)]"
+>
   <div class="glass rounded-full px-6 py-3 flex items-center gap-8">
-    <a href="#hero" class="flex items-center gap-2.5 group" aria-label="Rishi Films Home">
-      <!-- Logo Mark: Film aperture + R monogram -->
-      <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-[var(--color-accent)]">
-        <circle cx="20" cy="20" r="17" stroke="currentColor" stroke-width="2" opacity="0.9"/>
-        <path d="M20 3 L23 8 L17 8 Z" fill="currentColor" opacity="0.8"/>
-        <path d="M20 37 L17 32 L23 32 Z" fill="currentColor" opacity="0.8"/>
-        <path d="M3 20 L8 17 L8 23 Z" fill="currentColor" opacity="0.8"/>
-        <path d="M37 20 L32 23 L32 17 Z" fill="currentColor" opacity="0.8"/>
-        <path d="M7 7 L11 10 L10 12 Z" fill="currentColor" opacity="0.5"/>
-        <path d="M33 33 L29 30 L30 28 Z" fill="currentColor" opacity="0.5"/>
-        <path d="M33 7 L29 10 L30 12 Z" fill="currentColor" opacity="0.5"/>
-        <path d="M7 33 L11 30 L10 28 Z" fill="currentColor" opacity="0.5"/>
-        <!-- R monogram in center -->
-        <text x="20" y="25" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="16" fill="currentColor" font-weight="400" letter-spacing="0.5">R</text>
-      </svg>
-      <span class="font-display text-lg tracking-wider text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
-        RISHI FILMS
-      </span>
+    <a href="#hero" class="flex items-center group" aria-label="Rishi Films Home">
+      <LogoFull
+        size={24}
+        color="currentColor"
+        class="text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors duration-300"
+      />
     </a>
 
     <!-- Desktop Links -->
@@ -47,7 +40,7 @@ const navLinks = [
     <!-- Mobile Menu Button -->
     <button
       id="mobile-menu-btn"
-      class="md:hidden flex flex-col gap-1.5 p-1"
+      class="md:hidden flex flex-col gap-1.5 p-1 cursor-pointer"
       aria-label="Toggle menu"
       aria-expanded="false"
     >
@@ -60,7 +53,7 @@ const navLinks = [
   <!-- Mobile Menu -->
   <div
     id="mobile-menu"
-    class="md:hidden absolute top-full left-1/2 -translate-x-1/2 mt-3 glass rounded-2xl p-6 opacity-0 pointer-events-none scale-95 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] min-w-[240px]"
+    class="md:hidden absolute top-full left-1/2 -translate-x-1/2 mt-3 glass rounded-2xl p-6 opacity-0 pointer-events-none scale-95 transition-all duration-300 ease-[var(--ease-out-expo)] min-w-[240px]"
   >
     <ul class="flex flex-col gap-4">
       {navLinks.map((link) => (
@@ -79,13 +72,9 @@ const navLinks = [
 </nav>
 
 <style>
-  nav.visible {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-
   nav.visible .glass {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border-color: rgba(200, 169, 107, 0.1);
   }
 
   .nav-link.active {
@@ -119,17 +108,23 @@ const navLinks = [
     const navLinks = document.querySelectorAll('.nav-link');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-    window.addEventListener('scroll', () => {
+    const handleScroll = () => {
       const currentScroll = window.scrollY;
       if (currentScroll > 80) {
-        navbar?.classList.add('visible');
+        navbar?.classList.add('visible', 'opacity-100', 'translate-y-0');
+        navbar?.classList.remove('opacity-0', '-translate-y-24');
       } else {
-        navbar?.classList.remove('visible');
+        navbar?.classList.remove('visible', 'opacity-100', 'translate-y-0');
+        navbar?.classList.add('opacity-0', '-translate-y-24');
         mobileMenuBtn?.classList.remove('open');
         mobileMenu?.classList.remove('open');
         mobileMenuBtn?.setAttribute('aria-expanded', 'false');
       }
-    });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initialize positioning on load
+    handleScroll();
 
     mobileMenuBtn?.addEventListener('click', () => {
       const isOpen = mobileMenuBtn.classList.toggle('open');
@@ -164,7 +159,7 @@ const navLinks = [
           link.classList.add('active');
         }
       });
-    });
+    }, { passive: true });
 
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', function(e) {

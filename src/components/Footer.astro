@@ -1,5 +1,6 @@
 ---
 import siteData from '../data/site.json';
+import LogoFull from './icons/LogoFull.astro';
 
 const { social } = siteData;
 ---
@@ -8,16 +9,8 @@ const { social } = siteData;
   <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
     <div class="flex flex-col md:flex-row items-center justify-between gap-5">
       <div class="text-center md:text-left">
-        <div class="flex items-center gap-2.5 mb-1">
-          <svg width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-[var(--color-accent)]">
-            <circle cx="20" cy="20" r="17" stroke="currentColor" stroke-width="1.5" opacity="0.9"/>
-            <path d="M20 3 L23 8 L17 8 Z" fill="currentColor" opacity="0.8"/>
-            <path d="M20 37 L17 32 L23 32 Z" fill="currentColor" opacity="0.8"/>
-            <path d="M3 20 L8 17 L8 23 Z" fill="currentColor" opacity="0.8"/>
-            <path d="M37 20 L32 23 L32 17 Z" fill="currentColor" opacity="0.8"/>
-            <text x="20" y="25" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="16" fill="currentColor" font-weight="400" letter-spacing="0.5">R</text>
-          </svg>
-          <p class="font-display text-lg tracking-wider text-[var(--color-text)]">RISHI FILMS</p>
+        <div class="flex items-center justify-center md:justify-start gap-2.5 mb-1.5 text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors duration-300">
+          <LogoFull size={22} color="currentColor" />
         </div>
         <p class="text-[var(--color-text-muted)] text-xs">&copy; 2026 Rishi Films. All rights reserved.</p>
       </div>

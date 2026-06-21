@@ -1,52 +1,12 @@
 ---
-const testimonials = [
-  {
-    quote: "Rishi and his team brought a premium cinematic touch to our campaign content. The final reels aligned perfectly with our brand guidelines and received excellent engagement across our social channels.",
-    author: "Marketing Team",
-    company: "Oppo India",
-    rating: 5,
-  },
-  {
-    quote: "We collaborated with Rishi for promotional content and product-focused reels. The execution, editing quality and storytelling exceeded our expectations.",
-    author: "Brand Marketing Team",
-    company: "Vivo India",
-    rating: 5,
-  },
-  {
-    quote: "Our resort needed cinematic videos that captured the beauty of Munnar and connected with travelers. The visuals delivered by Rishi helped us strengthen our online presence and attract more enquiries.",
-    author: "Joseph Mathew",
-    company: "Resort Owner",
-    location: "Munnar, Kerala",
-    rating: 5,
-  },
-  {
-    quote: "We wanted energetic and engaging content for our sports community campaigns. Rishi understood the brief well and delivered videos that represented our brand professionally.",
-    author: "Community Marketing Team",
-    company: "Decathlon",
-    rating: 5,
-  },
-  {
-    quote: "The promotional videos created for our automobile campaigns were well executed and visually impressive. The entire process was smooth and highly professional.",
-    author: "Brand Team",
-    company: "TVS Racing",
-    rating: 5,
-  },
-  {
-    quote: "From planning to final delivery, the entire workflow was seamless. The content produced for our launches and social media campaigns reflected the premium identity we wanted.",
-    author: "Brand Marketing Team",
-    company: "Insta360",
-    rating: 5,
-  },
-];
+import testimonials from '../data/testimonials.json';
 
 const starSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
 ---
-
 <section id="testimonials" class="py-14 md:py-16 overflow-hidden">
   <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
     <div class="text-center mb-8 md:mb-10 animate-on-scroll">
-      <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-2">Testimonials</p>
-      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-2">
+      <h2 class="font-display text-[clamp(2.2rem,4vw,3.2rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-2">
         WHAT CLIENTS SAY
       </h2>
       <p class="text-[var(--color-text-muted)] text-sm max-w-md mx-auto">
@@ -54,69 +14,76 @@ const starSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentCo
       </p>
     </div>
 
-    <!-- Desktop: 2-column grid -->
-    <div class="hidden md:grid md:grid-cols-2 gap-3 lg:gap-4 stagger-children">
-      {testimonials.map((t) => (
-        <div class="animate-on-scroll scale-in group relative p-5 lg:p-6 rounded-2xl bg-[var(--color-bg-secondary)]/50 border border-[var(--color-border)]/60 backdrop-blur-sm transition-all duration-500 hover:border-[var(--color-accent)]/15 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_-12px_rgba(212,175,55,0.08)]">
-          <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-accent)]/[0.015] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-          <div class="relative z-10">
-            <div class="flex items-center gap-0.5 mb-3 text-[var(--color-accent)]">
-              {Array.from({ length: t.rating }).map(() => (
-                <Fragment set:html={starSvg} />
-              ))}
-            </div>
-            <svg class="w-6 h-6 text-[var(--color-accent)]/20 mb-2" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-            </svg>
-            <p class="text-[var(--color-text)] text-sm leading-relaxed mb-4">
-              {t.quote}
-            </p>
-            <div class="pt-3 border-t border-[var(--color-border)]/60">
-              <p class="text-[var(--color-text)] font-medium text-sm">{t.author}</p>
-              <p class="text-[var(--color-accent)] text-xs tracking-wide mt-0.5">{t.company}</p>
-              {t.location && <p class="text-[var(--color-text-muted)] text-[10px] mt-0.5">{t.location}</p>}
+    <!-- Carousel Container -->
+    <div class="relative group/carousel px-4 -mx-4 md:px-0 md:mx-0">
+      <!-- Navigation Buttons (Desktop only) -->
+      <button
+        id="testimonial-prev"
+        class="absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass border border-[var(--color-border-light)] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/30 hover:scale-105 transition-all duration-300 opacity-0 md:group-hover/carousel:opacity-100 hidden md:flex cursor-pointer"
+        aria-label="Previous testimonial"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <button
+        id="testimonial-next"
+        class="absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass border border-[var(--color-border-light)] flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/30 hover:scale-105 transition-all duration-300 opacity-0 md:group-hover/carousel:opacity-100 hidden md:flex cursor-pointer"
+        aria-label="Next testimonial"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <!-- Scroll-snap Track -->
+      <div
+        id="testimonial-track"
+        class="flex gap-4 md:gap-5 overflow-x-auto scroll-snap-x pb-4 scrollbar-hide px-4 md:px-0"
+      >
+        {testimonials.map((t, i) => (
+          <div
+            class="testimonial-card flex-shrink-0 w-[85vw] sm:w-[48vw] md:w-[calc(33.333%-14px)] scroll-snap-start animate-on-scroll scale-in"
+            style={`transition-delay: ${i * 50}ms;`}
+          >
+            <div class="relative h-full p-5 lg:p-6 rounded-2xl bg-[var(--color-bg-secondary)]/50 border border-[var(--color-border)]/60 backdrop-blur-sm transition-all duration-500 hover:border-[var(--color-accent)]/15 hover:shadow-[0_12px_40px_-12px_rgba(200,169,107,0.08)] flex flex-col justify-between">
+              <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-accent)]/[0.015] to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              
+              <div class="relative z-10 flex-grow">
+                <div class="flex items-center gap-0.5 mb-3 text-[var(--color-accent)]">
+                  {Array.from({ length: t.rating }).map(() => (
+                    <Fragment set:html={starSvg} />
+                  ))}
+                </div>
+                <svg class="w-6 h-6 text-[var(--color-accent)]/15 mb-2.5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                </svg>
+                <p class="text-[var(--color-text)] text-sm leading-relaxed mb-5 italic font-light">
+                  "{t.quote}"
+                </p>
+              </div>
+
+              <div class="relative z-10 pt-3.5 border-t border-[var(--color-border)]/60 mt-auto">
+                <p class="text-[var(--color-text)] font-medium text-xs tracking-wide">{t.author}</p>
+                <p class="text-[var(--color-accent)] text-[10px] font-semibold tracking-wider uppercase mt-0.5">{t.company}</p>
+                {t.location && <p class="text-[var(--color-text-muted)] text-[9px] mt-0.5">{t.location}</p>}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
 
-    <!-- Mobile: horizontal swipe carousel -->
-    <div class="md:hidden">
-      <div class="testimonial-carousel flex gap-3 overflow-x-auto scroll-snap-x pb-2 -mx-6 px-6" id="testimonial-track">
-        {testimonials.map((t) => (
-          <div class="testimonial-card flex-shrink-0 w-[85vw] max-w-[340px] scroll-snap-start">
-            <div class="relative p-4 rounded-2xl bg-[var(--color-bg-secondary)]/50 border border-[var(--color-border)]/60 backdrop-blur-sm">
-              <div class="flex items-center gap-0.5 mb-2 text-[var(--color-accent)]">
-                {Array.from({ length: t.rating }).map(() => (
-                  <Fragment set:html={starSvg} />
-                ))}
-              </div>
-              <svg class="w-5 h-5 text-[var(--color-accent)]/20 mb-2" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-              </svg>
-              <p class="text-[var(--color-text)] text-sm leading-relaxed mb-3">
-                {t.quote}
-              </p>
-              <div class="pt-2.5 border-t border-[var(--color-border)]/60">
-                <p class="text-[var(--color-text)] font-medium text-sm">{t.author}</p>
-                <p class="text-[var(--color-accent)] text-xs tracking-wide mt-0.5">{t.company}</p>
-                {t.location && <p class="text-[var(--color-text-muted)] text-[10px] mt-0.5">{t.location}</p>}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div class="flex items-center justify-center gap-2 mt-3" id="testimonial-dots">
-        {testimonials.map((_, i) => (
-          <button
-            class="testimonial-dot w-1.5 h-1.5 rounded-full bg-[var(--color-text-muted)]/30 transition-all duration-300"
-            data-index={i}
-            aria-label={`Go to testimonial ${i + 1}`}
-          />
-        ))}
-      </div>
+    <!-- Page Indicator Dots -->
+    <div class="flex items-center justify-center gap-2 mt-4" id="testimonial-dots">
+      {testimonials.map((_, i) => (
+        <button
+          class="testimonial-dot w-1.5 h-1.5 rounded-full bg-[var(--color-text-muted)]/20 transition-all duration-300 cursor-pointer"
+          data-index={i}
+          aria-label={`Go to testimonial ${i + 1}`}
+        />
+      ))}
     </div>
   </div>
 </section>
@@ -126,16 +93,21 @@ const starSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentCo
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
   }
-  .scroll-snap-x::-webkit-scrollbar {
+  
+  .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   .scroll-snap-start {
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
+
   .testimonial-dot.active {
     background-color: var(--color-accent);
     width: 1.25rem;
@@ -147,29 +119,119 @@ const starSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentCo
   (function() {
     const track = document.getElementById('testimonial-track');
     const dots = document.querySelectorAll('.testimonial-dot');
+    const prevBtn = document.getElementById('testimonial-prev');
+    const nextBtn = document.getElementById('testimonial-next');
+    
     if (!track || dots.length === 0) return;
+
+    let autoScrollInterval;
+    let isInteracted = false;
+
+    const getCardWidthInfo = () => {
+      const card = track.querySelector('.testimonial-card');
+      const cardWidth = card?.clientWidth || 340;
+      const gap = 20; 
+      return { cardWidth, gap };
+    };
 
     const updateDots = () => {
       const scrollLeft = track.scrollLeft;
-      const cardWidth = track.querySelector('.testimonial-card')?.clientWidth || 340;
-      const gap = 12;
+      const { cardWidth, gap } = getCardWidthInfo();
       const index = Math.round(scrollLeft / (cardWidth + gap));
+      
       dots.forEach((dot, i) => {
         dot.classList.toggle('active', i === index);
       });
     };
 
+    const scrollToIndex = (idx) => {
+      const { cardWidth, gap } = getCardWidthInfo();
+      track.scrollTo({ left: idx * (cardWidth + gap), behavior: 'smooth' });
+    };
+
+    const nextSlide = () => {
+      const scrollLeft = track.scrollLeft;
+      const { cardWidth, gap } = getCardWidthInfo();
+      const currentIndex = Math.round(scrollLeft / (cardWidth + gap));
+      
+      // Calculate max scroll index dynamically based on visible width
+      const visibleCount = Math.round(track.clientWidth / (cardWidth + gap));
+      const maxIndex = dots.length - (visibleCount || 1);
+      
+      let nextIndex = currentIndex + 1;
+      if (nextIndex > maxIndex || nextIndex >= dots.length) {
+        nextIndex = 0; // Loop back to the start
+      }
+      
+      scrollToIndex(nextIndex);
+    };
+
+    const startAutoScroll = () => {
+      stopAutoScroll();
+      if (!isInteracted) {
+        autoScrollInterval = setInterval(nextSlide, 4500); // Auto scroll every 4.5 seconds
+      }
+    };
+
+    const stopAutoScroll = () => {
+      if (autoScrollInterval) {
+        clearInterval(autoScrollInterval);
+      }
+    };
+
+    const handleInteraction = () => {
+      isInteracted = true;
+      stopAutoScroll();
+    };
+
+    // Scroll events
     track.addEventListener('scroll', updateDots, { passive: true });
 
+    // User interactions (drag/swipe) to permanently stop auto scroll
+    track.addEventListener('mousedown', handleInteraction, { passive: true });
+    track.addEventListener('touchstart', handleInteraction, { passive: true });
+
+    // Dot click events
     dots.forEach((dot) => {
       dot.addEventListener('click', () => {
+        handleInteraction();
         const idx = parseInt(dot.getAttribute('data-index') || '0');
-        const cardWidth = track.querySelector('.testimonial-card')?.clientWidth || 340;
-        const gap = 12;
-        track.scrollTo({ left: idx * (cardWidth + gap), behavior: 'smooth' });
+        scrollToIndex(idx);
       });
     });
 
+    // Arrow controls
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        handleInteraction();
+        const { cardWidth, gap } = getCardWidthInfo();
+        track.scrollBy({ left: -(cardWidth + gap), behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        handleInteraction();
+        const { cardWidth, gap } = getCardWidthInfo();
+        track.scrollBy({ left: (cardWidth + gap), behavior: 'smooth' });
+      });
+    }
+
+    // Initialize auto scroll
+    startAutoScroll();
+
+    // Pause on hover
+    const container = track.parentElement;
+    if (container) {
+      container.addEventListener('mouseenter', stopAutoScroll, { passive: true });
+      container.addEventListener('mouseleave', startAutoScroll, { passive: true });
+    }
+
+    // Initialize dots state
     updateDots();
+    
+    // Recalculate on window resize to keep layout precise
+    window.addEventListener('resize', () => {
+      updateDots();
+      startAutoScroll();
+    }, { passive: true });
   })();
 </script>

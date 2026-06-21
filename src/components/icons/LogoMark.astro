@@ -1,0 +1,107 @@
+---
+interface Props {
+  size?: number | string;
+  color?: string;
+  accent?: string;
+  class?: string;
+}
+
+const {
+  size = 40,
+  color = "currentColor",
+  accent = "#C8A96B",
+  class: className = ""
+} = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 64 64"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+>
+  <!-- 
+    CONSTRUCTION LOGIC (Screenshot 151221 Reference):
+    1. Outer Aperture Ring: A thin circular outer ring with minimal focal/aperture tick marks.
+    2. R Stem: A vertical white line on the left.
+    3. R Diagonal Leg: A diagonal white line starting at the middle joint going down-right.
+    4. R Bowl Bottom: A horizontal white line going from the stem to the outer edge of the bowl.
+    5. R Bowl Curve: A white bezier curve flowing from the middle joint (stem) up-right to the top-middle.
+    6. Gold Accent Corner: A gold horizontal line from the top-middle to the right, and then going vertically down to meet the bowl bottom.
+  -->
+  
+  <!-- Outer Aperture Ring -->
+  <circle
+    cx="32"
+    cy="32"
+    r="28"
+    stroke={color}
+    stroke-width="1.5"
+    opacity="0.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  
+  <!-- Lens Tick Marks -->
+  <line x1="32" y1="4" x2="32" y2="7" stroke={color} stroke-width="1.5" stroke-linecap="round" />
+  <line x1="32" y1="57" x2="32" y2="60" stroke={color} stroke-width="1.5" stroke-linecap="round" />
+  <line x1="4" y1="32" x2="7" y2="32" stroke={color} stroke-width="1.5" stroke-linecap="round" />
+  <line x1="57" y1="32" x2="60" y2="32" stroke={color} stroke-width="1.5" stroke-linecap="round" />
+  
+  <!-- Monogram: Stems & Connections -->
+  <!-- R Stem (White) -->
+  <line
+    x1="22"
+    y1="20"
+    x2="22"
+    y2="44"
+    stroke={color}
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  
+  <!-- R Diagonal Leg (White) -->
+  <line
+    x1="22"
+    y1="32"
+    x2="34"
+    y2="44"
+    stroke={color}
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  
+  <!-- R Bowl Bottom (White) -->
+  <line
+    x1="22"
+    y1="32"
+    x2="42"
+    y2="32"
+    stroke={color}
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  
+  <!-- R Bowl Curve (White) -->
+  <path
+    d="M 22 32 C 22 24.5 27.5 20 32 20"
+    stroke={color}
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  
+  <!-- Gold Accent Corner (Gold) -->
+  <path
+    d="M 32 20 H 42 V 32"
+    stroke={accent}
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

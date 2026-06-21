@@ -122,6 +122,34 @@ const baseUrl = base.endsWith("/") ? base : `${base}/`;
 
 <script>
   (function() {
+    // Detect and optimize landscape ratio thumbnails (e.g. 16:9 images inside a 9:16 slot)
+    const adjustLandscapeThumbnails = () => {
+      const cards = document.querySelectorAll('.video-card');
+      cards.forEach((card) => {
+        const img = card.querySelector('img');
+        if (!img) return;
+
+        const checkDimensions = () => {
+          const ratio = img.naturalWidth / img.naturalHeight;
+          if (ratio > 1.2) {
+            // The image is landscape. Set cover fit and center it to crop the sides correctly
+            img.style.objectFit = 'cover';
+            img.style.objectPosition = 'center';
+            img.classList.add('landscape-cropped');
+          }
+        };
+
+        if (img.complete) {
+          checkDimensions();
+        } else {
+          img.addEventListener('load', checkDimensions);
+        }
+      });
+    };
+
+    // Run adjustments
+    adjustLandscapeThumbnails();
+
     document.querySelectorAll('.carousel-prev, .carousel-next').forEach((btn) => {
       btn.addEventListener('click', () => {
         const targetId = btn.getAttribute('data-target');

@@ -3,9 +3,9 @@
 @theme {
   --color-bg: #0A0A0A;
   --color-bg-secondary: #111111;
-  --color-accent: #D4AF37;
-  --color-accent-light: #E8C96A;
-  --color-accent-dark: #A88B2F;
+  --color-accent: #C8A96B;
+  --color-accent-light: #E2C790;
+  --color-accent-dark: #9A7E47;
   --color-text: #F0F0F0;
   --color-text-muted: #7A7A7A;
   --color-border: #1A1A1A;
@@ -335,6 +335,17 @@ body.lightbox-open {
   flex: 0 0 auto;
   scroll-snap-align: start;
   scroll-snap-stop: always;
+}
+
+.carousel-item img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.carousel-item img.rotate-portrait {
+  transform: rotate(90deg) scale(1.778) !important;
 }
 
 /* ============================================

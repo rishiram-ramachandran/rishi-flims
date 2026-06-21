@@ -1,0 +1,62 @@
+---
+interface Props {
+  width?: string | number;
+  height?: string | number;
+  color?: string;
+  accent?: string;
+  showSubtitle?: boolean;
+  class?: string;
+}
+
+const {
+  width = "100%",
+  height = "auto",
+  color = "currentColor",
+  accent = "#C8A96B",
+  showSubtitle = false,
+  class: className = ""
+} = Astro.props;
+---
+
+<svg
+  width={width}
+  height={height}
+  viewBox={showSubtitle ? "0 0 220 70" : "0 0 220 45"}
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class={`max-w-full ${className}`}
+>
+  <!-- Wordmark Text -->
+  <text
+    x="0"
+    y="28"
+    fill={color}
+    font-family="'Bebas Neue', sans-serif"
+    font-size="32"
+    letter-spacing="0.25em"
+  >RISHI FILMS</text>
+  
+  <!-- Thin Gold Rule -->
+  <line
+    x1="0"
+    y1="38"
+    x2="200"
+    y2="38"
+    stroke={accent}
+    stroke-width="1"
+    stroke-linecap="round"
+  />
+  
+  {showSubtitle && (
+    <text
+      x="0"
+      y="58"
+      fill={color}
+      font-family="'Inter', sans-serif"
+      font-size="8"
+      font-weight="500"
+      letter-spacing="0.45em"
+      opacity="0.7"
+    >CINEMATIC STORYTELLING</text>
+  )}
+</svg>

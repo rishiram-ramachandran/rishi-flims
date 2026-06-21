@@ -1,17 +1,20 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger on every push to the portfolio-website or main branch
   push:
     branches: [main]
-  
-  # Allow manual deployment from Actions tab
   workflow_dispatch:
 
-# Allow only one deployment at a time
+# Grant top-level permissions required for GitHub Pages deployments
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one deployment at a time, cancel in-progress runs
 concurrency:
   group: 'pages'
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -23,7 +26,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20' # Upgraded from 18 to fix EOL deprecation warnings
           cache: 'npm'
 
       - name: Install dependencies
@@ -40,9 +43,6 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
