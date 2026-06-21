@@ -1,50 +1,182 @@
 ---
 const testimonials = [
   {
-    quote: "Rishiram delivered a product video that looked like it came from a top-tier agency. Professional, fast, and the quality exceeded our expectations.",
-    author: "Brand Manager",
+    quote: "Rishi and his team brought a premium cinematic touch to our campaign content. The final reels aligned perfectly with our brand guidelines and received excellent engagement across our social channels.",
+    author: "Marketing Team",
     company: "Oppo India",
+    rating: 5,
   },
   {
-    quote: "From concept to final cut, the entire process was seamless. The cinematic quality of his work helped us stand out in a crowded market.",
-    author: "Marketing Lead",
+    quote: "We collaborated with Rishi for promotional content and product-focused reels. The execution, editing quality and storytelling exceeded our expectations.",
+    author: "Brand Marketing Team",
+    company: "Vivo India",
+    rating: 5,
+  },
+  {
+    quote: "Our resort needed cinematic videos that captured the beauty of Munnar and connected with travelers. The visuals delivered by Rishi helped us strengthen our online presence and attract more enquiries.",
+    author: "Joseph Mathew",
+    company: "Resort Owner",
+    location: "Munnar, Kerala",
+    rating: 5,
+  },
+  {
+    quote: "We wanted energetic and engaging content for our sports community campaigns. Rishi understood the brief well and delivered videos that represented our brand professionally.",
+    author: "Community Marketing Team",
+    company: "Decathlon",
+    rating: 5,
+  },
+  {
+    quote: "The promotional videos created for our automobile campaigns were well executed and visually impressive. The entire process was smooth and highly professional.",
+    author: "Brand Team",
     company: "TVS Racing",
+    rating: 5,
   },
   {
-    quote: "Working with Rishi Films was the best decision for our launch. The reels he created drove real engagement and brand awareness.",
-    author: "Founder",
-    company: "Insta360 Partner",
+    quote: "From planning to final delivery, the entire workflow was seamless. The content produced for our launches and social media campaigns reflected the premium identity we wanted.",
+    author: "Brand Marketing Team",
+    company: "Insta360",
+    rating: 5,
   },
 ];
+
+const starSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
 ---
 
-<section id="testimonials" class="py-32 md:py-40 lg:py-48">
+<section id="testimonials" class="py-16 md:py-20 overflow-hidden">
   <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-    <div class="text-center mb-16 md:mb-24 animate-on-scroll">
-      <p class="text-[var(--color-accent)] text-sm font-semibold tracking-[0.2em] uppercase mb-4">Testimonials</p>
-      <h2 class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
+    <div class="text-center mb-10 md:mb-12 animate-on-scroll">
+      <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Testimonials</p>
+      <h2 class="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-3">
         WHAT CLIENTS SAY
       </h2>
+      <p class="text-[var(--color-text-muted)] text-sm max-w-md mx-auto">
+        Trusted by brands, businesses and hospitality owners across South India.
+      </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 stagger-children">
+    <!-- Desktop: 2-column grid -->
+    <div class="hidden md:grid md:grid-cols-2 gap-4 lg:gap-5 stagger-children">
       {testimonials.map((t) => (
-        <div class="animate-on-scroll scale-in group relative p-8 md:p-10 rounded-3xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] transition-all duration-500 hover:border-[var(--color-accent)]/20 hover:-translate-y-1">
-          <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-[var(--color-accent)]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+        <div class="animate-on-scroll scale-in group relative p-6 lg:p-7 rounded-2xl bg-[var(--color-bg-secondary)]/50 border border-[var(--color-border)]/60 backdrop-blur-sm transition-all duration-500 hover:border-[var(--color-accent)]/15 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_-12px_rgba(200,169,107,0.08)]">
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--color-accent)]/[0.015] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
           <div class="relative z-10">
-            <svg class="w-8 h-8 text-[var(--color-accent)]/30 mb-6" viewBox="0 0 24 24" fill="currentColor">
+            <!-- Stars -->
+            <div class="flex items-center gap-0.5 mb-4 text-[var(--color-accent)]">
+              {Array.from({ length: t.rating }).map(() => (
+                <Fragment set:html={starSvg} />
+              ))}
+            </div>
+
+            <!-- Quote icon -->
+            <svg class="w-7 h-7 text-[var(--color-accent)]/20 mb-3" viewBox="0 0 24 24" fill="currentColor">
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
             </svg>
-            <p class="text-[var(--color-text)] text-base md:text-lg leading-relaxed mb-8">
+
+            <p class="text-[var(--color-text)] text-sm leading-relaxed mb-5">
               {t.quote}
             </p>
-            <div class="pt-6 border-t border-[var(--color-border)]">
-              <p class="text-[var(--color-text)] font-semibold text-sm">{t.author}</p>
-              <p class="text-[var(--color-accent)] text-xs tracking-wide mt-1">{t.company}</p>
+
+            <div class="pt-4 border-t border-[var(--color-border)]/60">
+              <p class="text-[var(--color-text)] font-medium text-sm">{t.author}</p>
+              <p class="text-[var(--color-accent)] text-xs tracking-wide mt-0.5">{t.company}</p>
+              {t.location && <p class="text-[var(--color-text-muted)] text-[10px] mt-0.5">{t.location}</p>}
             </div>
           </div>
         </div>
       ))}
     </div>
+
+    <!-- Mobile: horizontal swipe carousel -->
+    <div class="md:hidden">
+      <div class="testimonial-carousel flex gap-4 overflow-x-auto scroll-snap-x pb-2 -mx-6 px-6" id="testimonial-track">
+        {testimonials.map((t) => (
+          <div class="testimonial-card flex-shrink-0 w-[85vw] max-w-[340px] scroll-snap-start">
+            <div class="relative p-5 rounded-2xl bg-[var(--color-bg-secondary)]/50 border border-[var(--color-border)]/60 backdrop-blur-sm">
+              <div class="flex items-center gap-0.5 mb-3 text-[var(--color-accent)]">
+                {Array.from({ length: t.rating }).map(() => (
+                  <Fragment set:html={starSvg} />
+                ))}
+              </div>
+              <svg class="w-6 h-6 text-[var(--color-accent)]/20 mb-2" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+              <p class="text-[var(--color-text)] text-sm leading-relaxed mb-4">
+                {t.quote}
+              </p>
+              <div class="pt-3 border-t border-[var(--color-border)]/60">
+                <p class="text-[var(--color-text)] font-medium text-sm">{t.author}</p>
+                <p class="text-[var(--color-accent)] text-xs tracking-wide mt-0.5">{t.company}</p>
+                {t.location && <p class="text-[var(--color-text-muted)] text-[10px] mt-0.5">{t.location}</p>}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Mobile carousel dots -->
+      <div class="flex items-center justify-center gap-2 mt-4" id="testimonial-dots">
+        {testimonials.map((_, i) => (
+          <button
+            class="testimonial-dot w-1.5 h-1.5 rounded-full bg-[var(--color-text-muted)]/30 transition-all duration-300"
+            data-index={i}
+            aria-label={`Go to testimonial ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .scroll-snap-x {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scroll-snap-x::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll-snap-start {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .testimonial-dot.active {
+    background-color: var(--color-accent);
+    width: 1.25rem;
+    border-radius: 9999px;
+  }
+</style>
+
+<script>
+  (function() {
+    const track = document.getElementById('testimonial-track');
+    const dots = document.querySelectorAll('.testimonial-dot');
+    if (!track || dots.length === 0) return;
+
+    const updateDots = () => {
+      const scrollLeft = track.scrollLeft;
+      const cardWidth = track.querySelector('.testimonial-card')?.clientWidth || 340;
+      const gap = 16;
+      const index = Math.round(scrollLeft / (cardWidth + gap));
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    };
+
+    track.addEventListener('scroll', updateDots, { passive: true });
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.getAttribute('data-index') || '0');
+        const cardWidth = track.querySelector('.testimonial-card')?.clientWidth || 340;
+        const gap = 16;
+        track.scrollTo({ left: idx * (cardWidth + gap), behavior: 'smooth' });
+      });
+    });
+
+    // Initialize first dot
+    updateDots();
+  })();
+</script>
