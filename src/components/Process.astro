@@ -28,165 +28,154 @@ const steps = [
 ];
 ---
 
-<section id="process" class="relative py-16 md:py-20 overflow-hidden">
-  <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-    <div class="text-center mb-10 md:mb-12 animate-on-scroll">
+<section id="process" class="relative">
+  <!-- Heading (above sticky zone) -->
+  <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 pt-16 md:pt-20 lg:pt-24 pb-8 md:pb-10">
+    <div class="text-center animate-on-scroll">
       <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Process</p>
       <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
-        HOW IT WORKS
+        HOW WE WORK
       </h2>
     </div>
+  </div>
 
-    <!-- Desktop: compact horizontal cards with watermark numbers -->
-    <div class="hidden md:block">
-      <div class="grid grid-cols-5 gap-3 lg:gap-4">
+  <!-- Desktop: horizontal filmstrip -->
+  <div class="hidden lg:block process-desktop relative" style="height: 500vh;">
+    <div class="sticky top-0 h-screen overflow-hidden">
+      <!-- Filmstrip track -->
+      <div class="process-track flex h-full will-change-transform" id="process-track">
         {steps.map((step, i) => (
-          <div class="process-step group relative overflow-hidden rounded-2xl bg-[var(--color-bg-secondary)]/40 border border-[var(--color-border)]/50 p-5 lg:p-6 transition-all duration-500 hover:border-[var(--color-accent)]/20 hover:-translate-y-1 hover:shadow-[0_12px_40px_-8px_rgba(212,175,55,0.08)]">
-            <!-- Watermark number -->
-            <span class="absolute -right-2 -top-4 font-display text-[5rem] lg:text-[6rem] leading-none text-[var(--color-text)]/[0.04] select-none pointer-events-none transition-all duration-500 group-hover:text-[var(--color-accent)]/[0.06]">
-              {step.num}
-            </span>
+          <div class="process-frame relative flex-shrink-0 h-full flex items-center" style={`width: calc(70vw);`}>
+            <!-- Vertical separator (not on first) -->
+            {i > 0 && (
+              <div class="absolute left-0 top-[15%] bottom-[15%] w-px bg-[var(--color-accent)]/25"></div>
+            )}
 
-            <div class="relative z-10">
-              <!-- Step indicator -->
-              <div class="flex items-center gap-2 mb-3">
-                <div class="w-6 h-6 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center">
-                  <span class="font-display text-[10px] text-[var(--color-accent)]">{step.num}</span>
-                </div>
-                {i < steps.length - 1 && (
-                  <div class="flex-1 h-px bg-gradient-to-r from-[var(--color-accent)]/20 to-transparent"></div>
-                )}
+            <!-- Content -->
+            <div class="relative z-10 w-full px-[8vw] md:px-[10vw]">
+              <!-- Outlined watermark number -->
+              <span class="absolute font-display text-[18vw] leading-none select-none pointer-events-none"
+                style={`color: transparent; -webkit-text-stroke: 1px rgba(200,169,107,0.12); top: 50%; left: 50%; transform: translate(-50%, -50%);`}>
+                {step.num}
+              </span>
+
+              <div class="relative z-10 max-w-md">
+                <p class="font-mono text-xs text-[var(--color-accent)] tracking-wider mb-4">
+                  STEP {step.num} / 05
+                </p>
+                <h3 class="font-display text-[clamp(1.75rem,3vw,2.5rem)] tracking-wide text-[var(--color-text)] uppercase mb-5">
+                  {step.title}
+                </h3>
+                <div class="w-[120px] h-px bg-[var(--color-accent)] mb-5"></div>
+                <p class="text-[var(--color-text-muted)] text-sm md:text-base leading-relaxed">
+                  {step.desc}
+                </p>
               </div>
-
-              <h3 class="font-display text-sm lg:text-base tracking-wide text-[var(--color-text)] mb-2 leading-tight">
-                {step.title}
-              </h3>
-              <p class="text-[var(--color-text-muted)] text-xs leading-relaxed">
-                {step.desc}
-              </p>
             </div>
           </div>
         ))}
+      </div>
+
+      <!-- Progress bar -->
+      <div class="absolute bottom-0 left-0 right-0 h-1 bg-[var(--color-border)] z-20">
+        <div class="process-progress h-full bg-[var(--color-accent)] origin-left" id="process-progress" style="transform: scaleX(0);" aria-label="Step progress" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"></div>
       </div>
     </div>
+  </div>
 
-    <!-- Mobile: compact horizontal scroll -->
-    <div class="md:hidden">
-      <div class="flex gap-3 overflow-x-auto scroll-snap-x pb-2 -mx-6 px-6" id="process-scroll">
-        {steps.map((step) => (
-          <div class="process-step flex-shrink-0 w-[78vw] max-w-[300px] scroll-snap-start relative overflow-hidden rounded-2xl bg-[var(--color-bg-secondary)]/40 border border-[var(--color-border)]/50 p-5">
-            <span class="absolute -right-2 -top-4 font-display text-[5rem] leading-none text-[var(--color-text)]/[0.04] select-none pointer-events-none">
+  <!-- Mobile / Tablet: vertical stack -->
+  <div class="lg:hidden max-w-[600px] mx-auto px-6 md:px-12 pb-16 md:pb-20">
+    <div class="space-y-10">
+      {steps.map((step) => (
+        <div class="process-step-mobile relative pl-6 border-l-2 border-[var(--color-accent)]">
+          <div class="relative">
+            <span class="font-mono text-xs text-[var(--color-accent)] tracking-wider mb-2 block">
               {step.num}
             </span>
-            <div class="relative z-10">
-              <div class="flex items-center gap-2 mb-3">
-                <div class="w-6 h-6 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center">
-                  <span class="font-display text-[10px] text-[var(--color-accent)]">{step.num}</span>
-                </div>
-              </div>
-              <h3 class="font-display text-base tracking-wide text-[var(--color-text)] mb-2 leading-tight">
-                {step.title}
-              </h3>
-              <p class="text-[var(--color-text-muted)] text-xs leading-relaxed">
-                {step.desc}
-              </p>
-            </div>
+            <h3 class="font-display text-[1.35rem] md:text-[1.75rem] tracking-wide text-[var(--color-text)] uppercase mb-2">
+              {step.title}
+            </h3>
+            <p class="text-[var(--color-text-muted)] text-sm leading-relaxed">
+              {step.desc}
+            </p>
           </div>
-        ))}
-      </div>
-
-      <!-- Mobile dots -->
-      <div class="flex items-center justify-center gap-1.5 mt-4" id="process-dots">
-        {steps.map((_, i) => (
-          <button
-            class="process-dot w-1.5 h-1.5 rounded-full bg-[var(--color-text-muted)]/30 transition-all duration-300"
-            data-index={i}
-            aria-label={`Go to step ${i + 1}`}
-          />
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   </div>
 </section>
 
 <style>
-  .scroll-snap-x {
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .scroll-snap-x::-webkit-scrollbar {
-    display: none;
-  }
-  .scroll-snap-start {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-  }
-  .process-step {
+  .process-step-mobile {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(20px);
     transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
   }
-  .process-step.visible {
+  .process-step-mobile.visible {
     opacity: 1;
     transform: translateY(0);
-  }
-  .process-dot.active {
-    background-color: var(--color-accent);
-    width: 1.25rem;
-    border-radius: 9999px;
   }
 </style>
 
 <script>
   (function() {
-    // IntersectionObserver for reveal animation
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const step = entry.target;
-          const siblings = Array.from(document.querySelectorAll('.process-step'));
-          const index = siblings.indexOf(step);
-          setTimeout(() => {
-            step.classList.add('visible');
-          }, index * 80);
-          observer.unobserve(step);
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -20px 0px',
-    });
-
-    document.querySelectorAll('.process-step').forEach((step) => {
-      observer.observe(step);
-    });
-
-    // Mobile scroll dots
-    const scrollTrack = document.getElementById('process-scroll');
-    const dots = document.querySelectorAll('.process-dot');
-    if (scrollTrack && dots.length > 0) {
-      const updateDots = () => {
-        const scrollLeft = scrollTrack.scrollLeft;
-        const cardWidth = scrollTrack.querySelector('.process-step')?.clientWidth || 300;
-        const gap = 12;
-        const index = Math.round(scrollLeft / (cardWidth + gap));
-        dots.forEach((dot, i) => {
-          dot.classList.toggle('active', i === index);
+    // Only run horizontal scroll on lg+ screens
+    const mq = window.matchMedia('(min-width: 1024px)');
+    if (!mq.matches) {
+      // Mobile: simple IntersectionObserver reveal
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const step = entry.target;
+            const siblings = Array.from(document.querySelectorAll('.process-step-mobile'));
+            const index = siblings.indexOf(step);
+            setTimeout(() => {
+              step.classList.add('visible');
+            }, index * 100);
+            observer.unobserve(step);
+          }
         });
-      };
-      scrollTrack.addEventListener('scroll', updateDots, { passive: true });
-      dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
-          const idx = parseInt(dot.getAttribute('data-index') || '0');
-          const cardWidth = scrollTrack.querySelector('.process-step')?.clientWidth || 300;
-          const gap = 12;
-          scrollTrack.scrollTo({ left: idx * (cardWidth + gap), behavior: 'smooth' });
-        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+
+      document.querySelectorAll('.process-step-mobile').forEach((step) => {
+        observer.observe(step);
       });
-      updateDots();
+      return;
     }
+
+    // Desktop: horizontal scroll driven by vertical scroll
+    const track = document.getElementById('process-track');
+    const progress = document.getElementById('process-progress');
+    const section = document.querySelector('.process-desktop');
+    if (!track || !progress || !section) return;
+
+    const totalSteps = 5;
+    const frameWidth = () => window.innerWidth * 0.7;
+    const totalScrollWidth = () => frameWidth() * totalSteps;
+
+    const onScroll = () => {
+      const rect = section.getBoundingClientRect();
+      const sectionTop = rect.top;
+      const sectionHeight = rect.height;
+      const viewportHeight = window.innerHeight;
+
+      // How far we've scrolled within the section (0 to 1)
+      const scrollProgress = Math.min(Math.max(-sectionTop / (sectionHeight - viewportHeight), 0), 1);
+
+      // Translate track horizontally
+      const maxTranslate = totalScrollWidth() - window.innerWidth;
+      const translateX = scrollProgress * maxTranslate;
+      track.style.transform = `translateX(-${translateX}px)`;
+
+      // Update progress bar
+      progress.style.transform = `scaleX(${scrollProgress})`;
+      progress.setAttribute('aria-valuenow', String(Math.round(scrollProgress * totalSteps)));
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Also re-calculate on resize
+    window.addEventListener('resize', onScroll, { passive: true });
   })();
 </script>
