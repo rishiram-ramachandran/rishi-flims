@@ -49,6 +49,12 @@ const getIcon = (iconName: string) => {
   };
   return icons[iconName] || '';
 };
+
+const stats = [
+  { number: "5+", label: "Brand Promotions", desc: "Collaborated with leading brands across tech, automotive, and lifestyle." },
+  { number: "20+", label: "Brand Promotions", desc: "Published promotional content that reached thousands of engaged viewers." },
+  { number: "100%", label: "End-to-End", desc: "Concept, shoot, edit, and publish — everything handled in-house." },
+];
 ---
 
 <section id="services" class="py-16 md:py-20 lg:py-24">
@@ -79,6 +85,21 @@ const getIcon = (iconName: string) => {
           </div>
         </div>
       ))}
+    </div>
+
+    <!-- Stats bar -->
+    <div class="mt-12 md:mt-16 animate-on-scroll">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+        {stats.map((stat) => (
+          <div class="group relative p-5 md:p-6 rounded-2xl bg-[var(--color-bg-secondary)]/40 border border-[var(--color-border)]/40 transition-all duration-500 hover:border-[var(--color-accent)]/15">
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="font-display text-3xl md:text-4xl text-[var(--color-accent)] leading-none">{stat.number}</span>
+              <span class="font-display text-sm tracking-wide text-[var(--color-text)] uppercase">{stat.label}</span>
+            </div>
+            <p class="text-[var(--color-text-muted)] text-xs leading-relaxed">{stat.desc}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>
