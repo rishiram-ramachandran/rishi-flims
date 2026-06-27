@@ -585,6 +585,39 @@ body.lightbox-open {
 }
 
 /* ============================================
+   FIXED CONTACT BUTTON
+   ============================================ */
+
+.fixed-contact-btn {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile: bottom-right corner */
+@media (max-width: 767px) {
+  .fixed-contact-btn {
+    padding: 12px 14px;
+  }
+
+  .fixed-contact-btn:hover {
+    transform: translateX(-2px);
+  }
+}
+
+/* Desktop: right side, vertically centered */
+@media (min-width: 768px) {
+  .fixed-contact-btn:hover {
+    box-shadow: 0 6px 30px rgba(200, 169, 107, 0.15);
+    transform: translateY(-50%) translateX(-2px);
+  }
+}
+
+/* Hide on mobile navbar open and in lightbox */
+body.lightbox-open .fixed-contact-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ============================================
    FOCUS STATES
    ============================================ */
 

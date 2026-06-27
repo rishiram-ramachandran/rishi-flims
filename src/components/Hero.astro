@@ -81,7 +81,7 @@ const { contact } = siteData;
     <div class="relative h-full overflow-hidden hero-element" data-delay="1000">
       <!-- Cinematic background image -->
       <img
-        src="https://images.pexels.com/photos/3062541/pexels-photo-3062541.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        src={`${import.meta.env.BASE_URL}images/hero-cinematic.png`}
         alt=""
         class="w-full h-full object-cover hero-parallax"
         loading="eager"
@@ -100,30 +100,6 @@ const { contact } = siteData;
         </div>
       </div>
 
-      <!-- Creative Contact Button (Fixed Right Side) -->
-      <div class="creative-contact-btn absolute right-4 top-1/2 -translate-y-1/2 hero-element" data-delay="1300">
-        <a
-          href="#contact"
-          class="group flex flex-col items-center justify-center w-14 h-48 rounded-full bg-[var(--color-bg)]/80 backdrop-blur-md border border-[var(--color-accent)]/30 hover:border-[var(--color-accent)] transition-all duration-500 hover:bg-[var(--color-accent)]/10"
-          data-cursor-grow
-        >
-          <!-- Vertical text -->
-          <span class="font-display text-xs tracking-[0.2em] text-[var(--color-accent)] rotate-180 writing-mode-vertical" style="writing-mode: vertical-rl;">
-            LET'S TALK
-          </span>
-          <!-- Arrow icon -->
-          <div class="mt-3 w-8 h-8 rounded-full bg-[var(--color-accent)]/20 flex items-center justify-center group-hover:bg-[var(--color-accent)] transition-all duration-300">
-            <svg class="w-4 h-4 text-[var(--color-accent)] group-hover:text-[var(--color-bg)] transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M7 17L17 7M17 7H7M17 7V17"/>
-            </svg>
-          </div>
-          <!-- Contact icon -->
-          <svg class="mt-3 w-5 h-5 text-[var(--color-accent)]/70 group-hover:text-[var(--color-accent)] transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
-          </svg>
-        </a>
-      </div>
     </div>
 
     <!-- CENTER DIVIDER LINE -->
@@ -245,19 +221,6 @@ const { contact } = siteData;
         </div>
       </div>
 
-      <!-- Mobile Contact Button -->
-      <div class="mt-8 hero-element" data-delay="1200">
-        <a
-          href="#contact"
-          class="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-[var(--color-bg)]/60 backdrop-blur-md border border-[var(--color-accent)]/30 hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)]/10 transition-all duration-300"
-        >
-          <svg class="w-5 h-5 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
-          </svg>
-          <span class="font-display text-sm tracking-wider text-[var(--color-accent)] uppercase">Let's Talk</span>
-        </a>
-      </div>
     </div>
 
     <!-- Scroll Indicator -->
@@ -392,11 +355,6 @@ const { contact } = siteData;
   .lens-1 { transition: all 1s ease-out 0.3s; }
   .lens-2 { transition: all 1.2s ease-out 0.5s; }
   .lens-3 { transition: all 1.4s ease-out 0.7s; }
-
-  /* Creative contact button */
-  .creative-contact-btn {
-    writing-mode: vertical-rl;
-  }
 
   @media (prefers-reduced-motion: reduce) {
     .hero-element {
