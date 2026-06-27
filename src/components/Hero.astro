@@ -1,51 +1,164 @@
 ---
 import siteData from '../data/site.json';
-import LogoMark from './icons/LogoMark.astro';
 
 const { contact } = siteData;
+const profileImage = 'https://res.cloudinary.com/dhjj1svoh/image/upload/f_auto,q_auto/v1781944293/IMG_9401_ftdy5j.jpg';
 ---
 
-<section id="hero" class="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
-  <!-- Background image -->
-  <div class="absolute inset-0">
+<section id="hero" class="relative min-h-[100dvh] md:min-h-screen overflow-hidden">
+  <!-- Mobile: Image on top -->
+  <div class="md:hidden absolute top-0 left-0 right-0 h-[45vh]">
     <img
-      src="https://images.pexels.com/photos/3062541/pexels-photo-3062541.jpeg?auto=compress&cs=tinysrgb&w=1920"
+      src={profileImage}
       alt=""
       class="w-full h-full object-cover"
       loading="eager"
       fetchpriority="high"
     />
-    <div class="absolute inset-0 bg-[var(--color-bg)]/70"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/30 via-transparent to-[var(--color-bg)]"></div>
-    <div class="absolute inset-0 noise-overlay vignette"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/40 via-transparent to-[var(--color-bg)]"></div>
+    <!-- Availability badge (mobile) -->
+    <div class="absolute top-4 right-4 hero-element" data-delay="1400">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--color-bg)]/70 backdrop-blur-md border border-[var(--color-border-light)]">
+        <span class="relative flex h-1.5 w-1.5">
+          <span class="availability-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75"></span>
+          <span class="availability-dot relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--color-accent)]"></span>
+        </span>
+        <span class="text-[var(--color-text)] text-[9px] font-semibold tracking-wider uppercase">Available</span>
+      </div>
+    </div>
   </div>
 
-  <!-- Content -->
-  <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
-    <!-- Logo mark -->
-    <div class="mb-8 animate-on-scroll">
-      <LogoMark size={64} color="var(--color-text)" class="mx-auto" />
+  <!-- Desktop: Split viewport -->
+  <div class="hidden md:grid grid-cols-[55%_45%] h-screen">
+    <!-- LEFT PANEL -->
+    <div class="relative flex flex-col justify-center px-8 lg:px-16 xl:px-24">
+      <!-- Logo top-left -->
+      <div class="absolute top-6 left-8 lg:top-8 lg:left-16 xl:left-24 hero-element" data-delay="0">
+        <span class="font-display text-[0.75rem] tracking-[0.2em] text-[var(--color-text-muted)]/70 uppercase">Rishi Films</span>
+      </div>
+
+      <!-- Eyebrow -->
+      <p class="text-[var(--color-accent)] text-[10px] md:text-[11px] font-mono tracking-[0.3em] uppercase mb-4 hero-element" data-delay="100">
+        Videographer & Editor
+      </p>
+
+      <!-- Main Headline -->
+      <h1 class="relative">
+        <span class="block font-display text-[clamp(4rem,14vw,11rem)] leading-[0.85] tracking-[0.02em] text-[var(--color-text)] hero-element" data-delay="250" style="font-weight: 400;">
+          CINEMATIC
+        </span>
+        <span class="block font-display text-[clamp(4rem,14vw,11rem)] leading-[0.85] tracking-[0.02em] hero-element" data-delay="400" style="-webkit-text-stroke: 1px var(--color-text); color: transparent;">
+          STORIES
+        </span>
+      </h1>
+
+      <!-- Tagline -->
+      <p class="mt-6 text-[clamp(0.95rem,1.5vw,1.15rem)] text-[var(--color-text-muted)]/80 max-w-xs hero-element" data-delay="600">
+        For businesses that mean business.
+      </p>
+
+      <!-- CTA Row -->
+      <div class="mt-8 flex flex-wrap gap-3 hero-element" data-delay="800">
+        <a
+          href="#portfolio"
+          class="group inline-flex items-center gap-2 px-6 py-2.5 bg-[var(--color-accent)] text-[var(--color-bg)] text-xs font-semibold tracking-wider uppercase rounded-full hover:bg-[var(--color-text)] transition-all duration-300"
+          data-cursor-grow
+        >
+          View Work
+          <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a
+          href={contact.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-2 px-6 py-2.5 border border-[var(--color-accent)] text-[var(--color-accent)] text-xs font-semibold tracking-wider uppercase rounded-full hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] transition-all duration-300"
+          data-cursor-grow
+        >
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          WhatsApp Me
+        </a>
+      </div>
+
+      <!-- Rotating Circle Text (bottom) -->
+      <div class="absolute bottom-8 left-8 lg:bottom-12 lg:left-16 xl:left-24 hero-element" data-delay="1100">
+        <div class="rotating-circle w-[90px] h-[90px] relative">
+          <svg viewBox="0 0 100 100" class="w-full h-full">
+            <defs>
+              <path id="circle-path" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none"/>
+            </defs>
+            <text fill="var(--color-text-muted)" font-size="6" font-family="'Inter', sans-serif" font-weight="500" letter-spacing="0.15em">
+              <textPath href="#circle-path">
+                VIDEOGRAPHY · EDITING · BRANDING ·
+              </textPath>
+            </text>
+          </svg>
+        </div>
+      </div>
     </div>
 
-    <h1 class="font-display text-[clamp(4rem,15vw,12rem)] leading-[0.85] tracking-[0.08em] text-[var(--color-text)] animate-on-scroll">
-      RISHI FILMS
+    <!-- RIGHT PANEL (Image) -->
+    <div class="relative h-full overflow-hidden hero-element" data-delay="1000">
+      <img
+        src={profileImage}
+        alt=""
+        class="w-full h-full object-cover hero-parallax"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)]/60 via-[var(--color-bg)]/20 to-transparent"></div>
+      <!-- Availability badge (desktop) -->
+      <div class="absolute top-8 right-8 lg:top-12 lg:right-12">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-bg)]/60 backdrop-blur-md border border-[var(--color-border-light)]">
+          <span class="relative flex h-2 w-2">
+            <span class="availability-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75"></span>
+            <span class="availability-dot relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent)]"></span>
+          </span>
+          <span class="text-[var(--color-text)] text-[10px] font-semibold tracking-wider uppercase">Available for Projects</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER DIVIDER LINE -->
+    <div class="absolute left-[55%] top-0 w-px h-full bg-[var(--color-accent)]/15 hero-divider">
+      <div class="hero-divider-dot absolute left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[var(--color-accent)]"></div>
+    </div>
+  </div>
+
+  <!-- Mobile Content (below image) -->
+  <div class="md:hidden relative pt-[45vh] px-6 pb-24 flex flex-col justify-center min-h-[100dvh]">
+    <!-- Eyebrow -->
+    <p class="text-[var(--color-accent)] text-[10px] font-mono tracking-[0.3em] uppercase mb-3 hero-element" data-delay="100">
+      Videographer & Editor
+    </p>
+
+    <!-- Main Headline -->
+    <h1 class="relative">
+      <span class="block font-display text-[clamp(3rem,18vw,6rem)] leading-[0.85] tracking-[0.02em] text-[var(--color-text)] hero-element" data-delay="250" style="font-weight: 400;">
+        CINEMATIC
+      </span>
+      <span class="block font-display text-[clamp(3rem,18vw,6rem)] leading-[0.85] tracking-[0.02em] hero-element" data-delay="400" style="-webkit-text-stroke: 1px var(--color-text); color: transparent;">
+        STORIES
+      </span>
     </h1>
 
-    <p class="mt-6 text-[clamp(1.1rem,2.5vw,1.75rem)] font-light text-[var(--color-text)] tracking-wide leading-relaxed max-w-2xl mx-auto animate-on-scroll" style="transition-delay: 100ms;">
-      Cinematic stories for businesses that mean business.
+    <!-- Tagline -->
+    <p class="mt-4 text-base text-[var(--color-text-muted)]/80 max-w-xs hero-element" data-delay="600">
+      For businesses that mean business.
     </p>
 
-    <p class="mt-3 text-[clamp(0.85rem,1.5vw,1.05rem)] text-[var(--color-text-muted)] tracking-wide max-w-xl mx-auto animate-on-scroll" style="transition-delay: 200ms;">
-      Videography & Video Editing for Brands and Business Owners
-    </p>
-
-    <div class="mt-10 flex flex-wrap items-center justify-center gap-3 animate-on-scroll" style="transition-delay: 300ms;">
+    <!-- CTA Row -->
+    <div class="mt-6 flex flex-wrap gap-2.5 hero-element" data-delay="800">
       <a
         href="#portfolio"
-        class="group inline-flex items-center gap-2 px-7 py-3.5 border border-[var(--color-accent)]/60 text-[var(--color-accent)] text-sm font-semibold tracking-wider uppercase rounded-full hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] transition-all duration-300"
+        class="group inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-accent)] text-[var(--color-bg)] text-xs font-semibold tracking-wider uppercase rounded-full hover:bg-[var(--color-text)] transition-all duration-300"
+        data-cursor-grow
       >
-        View My Work
-        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        View Work
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </a>
@@ -53,37 +166,209 @@ const { contact } = siteData;
         href={contact.whatsapp}
         target="_blank"
         rel="noopener noreferrer"
-        class="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#25D366] text-white text-sm font-semibold tracking-wider uppercase rounded-full hover:bg-[#128C7E] transition-all duration-300"
+        class="group inline-flex items-center gap-2 px-5 py-2.5 border border-[var(--color-accent)] text-[var(--color-accent)] text-xs font-semibold tracking-wider uppercase rounded-full hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] transition-all duration-300"
+        data-cursor-grow
       >
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
-        WhatsApp Me
+        WhatsApp
       </a>
     </div>
 
-    <div class="mt-8 animate-on-scroll" style="transition-delay: 400ms;">
-      <a
-        href={contact.instagram}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors duration-300 text-sm"
-      >
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37"/>
-          <circle cx="17.5" cy="6.5" r="1.5"/>
+    <!-- Rotating Circle (mobile, smaller) -->
+    <div class="mt-8 hero-element" data-delay="1200">
+      <div class="rotating-circle w-[70px] h-[70px]">
+        <svg viewBox="0 0 100 100" class="w-full h-full">
+          <defs>
+            <path id="circle-path-mobile" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none"/>
+          </defs>
+          <text fill="var(--color-text-muted)" font-size="5.5" font-family="'Inter', sans-serif" font-weight="500" letter-spacing="0.12em">
+            <textPath href="#circle-path-mobile">
+              VIDEOGRAPHY · EDITING · BRANDING ·
+            </textPath>
+          </text>
         </svg>
-        <span class="tracking-wide">@iam_.anonymous__</span>
-      </a>
+      </div>
     </div>
   </div>
 
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-on-scroll" style="transition-delay: 600ms;">
-    <div class="flex flex-col items-center gap-2 text-[var(--color-text-muted)]">
-      <span class="text-[10px] tracking-[0.2em] uppercase">Scroll</span>
-      <div class="w-px h-6 bg-gradient-to-b from-[var(--color-accent)] to-transparent"></div>
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 hero-scroll-indicator z-20">
+    <div class="flex flex-col items-center gap-2">
+      <div class="relative w-px h-10 bg-[var(--color-border-light)]">
+        <div class="scroll-dot-bounce absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]"></div>
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .hero-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+  }
+
+  .hero-element.hero-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  h1 .hero-element {
+    transform: translateX(-40px);
+  }
+
+  h1 .hero-element.hero-revealed {
+    transform: translateX(0);
+  }
+
+  .hero-divider {
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+
+  .hero-divider.hero-revealed {
+    transform: scaleY(1);
+  }
+
+  .hero-divider-dot {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .hero-divider.hero-revealed .hero-divider-dot {
+    opacity: 1;
+    animation: dot-travel-down 2s var(--ease-out-expo) forwards;
+  }
+
+  @keyframes dot-travel-down {
+    0% { top: 0; opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  .hero-scroll-indicator {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .hero-scroll-indicator.hidden {
+    opacity: 0;
+  }
+
+  @keyframes availability-ping {
+    0% { transform: scale(1); opacity: 0.75; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+
+  .availability-ping {
+    animation: availability-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-element {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .hero-divider {
+      transform: scaleY(1);
+    }
+
+    .hero-divider-dot,
+    .scroll-dot-bounce,
+    .rotating-circle {
+      animation: none;
+    }
+  }
+
+  .hero-parallax {
+    will-change: transform;
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import ScrollTrigger from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  (function() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const runHeroAnimations = () => {
+      if (prefersReducedMotion) {
+        document.querySelectorAll('.hero-element').forEach((el) => {
+          el.classList.add('hero-revealed');
+        });
+        document.querySelectorAll('.hero-divider').forEach((el) => {
+          el.classList.add('hero-revealed');
+        });
+        return;
+      }
+
+      const elements = document.querySelectorAll('.hero-element');
+      elements.forEach((el) => {
+        const delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+        setTimeout(() => {
+          el.classList.add('hero-revealed');
+        }, delay);
+      });
+
+      const divider = document.querySelector('.hero-divider');
+      if (divider) {
+        setTimeout(() => {
+          divider.classList.add('hero-revealed');
+        }, 100);
+      }
+    };
+
+    if (document.body.hasAttribute('data-loaded')) {
+      runHeroAnimations();
+    } else {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.attributeName === 'data-loaded' && document.body.hasAttribute('data-loaded')) {
+            observer.disconnect();
+            runHeroAnimations();
+          }
+        });
+      });
+      observer.observe(document.body, { attributes: true });
+      setTimeout(runHeroAnimations, 1200);
+    }
+
+    const scrollIndicator = document.querySelector('.hero-scroll-indicator');
+    if (scrollIndicator) {
+      let hidden = false;
+      window.addEventListener('scroll', () => {
+        if (!hidden && window.scrollY > 100) {
+          scrollIndicator.classList.add('hidden');
+          hidden = true;
+        }
+      }, { passive: true });
+    }
+
+    if (!prefersReducedMotion) {
+      const mq = window.matchMedia('(min-width: 768px)');
+      if (mq.matches) {
+        const parallaxImg = document.querySelector('.hero-parallax');
+        if (parallaxImg) {
+          gsap.to(parallaxImg, {
+            yPercent: -15,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '#hero',
+              start: 'top top',
+              end: 'bottom top',
+              scrub: 1
+            }
+          });
+        }
+      }
+    }
+  })();
+</script>
