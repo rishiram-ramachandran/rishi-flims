@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Astro Dev Server (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:4321/rishi-flims",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      }
+    },
+    {
+      "name": "Astro Dev Server (Edge)",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:4321/rishi-flims",
+      "webRoot": "${workspaceFolder}/src"
+    }
+  ]
+}

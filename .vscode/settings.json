@@ -1,0 +1,269 @@
+{
+  // ─────────────────────────────────────────────────────────────────────────
+  // JETBRAINS-INSPIRED APPEARANCE
+  // Theme: Material Palenight (closest to IntelliJ/WebStorm dark)
+  // ─────────────────────────────────────────────────────────────────────────
+  "workbench.colorTheme": "Material Palenight",
+  "workbench.iconTheme": "material-icon-theme",
+
+  // JetBrains-style font: JetBrains Mono with ligatures
+  "editor.fontFamily": "'JetBrains Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 24,
+  "editor.fontLigatures": true,
+  "editor.letterSpacing": 0.3,
+
+  // Smooth scrolling & cursor animation (like JetBrains)
+  "editor.cursorBlinking": "phase",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "workbench.list.smoothScrolling": true,
+  "terminal.integrated.smoothScrolling": true,
+
+  // Breadcrumbs (like JetBrains file path bar)
+  "breadcrumbs.enabled": true,
+
+  // Minimap styled like JetBrains
+  "editor.minimap.enabled": true,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.maxColumn": 80,
+  "editor.minimap.showSlider": "always",
+  "editor.minimap.side": "right",
+
+  // Editor tabs (JetBrains style)
+  "workbench.editor.tabSizing": "shrink",
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.showTabs": "multiple",
+  "workbench.editor.wrapTabs": false,
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // EDITOR BEHAVIOUR (Developer Friendly)
+  // ─────────────────────────────────────────────────────────────────────────
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+
+  // Auto-save
+  "files.autoSave": "onFocusChange",
+
+  // Indentation
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+
+  // Word wrap
+  "editor.wordWrap": "on",
+  "editor.wordWrapColumn": 120,
+
+  // Rulers (like JetBrains right margin)
+  "editor.rulers": [80, 120],
+
+  // Bracket pair colorization (JetBrains rainbow brackets)
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.indentation": true,
+  "editor.guides.highlightActiveIndentation": true,
+
+  // IntelliSense / suggestions
+  "editor.suggestSelection": "first",
+  "editor.acceptSuggestionOnEnter": "on",
+  "editor.quickSuggestionsDelay": 0,
+  "editor.parameterHints.enabled": true,
+  "editor.inlayHints.enabled": "on",
+  "editor.hover.delay": 300,
+
+  // Multi-cursor / selection
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.selectionHighlight": true,
+  "editor.occurrencesHighlight": "singleFile",
+
+  // Whitespace
+  "editor.renderWhitespace": "boundary",
+  "editor.renderControlCharacters": true,
+
+  // Line numbers (JetBrains shows relative + absolute)
+  "editor.lineNumbers": "on",
+  "editor.glyphMargin": true,
+  "editor.folding": true,
+  "editor.foldingHighlight": true,
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // TERMINAL (JetBrains-style integrated terminal)
+  // ─────────────────────────────────────────────────────────────────────────
+  "terminal.integrated.fontFamily": "'JetBrains Mono', 'Cascadia Code', Consolas, monospace",
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.lineHeight": 1.4,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.scrollback": 10000,
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // LANGUAGE-SPECIFIC SETTINGS
+  // ─────────────────────────────────────────────────────────────────────────
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": false
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // TYPESCRIPT / JAVASCRIPT
+  // ─────────────────────────────────────────────────────────────────────────
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.suggest.autoImports": true,
+  "typescript.inlayHints.parameterNames.enabled": "all",
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "typescript.inlayHints.returnTypes.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "javascript.inlayHints.parameterNames.enabled": "all",
+  "javascript.inlayHints.variableTypes.enabled": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // TAILWIND CSS
+  // ─────────────────────────────────────────────────────────────────────────
+  "tailwindCSS.includeLanguages": {
+    "astro": "html"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+    ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // PRETTIER
+  // ─────────────────────────────────────────────────────────────────────────
+  "prettier.singleQuote": true,
+  "prettier.semi": true,
+  "prettier.trailingComma": "es5",
+  "prettier.printWidth": 100,
+  "prettier.tabWidth": 2,
+  "prettier.bracketSpacing": true,
+  "prettier.arrowParens": "always",
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // GIT
+  // ─────────────────────────────────────────────────────────────────────────
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.currentLine.enabled": true,
+  "gitlens.codeLens.enabled": true,
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // EXPLORER
+  // ─────────────────────────────────────────────────────────────────────────
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.compactFolders": false,
+  "explorer.sortOrder": "type",
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // EXTENSION-SPECIFIC
+  // ─────────────────────────────────────────────────────────────────────────
+
+  // Error Lens
+  "errorLens.enabledDiagnosticLevels": ["error", "warning", "info"],
+  "errorLens.followCursor": "allLines",
+  "errorLens.gutterIconsEnabled": true,
+
+  // Indent Rainbow
+  "indentRainbow.indicatorStyle": "light",
+
+  // TODO Tree
+  "todo-tree.general.tags": ["TODO", "FIXME", "HACK", "NOTE", "REVIEW", "BUG"],
+  "todo-tree.highlights.defaultHighlight": {
+    "icon": "alert",
+    "type": "text",
+    "foreground": "#FFD700"
+  },
+  "todo-tree.tree.showScanModeButton": false,
+
+  // Better Comments
+  "better-comments.tags": [
+    { "tag": "!", "color": "#FF2D00", "strikethrough": false, "underline": false, "backgroundColor": "transparent", "bold": false, "italic": false },
+    { "tag": "?", "color": "#3498DB", "strikethrough": false, "underline": false, "backgroundColor": "transparent", "bold": false, "italic": false },
+    { "tag": "//", "color": "#474747", "strikethrough": true, "underline": false, "backgroundColor": "transparent", "bold": false, "italic": false },
+    { "tag": "todo", "color": "#FF8C00", "strikethrough": false, "underline": false, "backgroundColor": "transparent", "bold": false, "italic": false },
+    { "tag": "*", "color": "#98C379", "strikethrough": false, "underline": false, "backgroundColor": "transparent", "bold": false, "italic": true }
+  ],
+
+  // Material Icon Theme
+  "material-icon-theme.activeIconPack": "astro",
+  "material-icon-theme.folders.theme": "specific",
+
+  // Spell checker – ignore project-specific words
+  "cSpell.words": [
+    "rishi", "flims", "astro", "astrojs", "tailwindcss", "videography", "swiper", "codegraph"
+  ],
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SEARCH / FILES
+  // ─────────────────────────────────────────────────────────────────────────
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.astro": true,
+    "**/.codegraph": true,
+    "**/.git": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.astro": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/.astro/**": true,
+    "**/.codegraph/**": true
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // MISC
+  // ─────────────────────────────────────────────────────────────────────────
+  "editor.linkedEditing": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.stickyScroll.maxLineCount": 5,
+  "editor.accessibilitySupport": "off",
+  "security.workspace.trust.untrustedFiles": "open",
+  "window.title": "${folderName} — ${activeEditorShort}${separator}${appName}"
+}

@@ -1,0 +1,53 @@
+{
+  "recommendations": [
+    // ─── Astro ───────────────────────────────────────────────
+    "astro-build.astro-vscode",
+
+    // ─── TypeScript / JavaScript ─────────────────────────────
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-typescript-next",
+    "christian-kohler.npm-intellisense",
+    "eg2.vscode-npm-script",
+
+    // ─── Tailwind CSS v4 ─────────────────────────────────────
+    "bradlc.vscode-tailwindcss",
+
+    // ─── HTML / CSS ──────────────────────────────────────────
+    "ecmel.vscode-html-css",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "pranaygp.vscode-css-peek",
+    "zignd.html-css-class-completion",
+
+    // ─── Git ─────────────────────────────────────────────────
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "github.vscode-pull-request-github",
+
+    // ─── Editor UX ───────────────────────────────────────────
+    "streetsidesoftware.code-spell-checker",
+    "usernamehw.errorlens",
+    "oderwat.indent-rainbow",
+    "aaron-bond.better-comments",
+    "naumovs.color-highlight",
+    "pkief.material-icon-theme",
+
+    // ─── JetBrains-like Theme ────────────────────────────────
+    "whizkydee.material-palenight-theme",
+
+    // ─── Productivity ─────────────────────────────────────────
+    "christian-kohler.path-intellisense",
+    "alefragnani.bookmarks",
+    "gruntfuggly.todo-tree",
+    "wayou.vscode-todo-highlight",
+
+    // ─── Markdown / Docs ─────────────────────────────────────
+    "yzhang.markdown-all-in-one",
+    "bierner.markdown-preview-github-styles",
+
+    // ─── Remote / Tooling ────────────────────────────────────
+    "ms-vscode.live-server",
+    "ritwickdey.liveserver"
+  ]
+}
