@@ -28,89 +28,81 @@ const steps = [
 ];
 ---
 
-<section id="process" class="relative py-20 md:py-28 overflow-hidden">
+<section id="process" class="relative py-16 md:py-20 overflow-hidden">
   <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-    <div class="text-center mb-16 md:mb-20 animate-on-scroll">
+    <div class="text-center mb-10 md:mb-12 animate-on-scroll">
       <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Process</p>
-      <h2 class="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
         HOW IT WORKS
       </h2>
     </div>
 
-    <!-- Desktop: staggered timeline -->
-    <div class="hidden md:block relative">
-      <!-- Center line -->
-      <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[var(--color-accent)]/30 to-transparent -translate-x-1/2"></div>
+    <!-- Desktop: compact horizontal cards with watermark numbers -->
+    <div class="hidden md:block">
+      <div class="grid grid-cols-5 gap-3 lg:gap-4">
+        {steps.map((step, i) => (
+          <div class="process-step group relative overflow-hidden rounded-2xl bg-[var(--color-bg-secondary)]/40 border border-[var(--color-border)]/50 p-5 lg:p-6 transition-all duration-500 hover:border-[var(--color-accent)]/20 hover:-translate-y-1 hover:shadow-[0_12px_40px_-8px_rgba(212,175,55,0.08)]">
+            <!-- Watermark number -->
+            <span class="absolute -right-2 -top-4 font-display text-[5rem] lg:text-[6rem] leading-none text-[var(--color-text)]/[0.04] select-none pointer-events-none transition-all duration-500 group-hover:text-[var(--color-accent)]/[0.06]">
+              {step.num}
+            </span>
 
-      <div class="space-y-20 lg:space-y-24">
-        {steps.map((step, i) => {
-          const isLeft = i % 2 === 0;
-          return (
-            <div class={`process-step flex items-center gap-8 lg:gap-16 ${isLeft ? 'flex-row' : 'flex-row-reverse'}`}>
-              <!-- Content side -->
-              <div class={`flex-1 ${isLeft ? 'text-right pr-8 lg:pr-12' : 'text-left pl-8 lg:pl-12'}`}>
-                <div class="relative inline-block">
-                  <span class="process-num absolute font-display text-[8rem] lg:text-[10rem] leading-none text-[var(--color-text)]/[0.03] select-none pointer-events-none"
-                    style={`${isLeft ? 'right: 0; transform: translateX(30%);' : 'left: 0; transform: translateX(-30%);'} top: 50%; margin-top: -5rem;`}>
-                    {step.num}
-                  </span>
-                  <div class="relative z-10">
-                    <p class="text-[var(--color-accent)] text-[10px] font-semibold tracking-[0.25em] uppercase mb-2">
-                      Step {step.num}
-                    </p>
-                    <h3 class="font-display text-xl lg:text-2xl tracking-wide text-[var(--color-text)] mb-3">
-                      {step.title}
-                    </h3>
-                    <p class="text-[var(--color-text-muted)] text-sm leading-relaxed max-w-md">
-                      {step.desc}
-                    </p>
-                  </div>
+            <div class="relative z-10">
+              <!-- Step indicator -->
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-6 h-6 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center">
+                  <span class="font-display text-[10px] text-[var(--color-accent)]">{step.num}</span>
                 </div>
+                {i < steps.length - 1 && (
+                  <div class="flex-1 h-px bg-gradient-to-r from-[var(--color-accent)]/20 to-transparent"></div>
+                )}
               </div>
 
-              <!-- Center dot -->
-              <div class="relative z-10 flex-shrink-0">
-                <div class="w-3 h-3 rounded-full bg-[var(--color-accent)] ring-4 ring-[var(--color-bg)]"></div>
-              </div>
-
-              <!-- Spacer side -->
-              <div class="flex-1"></div>
+              <h3 class="font-display text-sm lg:text-base tracking-wide text-[var(--color-text)] mb-2 leading-tight">
+                {step.title}
+              </h3>
+              <p class="text-[var(--color-text-muted)] text-xs leading-relaxed">
+                {step.desc}
+              </p>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
 
-    <!-- Mobile: single column with left border -->
-    <div class="md:hidden relative">
-      <!-- Left accent line -->
-      <div class="absolute left-[11px] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[var(--color-accent)]/40 to-transparent"></div>
-
-      <div class="space-y-10">
+    <!-- Mobile: compact horizontal scroll -->
+    <div class="md:hidden">
+      <div class="flex gap-3 overflow-x-auto scroll-snap-x pb-2 -mx-6 px-6" id="process-scroll">
         {steps.map((step) => (
-          <div class="process-step relative pl-8">
-            <!-- Dot -->
-            <div class="absolute left-0 top-1 w-[22px] h-[22px] flex items-center justify-center">
-              <div class="w-2.5 h-2.5 rounded-full bg-[var(--color-accent)] ring-[3px] ring-[var(--color-bg)]"></div>
-            </div>
-
-            <div class="relative">
-              <span class="process-num absolute font-display text-[6rem] leading-none text-[var(--color-text)]/[0.04] select-none pointer-events-none -left-2 -top-6">
-                {step.num}
-              </span>
-              <div class="relative z-10">
-                <p class="text-[var(--color-accent)] text-[10px] font-semibold tracking-[0.25em] uppercase mb-1.5">
-                  Step {step.num}
-                </p>
-                <h3 class="font-display text-lg tracking-wide text-[var(--color-text)] mb-2">
-                  {step.title}
-                </h3>
-                <p class="text-[var(--color-text-muted)] text-sm leading-relaxed">
-                  {step.desc}
-                </p>
+          <div class="process-step flex-shrink-0 w-[78vw] max-w-[300px] scroll-snap-start relative overflow-hidden rounded-2xl bg-[var(--color-bg-secondary)]/40 border border-[var(--color-border)]/50 p-5">
+            <span class="absolute -right-2 -top-4 font-display text-[5rem] leading-none text-[var(--color-text)]/[0.04] select-none pointer-events-none">
+              {step.num}
+            </span>
+            <div class="relative z-10">
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-6 h-6 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center">
+                  <span class="font-display text-[10px] text-[var(--color-accent)]">{step.num}</span>
+                </div>
               </div>
+              <h3 class="font-display text-base tracking-wide text-[var(--color-text)] mb-2 leading-tight">
+                {step.title}
+              </h3>
+              <p class="text-[var(--color-text-muted)] text-xs leading-relaxed">
+                {step.desc}
+              </p>
             </div>
           </div>
+        ))}
+      </div>
+
+      <!-- Mobile dots -->
+      <div class="flex items-center justify-center gap-1.5 mt-4" id="process-dots">
+        {steps.map((_, i) => (
+          <button
+            class="process-dot w-1.5 h-1.5 rounded-full bg-[var(--color-text-muted)]/30 transition-all duration-300"
+            data-index={i}
+            aria-label={`Go to step ${i + 1}`}
+          />
         ))}
       </div>
     </div>
@@ -118,19 +110,39 @@ const steps = [
 </section>
 
 <style>
+  .scroll-snap-x {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scroll-snap-x::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll-snap-start {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
   .process-step {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
+    transform: translateY(16px);
+    transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
   }
   .process-step.visible {
     opacity: 1;
     transform: translateY(0);
   }
+  .process-dot.active {
+    background-color: var(--color-accent);
+    width: 1.25rem;
+    border-radius: 9999px;
+  }
 </style>
 
 <script>
   (function() {
+    // IntersectionObserver for reveal animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -139,17 +151,42 @@ const steps = [
           const index = siblings.indexOf(step);
           setTimeout(() => {
             step.classList.add('visible');
-          }, index * 120);
+          }, index * 80);
           observer.unobserve(step);
         }
       });
     }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.1,
+      rootMargin: '0px 0px -20px 0px',
     });
 
     document.querySelectorAll('.process-step').forEach((step) => {
       observer.observe(step);
     });
+
+    // Mobile scroll dots
+    const scrollTrack = document.getElementById('process-scroll');
+    const dots = document.querySelectorAll('.process-dot');
+    if (scrollTrack && dots.length > 0) {
+      const updateDots = () => {
+        const scrollLeft = scrollTrack.scrollLeft;
+        const cardWidth = scrollTrack.querySelector('.process-step')?.clientWidth || 300;
+        const gap = 12;
+        const index = Math.round(scrollLeft / (cardWidth + gap));
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+      };
+      scrollTrack.addEventListener('scroll', updateDots, { passive: true });
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const idx = parseInt(dot.getAttribute('data-index') || '0');
+          const cardWidth = scrollTrack.querySelector('.process-step')?.clientWidth || 300;
+          const gap = 12;
+          scrollTrack.scrollTo({ left: idx * (cardWidth + gap), behavior: 'smooth' });
+        });
+      });
+      updateDots();
+    }
   })();
 </script>
