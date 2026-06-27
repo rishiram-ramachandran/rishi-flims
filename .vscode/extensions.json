@@ -36,6 +36,9 @@
     // ─── JetBrains-like Theme ────────────────────────────────
     "whizkydee.material-palenight-theme",
 
+    // ─── PhpStorm / IntelliJ Keybindings ─────────────────────
+    "k--kato.intellij-idea-keybindings",
+
     // ─── Productivity ─────────────────────────────────────────
     "christian-kohler.path-intellisense",
     "alefragnani.bookmarks",
