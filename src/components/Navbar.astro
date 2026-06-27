@@ -34,7 +34,6 @@ const navLinks = [
             data-cursor-grow
           >
             {link.label}
-            <!-- Active dot indicator -->
             <span class="nav-dot absolute -top-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--color-accent)] opacity-0 transition-opacity duration-300"></span>
           </a>
         </li>
@@ -44,14 +43,13 @@ const navLinks = [
     <!-- Mobile Menu Button -->
     <button
       id="mobile-menu-btn"
-      class="md:hidden flex flex-col gap-1.5 p-1 cursor-pointer"
+      class="md:hidden relative flex flex-col justify-center items-center w-8 h-8 cursor-pointer"
       aria-label="Toggle menu"
       aria-expanded="false"
-      data-cursor-grow
     >
-      <span class="menu-line block w-5 h-px bg-[var(--color-text)] transition-transform duration-300 origin-center"></span>
-      <span class="menu-line block w-5 h-px bg-[var(--color-text)] transition-opacity duration-300"></span>
-      <span class="menu-line block w-5 h-px bg-[var(--color-text)] transition-transform duration-300 origin-center"></span>
+      <span class="menu-line block w-5 h-0.5 bg-[var(--color-text)] transition-all duration-300 absolute" style="top: 8px;"></span>
+      <span class="menu-line block w-5 h-0.5 bg-[var(--color-text)] transition-all duration-300 absolute" style="top: 14px;"></span>
+      <span class="menu-line block w-5 h-0.5 bg-[var(--color-text)] transition-all duration-300 absolute" style="top: 20px;"></span>
     </button>
   </div>
 
@@ -103,17 +101,20 @@ const navLinks = [
     color: var(--color-text);
   }
 
-  /* Mobile menu button animations */
+  /* Mobile menu button animations - FIX */
   #mobile-menu-btn.open .menu-line:nth-child(1) {
-    transform: rotate(45deg) translate(3px, 3px);
+    top: 14px !important;
+    transform: rotate(45deg);
   }
 
   #mobile-menu-btn.open .menu-line:nth-child(2) {
     opacity: 0;
+    transform: translateX(-10px);
   }
 
   #mobile-menu-btn.open .menu-line:nth-child(3) {
-    transform: rotate(-45deg) translate(3px, -3px);
+    top: 14px !important;
+    transform: rotate(-45deg);
   }
 
   /* Mobile menu clip-path reveal */
@@ -151,7 +152,7 @@ const navLinks = [
     const navLinks = document.querySelectorAll('.nav-link');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-    // Scroll handler - show navbar after 80px and change style
+    // Scroll handler - show navbar after 80px
     const handleScroll = () => {
       const currentScroll = window.scrollY;
 
@@ -165,7 +166,6 @@ const navLinks = [
         navbar?.classList.add('opacity-0', '-translate-y-24');
         navbarInner?.classList.add('navbar-transparent');
         navbarInner?.classList.remove('navbar-scrolled');
-        // Close mobile menu when scrolling to top
         closeMobileMenu();
       }
     };
@@ -173,7 +173,7 @@ const navLinks = [
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    // Mobile menu toggle
+    // Mobile menu functions
     const closeMobileMenu = () => {
       mobileMenuBtn?.classList.remove('open');
       mobileMenu?.classList.remove('open');
@@ -181,12 +181,22 @@ const navLinks = [
     };
 
     const toggleMobileMenu = () => {
-      const isOpen = mobileMenuBtn?.classList.toggle('open');
-      mobileMenu?.classList.toggle('open');
-      mobileMenuBtn?.setAttribute('aria-expanded', String(isOpen));
+      const isCurrentlyOpen = mobileMenuBtn?.classList.contains('open');
+
+      if (isCurrentlyOpen) {
+        closeMobileMenu();
+      } else {
+        mobileMenuBtn?.classList.add('open');
+        mobileMenu?.classList.add('open');
+        mobileMenuBtn?.setAttribute('aria-expanded', 'true');
+      }
     };
 
-    mobileMenuBtn?.addEventListener('click', toggleMobileMenu);
+    mobileMenuBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleMobileMenu();
+    });
 
     // Close on link click
     mobileNavLinks.forEach((link) => {
@@ -196,6 +206,15 @@ const navLinks = [
     // Close on Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && mobileMenu?.classList.contains('open')) {
+        closeMobileMenu();
+      }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (mobileMenu?.classList.contains('open') &&
+          !mobileMenu.contains(e.target as Node) &&
+          !mobileMenuBtn?.contains(e.target as Node)) {
         closeMobileMenu();
       }
     });

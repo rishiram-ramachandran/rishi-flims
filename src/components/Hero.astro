@@ -77,8 +77,9 @@ const { contact } = siteData;
       </div>
     </div>
 
-    <!-- RIGHT PANEL (Image) -->
+    <!-- RIGHT PANEL -->
     <div class="relative h-full overflow-hidden hero-element" data-delay="1000">
+      <!-- Cinematic background image -->
       <img
         src="https://images.pexels.com/photos/3062541/pexels-photo-3062541.jpeg?auto=compress&cs=tinysrgb&w=1920"
         alt=""
@@ -86,7 +87,8 @@ const { contact } = siteData;
         loading="eager"
         fetchpriority="high"
       />
-      <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)]/60 via-[var(--color-bg)]/20 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)]/70 via-[var(--color-bg)]/30 to-transparent"></div>
+
       <!-- Availability badge (desktop) -->
       <div class="absolute top-8 right-8 lg:top-12 lg:right-12">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-bg)]/60 backdrop-blur-md border border-[var(--color-border-light)]">
@@ -97,6 +99,31 @@ const { contact } = siteData;
           <span class="text-[var(--color-text)] text-[10px] font-semibold tracking-wider uppercase">Available for Projects</span>
         </div>
       </div>
+
+      <!-- Creative Contact Button (Fixed Right Side) -->
+      <div class="creative-contact-btn absolute right-4 top-1/2 -translate-y-1/2 hero-element" data-delay="1300">
+        <a
+          href="#contact"
+          class="group flex flex-col items-center justify-center w-14 h-48 rounded-full bg-[var(--color-bg)]/80 backdrop-blur-md border border-[var(--color-accent)]/30 hover:border-[var(--color-accent)] transition-all duration-500 hover:bg-[var(--color-accent)]/10"
+          data-cursor-grow
+        >
+          <!-- Vertical text -->
+          <span class="font-display text-xs tracking-[0.2em] text-[var(--color-accent)] rotate-180 writing-mode-vertical" style="writing-mode: vertical-rl;">
+            LET'S TALK
+          </span>
+          <!-- Arrow icon -->
+          <div class="mt-3 w-8 h-8 rounded-full bg-[var(--color-accent)]/20 flex items-center justify-center group-hover:bg-[var(--color-accent)] transition-all duration-300">
+            <svg class="w-4 h-4 text-[var(--color-accent)] group-hover:text-[var(--color-bg)] transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17L17 7M17 7H7M17 7V17"/>
+            </svg>
+          </div>
+          <!-- Contact icon -->
+          <svg class="mt-3 w-5 h-5 text-[var(--color-accent)]/70 group-hover:text-[var(--color-accent)] transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </a>
+      </div>
     </div>
 
     <!-- CENTER DIVIDER LINE -->
@@ -105,7 +132,7 @@ const { contact } = siteData;
     </div>
   </div>
 
-  <!-- MOBILE: Full-screen premium layout without image -->
+  <!-- MOBILE: Full-screen premium layout -->
   <div class="md:hidden relative min-h-[100dvh] flex flex-col justify-center px-6 py-16">
     <!-- Animated background elements -->
     <div class="absolute inset-0 overflow-hidden">
@@ -114,14 +141,22 @@ const { contact } = siteData;
       <div class="mobile-orb orb-2 absolute w-[250px] h-[250px] rounded-full bg-[var(--color-accent)]/3 blur-3xl"></div>
       <div class="mobile-orb orb-3 absolute w-[200px] h-[200px] rounded-full bg-[var(--color-accent)]/4 blur-3xl"></div>
 
+      <!-- Cinematic lens flare lines -->
+      <div class="lens-flare lens-1 absolute w-full h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/20 to-transparent top-[20%]"></div>
+      <div class="lens-flare lens-2 absolute w-full h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/15 to-transparent top-[50%]"></div>
+      <div class="lens-flare lens-3 absolute w-full h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/10 to-transparent top-[80%]"></div>
+
       <!-- Grid lines accent -->
       <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(var(--color-accent) 1px, transparent 1px), linear-gradient(90deg, var(--color-accent) 1px, transparent 1px); background-size: 60px 60px;"></div>
 
       <!-- Corner accent lines -->
-      <div class="absolute top-0 left-0 w-24 h-px bg-gradient-to-r from-[var(--color-accent)]/40 to-transparent"></div>
-      <div class="absolute top-0 left-0 w-px h-24 bg-gradient-to-b from-[var(--color-accent)]/40 to-transparent"></div>
-      <div class="absolute bottom-0 right-0 w-24 h-px bg-gradient-to-l from-[var(--color-accent)]/40 to-transparent"></div>
-      <div class="absolute bottom-0 right-0 w-px h-24 bg-gradient-to-t from-[var(--color-accent)]/40 to-transparent"></div>
+      <div class="absolute top-0 left-0 w-32 h-px bg-gradient-to-r from-[var(--color-accent)]/50 to-transparent"></div>
+      <div class="absolute top-0 left-0 w-px h-32 bg-gradient-to-b from-[var(--color-accent)]/50 to-transparent"></div>
+      <div class="absolute bottom-0 right-0 w-32 h-px bg-gradient-to-l from-[var(--color-accent)]/50 to-transparent"></div>
+      <div class="absolute bottom-0 right-0 w-px h-32 bg-gradient-to-t from-[var(--color-accent)]/50 to-transparent"></div>
+
+      <!-- Film grain overlay -->
+      <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
     </div>
 
     <!-- Content -->
@@ -134,6 +169,17 @@ const { contact } = siteData;
             <span class="availability-dot relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--color-accent)]"></span>
           </span>
           <span class="text-[var(--color-accent)] text-[9px] font-semibold tracking-wider uppercase">Available for Projects</span>
+        </div>
+      </div>
+
+      <!-- Animated "RISHI FILMS" branding -->
+      <div class="hero-element mb-6" data-delay="50">
+        <div class="brand-animated overflow-hidden">
+          <span class="font-display text-[clamp(1rem,4vw,1.5rem)] tracking-[0.3em] text-[var(--color-accent)] uppercase inline-block">
+            <span class="brand-letter" style="display: inline-block; opacity: 0; transform: translateY(100%);">R</span><span class="brand-letter" style="display: inline-block; opacity: 0; transform: translateY(100%);">I</span><span class="brand-letter" style="display: inline-block; opacity: 0; transform: translateY(100%);">S</span><span class="brand-letter" style="display: inline-block; opacity: 0; transform: translateY(100%);">H</span><span class="brand-letter" style="display: inline-block; opacity: 0; transform: translateY(100%);">I</span>
+            <span class="mx-2"></span>
+            <span class="brand-letter" style="display: inline-block; opacity: 0; transform: translateY(100%);">F</span><span class="brand-letter" style="display: inline-block; opacity: 0; transform: translateY(100%);">I</span><span class="brand-letter" style="display: inline-block; opacity: 0; transform: translateY(100%);">L</span><span class="brand-letter" style="display: inline-block; opacity: 0; transform: translateY(100%);">M</span><span class="brand-letter" style="display: inline-block; opacity: 0; transform: translateY(100%);">S</span>
+          </span>
         </div>
       </div>
 
@@ -198,6 +244,20 @@ const { contact } = siteData;
           </svg>
         </div>
       </div>
+
+      <!-- Mobile Contact Button -->
+      <div class="mt-8 hero-element" data-delay="1200">
+        <a
+          href="#contact"
+          class="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-[var(--color-bg)]/60 backdrop-blur-md border border-[var(--color-accent)]/30 hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)]/10 transition-all duration-300"
+        >
+          <svg class="w-5 h-5 text-[var(--color-accent)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <span class="font-display text-sm tracking-wider text-[var(--color-accent)] uppercase">Let's Talk</span>
+        </a>
+      </div>
     </div>
 
     <!-- Scroll Indicator -->
@@ -212,7 +272,6 @@ const { contact } = siteData;
 </section>
 
 <style>
-  /* Hero entrance animations */
   .hero-element {
     opacity: 0;
     transform: translateY(20px);
@@ -224,7 +283,6 @@ const { contact } = siteData;
     transform: translateY(0);
   }
 
-  /* Headline specific transforms */
   h1 .hero-element {
     transform: translateX(-40px);
   }
@@ -319,6 +377,27 @@ const { contact } = siteData;
     50% { transform: translate(-15px, 25px) scale(1.08); }
   }
 
+  /* Lens flare animations */
+  .lens-flare {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .lens-flare.flare-animate {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .lens-1 { transition: all 1s ease-out 0.3s; }
+  .lens-2 { transition: all 1.2s ease-out 0.5s; }
+  .lens-3 { transition: all 1.4s ease-out 0.7s; }
+
+  /* Creative contact button */
+  .creative-contact-btn {
+    writing-mode: vertical-rl;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-element {
       opacity: 1;
@@ -333,12 +412,24 @@ const { contact } = siteData;
     .hero-divider-dot,
     .scroll-dot-bounce,
     .rotating-circle,
-    .mobile-orb {
+    .mobile-orb,
+    .brand-letter,
+    .lens-flare {
       animation: none;
     }
 
     .mobile-orb {
       display: none;
+    }
+
+    .lens-flare {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .brand-letter {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
     }
   }
 
@@ -366,6 +457,13 @@ const { contact } = siteData;
         });
         document.querySelectorAll('.mobile-orb').forEach((el) => {
           el.classList.add('orb-animate');
+        });
+        document.querySelectorAll('.lens-flare').forEach((el) => {
+          el.classList.add('flare-animate');
+        });
+        document.querySelectorAll('.brand-letter').forEach((el) => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
         });
         return;
       }
@@ -395,19 +493,36 @@ const { contact } = siteData;
         }, 300 + (i * 150));
       });
 
-      // Mobile headline letter animation (GSAP)
+      // Lens flare animations
+      const flares = document.querySelectorAll('.lens-flare');
+      flares.forEach((flare) => {
+        setTimeout(() => {
+          flare.classList.add('flare-animate');
+        }, 500);
+      });
+
+      // "RISHI FILMS" letter animation (mobile)
       const isMobile = window.innerWidth < 768;
       if (isMobile) {
+        const brandLetters = document.querySelectorAll('.brand-letter');
+        gsap.to(brandLetters, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.05,
+          ease: 'power3.out',
+          delay: 0.1
+        });
+
+        // Headline character animation
         const headlines = document.querySelectorAll('.hero-headline-mobile');
         headlines.forEach((headline) => {
           const text = headline.textContent || '';
           if (text) {
-            // Split into characters for premium effect
-            headline.innerHTML = text.split('').map((char, i) =>
+            headline.innerHTML = text.split('').map((char) =>
               `<span class="char" style="display: inline-block; opacity: 0; transform: translateY(40px) scale(0.9);">${char === ' ' ? '&nbsp;' : char}</span>`
             ).join('');
 
-            // Animate characters
             gsap.to(headline.querySelectorAll('.char'), {
               opacity: 1,
               y: 0,
