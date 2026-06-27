@@ -5,6 +5,7 @@ const navLinks = [
   { label: 'Work', href: '#portfolio' },
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
+  { label: 'Process', href: '#process' },
   { label: 'Contact', href: '#contact' },
 ];
 ---
@@ -13,8 +14,8 @@ const navLinks = [
   id="navbar"
   class="fixed top-5 left-1/2 -translate-x-1/2 z-[1000] opacity-0 -translate-y-24 transition-all duration-500 ease-[var(--ease-out-expo)]"
 >
-  <div class="glass rounded-full px-6 py-3 flex items-center gap-8">
-    <a href="#hero" class="flex items-center group" aria-label="Rishi Films Home">
+  <div id="navbar-inner" class="navbar-transparent rounded-full px-6 py-3 flex items-center gap-8 transition-all duration-400">
+    <a href="#hero" class="flex items-center group" aria-label="Rishi Films Home" data-cursor-grow>
       <LogoFull
         size={24}
         color="currentColor"
@@ -25,13 +26,15 @@ const navLinks = [
     <!-- Desktop Links -->
     <ul class="hidden md:flex items-center gap-6">
       {navLinks.map((link) => (
-        <li>
+        <li class="relative">
           <a
             href={link.href}
-            class="nav-link text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors duration-300 tracking-wide"
+            class="nav-link relative text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors duration-300 tracking-wide py-2"
             data-target={link.href}
+            data-cursor-grow
           >
             {link.label}
+            <span class="nav-dot absolute -top-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--color-accent)] opacity-0 transition-opacity duration-300"></span>
           </a>
         </li>
       ))}
@@ -40,27 +43,28 @@ const navLinks = [
     <!-- Mobile Menu Button -->
     <button
       id="mobile-menu-btn"
-      class="md:hidden flex flex-col gap-1.5 p-1 cursor-pointer"
+      class="md:hidden relative flex flex-col justify-center items-center w-8 h-8 cursor-pointer"
       aria-label="Toggle menu"
       aria-expanded="false"
     >
-      <span class="block w-5 h-px bg-[var(--color-text)] transition-transform duration-300 origin-center"></span>
-      <span class="block w-5 h-px bg-[var(--color-text)] transition-opacity duration-300"></span>
-      <span class="block w-5 h-px bg-[var(--color-text)] transition-transform duration-300 origin-center"></span>
+      <span class="menu-line block w-5 h-0.5 bg-[var(--color-text)] transition-all duration-300 absolute" style="top: 8px;"></span>
+      <span class="menu-line block w-5 h-0.5 bg-[var(--color-text)] transition-all duration-300 absolute" style="top: 14px;"></span>
+      <span class="menu-line block w-5 h-0.5 bg-[var(--color-text)] transition-all duration-300 absolute" style="top: 20px;"></span>
     </button>
   </div>
 
   <!-- Mobile Menu -->
   <div
     id="mobile-menu"
-    class="md:hidden absolute top-full left-1/2 -translate-x-1/2 mt-3 glass rounded-2xl p-6 opacity-0 pointer-events-none scale-95 transition-all duration-300 ease-[var(--ease-out-expo)] min-w-[240px]"
+    class="mobile-menu md:hidden absolute top-full left-1/2 -translate-x-1/2 mt-3 rounded-2xl p-6 min-w-[260px] overflow-hidden"
   >
-    <ul class="flex flex-col gap-4">
-      {navLinks.map((link) => (
-        <li>
+    <div class="mobile-menu-bg absolute inset-0 bg-[var(--color-bg-secondary)]/95 backdrop-blur-xl border border-[var(--color-border-light)]"></div>
+    <ul class="mobile-menu-links relative z-10 flex flex-col gap-4 opacity-0">
+      {navLinks.map((link, i) => (
+        <li style={`--delay: ${i * 80}ms`}>
           <a
             href={link.href}
-            class="mobile-nav-link block text-base font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors duration-300 tracking-wide"
+            class="mobile-nav-link block text-base font-medium text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors duration-300 tracking-wide opacity-0 translate-y-2"
             data-target={link.href}
           >
             {link.label}
@@ -72,78 +76,174 @@ const navLinks = [
 </nav>
 
 <style>
-  nav.visible .glass {
+  /* Transparent state (over hero) */
+  .navbar-transparent {
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+  }
+
+  /* Scrolled state */
+  .navbar-scrolled {
+    background: rgba(11, 11, 11, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(200, 169, 107, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    border-color: rgba(200, 169, 107, 0.1);
+  }
+
+  /* Active nav link */
+  .nav-link.active .nav-dot {
+    opacity: 1;
   }
 
   .nav-link.active {
-    color: var(--color-accent);
+    color: var(--color-text);
   }
 
-  #mobile-menu-btn.open span:nth-child(1) {
-    transform: rotate(45deg) translate(3px, 3px);
+  /* Mobile menu button animations - FIX */
+  #mobile-menu-btn.open .menu-line:nth-child(1) {
+    top: 14px !important;
+    transform: rotate(45deg);
   }
 
-  #mobile-menu-btn.open span:nth-child(2) {
+  #mobile-menu-btn.open .menu-line:nth-child(2) {
     opacity: 0;
+    transform: translateX(-10px);
   }
 
-  #mobile-menu-btn.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(3px, -3px);
+  #mobile-menu-btn.open .menu-line:nth-child(3) {
+    top: 14px !important;
+    transform: rotate(-45deg);
   }
 
-  #mobile-menu.open {
+  /* Mobile menu clip-path reveal */
+  .mobile-menu {
+    clip-path: circle(0% at top right);
+    transition: clip-path 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .mobile-menu.open {
+    clip-path: circle(150% at top right);
+  }
+
+  .mobile-menu.open .mobile-menu-links {
     opacity: 1;
-    pointer-events: auto;
-    transform: translateX(-50%) scale(1);
+  }
+
+  .mobile-menu.open .mobile-nav-link {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition-delay: var(--delay);
+  }
+
+  .mobile-nav-link {
+    transform: translateY(8px);
   }
 </style>
 
 <script>
   (function() {
     const navbar = document.getElementById('navbar');
+    const navbarInner = document.getElementById('navbar-inner');
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const navLinks = document.querySelectorAll('.nav-link');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
+    // Scroll handler - show navbar after 80px
     const handleScroll = () => {
       const currentScroll = window.scrollY;
+
       if (currentScroll > 80) {
         navbar?.classList.add('visible', 'opacity-100', 'translate-y-0');
         navbar?.classList.remove('opacity-0', '-translate-y-24');
+        navbarInner?.classList.remove('navbar-transparent');
+        navbarInner?.classList.add('navbar-scrolled');
       } else {
         navbar?.classList.remove('visible', 'opacity-100', 'translate-y-0');
         navbar?.classList.add('opacity-0', '-translate-y-24');
-        mobileMenuBtn?.classList.remove('open');
-        mobileMenu?.classList.remove('open');
-        mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+        navbarInner?.classList.add('navbar-transparent');
+        navbarInner?.classList.remove('navbar-scrolled');
+        closeMobileMenu();
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Initialize positioning on load
     handleScroll();
 
-    mobileMenuBtn?.addEventListener('click', () => {
-      const isOpen = mobileMenuBtn.classList.toggle('open');
-      mobileMenu?.classList.toggle('open');
-      mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    // Mobile menu functions
+    const closeMobileMenu = () => {
+      if (mobileMenuBtn) {
+        mobileMenuBtn.classList.remove('open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      }
+      if (mobileMenu) {
+        mobileMenu.classList.remove('open');
+      }
+    };
+
+    const openMobileMenu = () => {
+      if (mobileMenuBtn) {
+        mobileMenuBtn.classList.add('open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+      }
+      if (mobileMenu) {
+        mobileMenu.classList.add('open');
+      }
+    };
+
+    const toggleMobileMenu = () => {
+      if (mobileMenuBtn?.classList.contains('open')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    };
+
+    // Click handler
+    mobileMenuBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleMobileMenu();
     });
 
+    // Touch handler for mobile
+    mobileMenuBtn?.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleMobileMenu();
+    }, { passive: false });
+
+    // Close on link click
     mobileNavLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        mobileMenuBtn?.classList.remove('open');
-        mobileMenu?.classList.remove('open');
-        mobileMenuBtn?.setAttribute('aria-expanded', 'false');
-      });
+      link.addEventListener('click', closeMobileMenu);
     });
 
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu?.classList.contains('open')) {
+        closeMobileMenu();
+      }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (mobileMenu?.classList.contains('open') &&
+          !mobileMenu.contains(target) &&
+          !mobileMenuBtn?.contains(target)) {
+        closeMobileMenu();
+      }
+    });
+
+    // Active section detection
     const sections = document.querySelectorAll('section[id]');
-    window.addEventListener('scroll', () => {
+    const updateActiveLink = () => {
       let current = '';
       const scrollPos = window.scrollY + 150;
+
       sections.forEach((section) => {
         const sectionTop = (section as HTMLElement).offsetTop;
         const sectionHeight = (section as HTMLElement).offsetHeight;
@@ -152,6 +252,7 @@ const navLinks = [
           current = id;
         }
       });
+
       navLinks.forEach((link) => {
         link.classList.remove('active');
         const target = link.getAttribute('data-target');
@@ -159,13 +260,17 @@ const navLinks = [
           link.classList.add('active');
         }
       });
-    }, { passive: true });
+    };
 
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
+    updateActiveLink();
+
+    // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
+      anchor.addEventListener('click', function(this: HTMLAnchorElement, e: Event) {
         const href = this.getAttribute('href');
-        if (href && href !== '#') {
+        if (href && href !== '#' && href !== '#contact') {
+          e.preventDefault();
           const target = document.querySelector(href);
           if (target) {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
