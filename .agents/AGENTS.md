@@ -1,4 +1,4 @@
-﻿# AGENTS.md — Rishi Films Portfolio: Industrial-Level Rules
+# AGENTS.md — Rishi Films Portfolio: Industrial-Level Rules
 
 > **Scope**: These rules apply to ALL work on the `rishi-flims` project.
 > They are authoritative. When in doubt, follow these rules strictly.
