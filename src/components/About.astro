@@ -4,9 +4,9 @@ import siteData from '../data/site.json';
 const { profileImage } = siteData;
 ---
 
-<section id="about" class="relative py-16 md:py-20 overflow-hidden">
+<section id="about" class="relative py-16 md:py-20 lg:py-24 overflow-hidden">
   <!-- Subtle background texture -->
-  <div class="absolute inset-0 opacity-15">
+  <div class="absolute inset-0 opacity-20">
     <img
       src="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1920"
       alt=""
@@ -30,43 +30,41 @@ const { profileImage } = siteData;
           <div class="absolute -bottom-1 -left-1 w-6 h-6 border-b-2 border-l-2 border-[var(--color-accent)] rounded-bl-lg"></div>
           <div class="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-[var(--color-accent)] rounded-br-lg"></div>
 
-          <div class="relative aspect-[3/4] overflow-hidden rounded-xl bg-[var(--color-bg-secondary)] about-image-container">
+          <div class="relative aspect-[3/4] overflow-hidden rounded-xl bg-[var(--color-bg-secondary)]">
             <img
               src={profileImage}
               alt="Rishiram - Videographer & Video Editor"
-              class="w-full h-full object-cover about-image"
+              class="w-full h-full object-cover"
               loading="lazy"
               width="600"
               height="800"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)]/40 via-transparent to-transparent"></div>
-            <!-- Border animation overlay -->
-            <div class="absolute inset-0 border-animation opacity-0 transition-opacity duration-500"></div>
           </div>
         </div>
       </div>
 
       <!-- Content -->
-      <div>
-        <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-3 animate-on-scroll" data-reveal="fade-up">About</p>
-        <h2 class="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-5" data-reveal="line">
-          FROM CONCEPT TO FINAL CUT.
+      <div class="animate-on-scroll fade-right">
+        <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-3">About</p>
+        <h2 class="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)] mb-5">
+          FROM CONCEPT<br/>TO FINAL CUT.
         </h2>
-        <div class="space-y-4 text-[var(--color-text-muted)] text-base leading-relaxed max-w-lg" data-reveal-stagger>
-          <p data-reveal="fade-up">
+        <div class="space-y-4 text-[var(--color-text-muted)] text-base leading-relaxed max-w-lg">
+          <p>
             I'm Rishiram, a videographer and video editor based in Tamil Nadu, helping business owners turn their products and moments into cinematic content. From concept to final cut, I shoot it, edit it, and deliver it — so you get a finished story, not just footage.
           </p>
-          <p data-reveal="fade-up">
+          <p>
             I've collaborated with brands like <span class="text-[var(--color-text)]">TVS</span>, <span class="text-[var(--color-text)]">TVS Racing</span>, <span class="text-[var(--color-text)]">Oppo India</span>, <span class="text-[var(--color-text)]">Vivo</span>, and <span class="text-[var(--color-text)]">Insta360</span>, creating promotional content that's been featured and pushed live on their own channels.
           </p>
-          <p data-reveal="fade-up">
+          <p>
             Beyond production, I run influencer-style promotions for brands. Through my travel and vlogging platform, <a href="https://www.instagram.com/iam_.anonymous__" target="_blank" rel="noopener noreferrer" class="text-[var(--color-text)] hover:text-[var(--color-accent)] hover:underline transition-colors duration-300">@iam_.anonymous__</a> (which has over 194K+ followers), I create and publish high-engagement reels that drive real reach and brand awareness, going beyond just delivering a video file.
           </p>
         </div>
 
-        <div class="mt-8 pt-5 border-t border-[var(--color-border)] animate-on-scroll">
-          <p class="davinci-badge text-[var(--color-accent)] text-sm font-medium tracking-wide flex items-center gap-2 w-fit px-3 py-1.5 rounded-full bg-[var(--color-accent)]/5 border border-[var(--color-accent)]/15">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div class="mt-8 pt-5 border-t border-[var(--color-border)]">
+          <p class="text-[var(--color-accent)] text-sm font-medium tracking-wide flex items-center gap-2">
+            <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/>
               <path d="M12 6v6l4 2"/>
             </svg>
@@ -76,91 +74,4 @@ const { profileImage } = siteData;
       </div>
     </div>
   </div>
-
-  <!-- Marquee Ticker -->
-  <div class="mt-12 md:mt-16 relative overflow-hidden py-4 bg-[var(--color-bg-secondary)]/50 border-y border-[var(--color-border)]">
-    <div class="marquee-text flex whitespace-nowrap" aria-hidden="true">
-      <span class="text-[var(--color-accent)]/60 text-xs font-semibold tracking-[0.15em] uppercase px-4">
-        VIDEOGRAPHY · VIDEO EDITING · BRAND PROMOTIONS · CINEMATIC CONTENT · 194K+ FOLLOWERS · TVS · OPPO · VIVO · INSTA360 · DAVINCI RESOLVE ·
-      </span>
-      <span class="text-[var(--color-accent)]/60 text-xs font-semibold tracking-[0.15em] uppercase px-4">
-        VIDEOGRAPHY · VIDEO EDITING · BRAND PROMOTIONS · CINEMATIC CONTENT · 194K+ FOLLOWERS · TVS · OPPO · VIVO · INSTA360 · DAVINCI RESOLVE ·
-      </span>
-    </div>
-  </div>
 </section>
-
-<style>
-  .about-image-container {
-    position: relative;
-  }
-
-  .about-image-container.revealed .about-image {
-    clip-path: inset(0% 0 0 0);
-  }
-
-  .about-image {
-    clip-path: inset(100% 0 0 0);
-    transition: clip-path 0.8s var(--ease-out-expo);
-  }
-
-  .border-animation {
-    position: absolute;
-    inset: 0;
-    border: 2px solid var(--color-accent);
-    border-radius: inherit;
-    animation: border-glow 2s ease-in-out infinite;
-  }
-
-  .about-image-container:hover .border-animation {
-    opacity: 1;
-  }
-
-  @keyframes border-glow {
-    0%, 100% { box-shadow: 0 0 0 rgba(200, 169, 107, 0); }
-    50% { box-shadow: 0 0 12px rgba(200, 169, 107, 0.4); }
-  }
-
-  .davinci-badge {
-    animation: badge-pulse 3s ease-in-out infinite;
-  }
-
-  @keyframes badge-pulse {
-    0%, 100% { box-shadow: 0 0 0 rgba(200, 169, 107, 0); }
-    50% { box-shadow: 0 0 8px rgba(200, 169, 107, 0.25); }
-  }
-
-  .marquee-text {
-    animation: marquee-scroll 30s linear infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .about-image {
-      clip-path: inset(0);
-    }
-    .davinci-badge,
-    .marquee-text {
-      animation: none;
-    }
-  }
-</style>
-
-<script>
-  (function() {
-    // Image reveal animation
-    const imageContainer = document.querySelector('.about-image-container');
-    if (imageContainer) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              imageContainer.classList.add('revealed');
-            }, 200);
-            observer.disconnect();
-          }
-        });
-      }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
-      observer.observe(imageContainer);
-    }
-  })();
-</script>

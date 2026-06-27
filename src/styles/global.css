@@ -15,7 +15,6 @@
   --font-body: 'Inter', sans-serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out-expo: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 /* ============================================
@@ -37,17 +36,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Hide default cursor on desktop (JS will detect touch) */
-body.cursor-hidden {
-  cursor: none;
-}
-
-body.cursor-hidden a,
-body.cursor-hidden button,
-body.cursor-hidden [data-cursor-grow] {
-  cursor: none;
-}
-
 img {
   max-width: 100%;
   height: auto;
@@ -67,231 +55,7 @@ img {
 }
 
 /* ============================================
-   PAGE LOADER
-   ============================================ */
-
-.page-loader {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  background: var(--color-bg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(0);
-  transition: transform 0.7s var(--ease-in-out-expo);
-}
-
-.page-loader.loaded {
-  transform: translateY(-100%);
-}
-
-.page-loader-logo {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  letter-spacing: 0.3em;
-  color: var(--color-text);
-  margin-bottom: 2rem;
-}
-
-.page-loader-bar {
-  width: 200px;
-  height: 2px;
-  background: var(--color-border);
-  overflow: hidden;
-  border-radius: 1px;
-}
-
-.page-loader-progress {
-  width: 0%;
-  height: 100%;
-  background: var(--color-accent);
-  animation: loader-fill 0.8s var(--ease-out-expo) forwards;
-}
-
-@keyframes loader-fill {
-  0% { width: 0%; }
-  100% { width: 100%; }
-}
-
-/* ============================================
-   NOISE TEXTURE OVERLAY (Fixed)
-   ============================================ */
-
-.noise-overlay-global {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.035;
-}
-
-.noise-overlay::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='5'/%3E%3C/filter%3E%3Crect width='400' height='400' fill='%23000'/%3E%3Crect width='400' height='400' fill='%23fff' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 200px 200px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* ============================================
-   CUSTOM CURSOR
-   ============================================ */
-
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 10001;
-  mix-blend-mode: normal;
-}
-
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--color-accent);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.15s, height 0.15s, background 0.15s;
-}
-
-.cursor-ring {
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--color-accent);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.25s var(--ease-out-expo),
-              height 0.25s var(--ease-out-expo),
-              border 0.25s,
-              background 0.25s;
-}
-
-.cursor-grow .cursor-ring {
-  width: 80px;
-  height: 80px;
-  background: rgba(200, 169, 107, 0.15);
-  border-color: var(--color-accent-light);
-}
-
-.cursor-play .cursor-ring {
-  width: 70px;
-  height: 70px;
-  background: rgba(200, 169, 107, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cursor-play .cursor-ring::after {
-  content: 'PLAY';
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: var(--color-accent);
-}
-
-/* Hide on touch devices */
-@media (hover: none) {
-  .custom-cursor {
-    display: none !important;
-  }
-}
-
-/* ============================================
-   DATA REVEAL ANIMATION SYSTEM
-   ============================================ */
-
-/* Default visible state (no JS fallback) */
-[data-reveal] {
-  opacity: 1;
-  transform: none;
-  transition: opacity 0.6s var(--ease-out-expo),
-              transform 0.6s var(--ease-out-expo);
-}
-
-/* JS-enabled initial hidden state */
-.js [data-reveal="fade-up"] {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-.js [data-reveal="fade-left"] {
-  opacity: 0;
-  transform: translateX(-40px);
-}
-
-.js [data-reveal="fade-right"] {
-  opacity: 0;
-  transform: translateX(40px);
-}
-
-.js [data-reveal="scale-in"] {
-  opacity: 0;
-  transform: scale(0.94);
-}
-
-/* Revealed state */
-[data-reveal].revealed {
-  opacity: 1;
-  transform: none;
-}
-
-[data-reveal="fade-left"].revealed,
-[data-reveal="fade-right"].revealed {
-  transform: translateX(0);
-}
-
-/* Line reveal (curtain) */
-[data-reveal="line"] .word {
-  display: inline-block;
-  overflow: hidden;
-}
-
-[data-reveal="line"] .word span {
-  display: inline-block;
-  transform: translateY(110%);
-  transition: transform 0.6s var(--ease-out-expo);
-}
-
-[data-reveal="line"].revealed .word span {
-  transform: translateY(0);
-}
-
-/* Stagger children */
-[data-reveal-stagger] > [data-reveal]:nth-child(1) { transition-delay: 0ms; }
-[data-reveal-stagger] > [data-reveal]:nth-child(2) { transition-delay: 100ms; }
-[data-reveal-stagger] > [data-reveal]:nth-child(3) { transition-delay: 200ms; }
-[data-reveal-stagger] > [data-reveal]:nth-child(4) { transition-delay: 300ms; }
-[data-reveal-stagger] > [data-reveal]:nth-child(5) { transition-delay: 400ms; }
-[data-reveal-stagger] > [data-reveal]:nth-child(6) { transition-delay: 500ms; }
-[data-reveal-stagger] > [data-reveal]:nth-child(7) { transition-delay: 600ms; }
-[data-reveal-stagger] > [data-reveal]:nth-child(8) { transition-delay: 700ms; }
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal],
-  .js [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-  [data-reveal="line"] .word span {
-    transform: translateY(0) !important;
-  }
-}
-
-/* ============================================
-   LEGACY SCROLL ANIMATIONS (backwards compat)
+   SCROLL ANIMATIONS
    ============================================ */
 
 .animate-on-scroll {
@@ -337,12 +101,28 @@ img {
 .stagger-children > .animate-on-scroll:nth-child(5) { transition-delay: 320ms; }
 .stagger-children > .animate-on-scroll:nth-child(6) { transition-delay: 400ms; }
 
+/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .animate-on-scroll {
     opacity: 1;
     transform: none;
     transition: none;
   }
+}
+
+/* ============================================
+   NOISE TEXTURE
+   ============================================ */
+
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='5'/%3E%3C/filter%3E%3Crect width='400' height='400' fill='%23000'/%3E%3Crect width='400' height='400' fill='%23fff' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* ============================================
@@ -376,11 +156,6 @@ img {
 
 .marquee-container:hover .marquee-track {
   animation-play-state: paused;
-}
-
-/* Services/Brands Marquee */
-.marquee-text {
-  animation: marquee-scroll 30s linear infinite;
 }
 
 /* ============================================
@@ -585,39 +360,6 @@ body.lightbox-open {
 }
 
 /* ============================================
-   FIXED CONTACT BUTTON
-   ============================================ */
-
-.fixed-contact-btn {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Mobile: bottom-right corner */
-@media (max-width: 767px) {
-  .fixed-contact-btn {
-    padding: 12px 14px;
-  }
-
-  .fixed-contact-btn:hover {
-    transform: translateX(-2px);
-  }
-}
-
-/* Desktop: right side, vertically centered */
-@media (min-width: 768px) {
-  .fixed-contact-btn:hover {
-    box-shadow: 0 6px 30px rgba(200, 169, 107, 0.15);
-    transform: translateY(-50%) translateX(-2px);
-  }
-}
-
-/* Hide on mobile navbar open and in lightbox */
-body.lightbox-open .fixed-contact-btn {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* ============================================
    FOCUS STATES
    ============================================ */
 
@@ -673,170 +415,4 @@ textarea::placeholder {
   background-color: var(--color-accent);
   width: 1.25rem;
   border-radius: 9999px;
-}
-
-/* ============================================
-   ROTATING TEXT CIRCLE
-   ============================================ */
-
-@keyframes rotate-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.rotating-circle {
-  animation: rotate-slow 12s linear infinite;
-}
-
-/* ============================================
-   SCROLL INDICATOR BOUNCE
-   ============================================ */
-
-@keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
-}
-
-.scroll-dot-bounce {
-  animation: scroll-bounce 1.5s ease-in-out infinite;
-}
-
-/* ============================================
-   AVAILABILITY BADGE PULSE
-   ============================================ */
-
-@keyframes pulse-dot {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.7;
-  }
-}
-
-.availability-dot {
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-
-/* ============================================
-   DIVIDER LINE ANIMATION
-   ============================================ */
-
-@keyframes line-grow {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
-}
-
-.divider-animated {
-  transform-origin: top;
-  animation: line-grow 0.6s var(--ease-out-expo) forwards;
-}
-
-@keyframes dot-travel {
-  0% { top: 0; opacity: 1; }
-  90% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-.divider-dot {
-  animation: dot-travel 2s var(--ease-out-expo) forwards;
-}
-
-/* ============================================
-   CARD HOVER EFFECTS
-   ============================================ */
-
-.premium-card {
-  position: relative;
-  background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-radius: 1rem;
-  transition: all 0.4s var(--ease-out-expo);
-  overflow: hidden;
-}
-
-.premium-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(200, 169, 107, 0.08), transparent);
-  opacity: 0;
-  transition: opacity 0.4s var(--ease-out-expo);
-}
-
-.premium-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(200, 169, 107, 0.25);
-  box-shadow: 0 16px 48px -12px rgba(200, 169, 107, 0.15);
-}
-
-.premium-card:hover::before {
-  opacity: 1;
-}
-
-/* Border tracing animation */
-.premium-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  border: 2px solid transparent;
-  pointer-events: none;
-  transition: border-color 0.3s;
-}
-
-.premium-card:hover::after {
-  border-color: var(--color-accent);
-}
-
-/* ============================================
-   VIDEO CARD HOVER
-   ============================================ */
-
-.video-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.video-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 2px solid transparent;
-  border-radius: inherit;
-  pointer-events: none;
-  transition: all 0.4s var(--ease-out-expo);
-  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
-}
-
-.video-card:hover::after {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  border-color: var(--color-accent);
-}
-
-/* ============================================
-   INPUT FOCUS ANIMATION
-   ============================================ */
-
-.input-animated {
-  position: relative;
-}
-
-.input-animated::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--color-accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s var(--ease-out-expo);
-}
-
-.input-animated:focus-within::after {
-  transform: scaleX(1);
 }
