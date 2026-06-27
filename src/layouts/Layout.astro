@@ -8,16 +8,17 @@ interface Props {
 
 const {
   title = 'Rishi Films | Videography & Video Editing',
-  description = 'Professional videography and video editing for business owners and brands. Worked with TVS, Oppo, Vivo, and Insta360.'
+  description = 'Professional videography and video editing for business owners and brands. Worked with TVS, Oppo, Vivo, and Insta360.',
 } = Astro.props;
 
-const profileImage = 'https://res.cloudinary.com/dhjj1svoh/image_upload/f_auto,q_auto/v1781944293/IMG_9401_ftdy5j.jpg';
+const profileImage =
+  'https://res.cloudinary.com/dhjj1svoh/image_upload/f_auto,q_auto/v1781944293/IMG_9401_ftdy5j.jpg';
 
 const base = import.meta.env.BASE_URL;
 const baseUrl = base.endsWith('/') ? base : `${base}/`;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -31,7 +32,10 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={profileImage} />
-    <meta property="og:image:alt" content="Rishi Films - Professional Videographer & Video Editor" />
+    <meta
+      property="og:image:alt"
+      content="Rishi Films - Professional Videographer & Video Editor"
+    />
     <meta property="og:url" content="https://rishiram-ramachandran.github.io/rishi-flims/" />
 
     <!-- Twitter -->
@@ -46,7 +50,10 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <!-- Page Loader -->
@@ -68,10 +75,11 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
     <!-- Noise Texture Overlay -->
     <svg class="noise-overlay-global" aria-hidden="true">
       <filter id="noise-filter">
-        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-        <feColorMatrix type="saturate" values="0" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"
+        ></feTurbulence>
+        <feColorMatrix type="saturate" values="0"></feColorMatrix>
       </filter>
-      <rect width="100%" height="100%" filter="url(#noise-filter)" />
+      <rect width="100%" height="100%" filter="url(#noise-filter)"></rect>
     </svg>
 
     <!-- Fixed Contact Button -->
@@ -81,13 +89,25 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
       aria-label="Contact us"
       data-cursor-grow
     >
-      <span class="font-display text-[10px] tracking-[0.15em] text-[var(--color-accent)] rotate-180 hidden md:block" style="writing-mode: vertical-rl;">
-        CONTACT
-      </span>
-      <svg class="w-5 h-5 text-[var(--color-accent)] group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-        <polyline points="22,6 12,13 2,6"/>
+      <svg
+        class="w-5 h-5 text-[var(--color-accent)] group-hover:scale-110 transition-transform duration-300"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+        ></path>
+        <polyline points="22,6 12,13 2,6"></polyline>
       </svg>
+      <span
+        class="font-display text-[10px] tracking-[0.15em] text-[var(--color-accent)] rotate-180 hidden md:block"
+        style="writing-mode: vertical-rl;"
+      >
+        Let's Talk
+      </span>
     </a>
 
     <slot />
@@ -212,7 +232,7 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
         },
         {
           threshold: 0.15,
-          rootMargin: '0px 0px -50px 0px'
+          rootMargin: '0px 0px -50px 0px',
         }
       );
 
@@ -224,7 +244,9 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
       document.querySelectorAll('[data-reveal="line"]').forEach((el) => {
         const text = el.textContent || '';
         const words = text.split(/\s+/);
-        el.innerHTML = words.map((word) => `<span class="word"><span>${word}</span></span>`).join(' ');
+        el.innerHTML = words
+          .map((word) => `<span class="word"><span>${word}</span></span>`)
+          .join(' ');
         revealObserver.observe(el);
       });
 
@@ -241,7 +263,7 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
         },
         {
           threshold: 0.08,
-          rootMargin: '0px 0px -50px 0px'
+          rootMargin: '0px 0px -50px 0px',
         }
       );
 
@@ -278,9 +300,12 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
           const iframe = document.createElement('iframe');
           iframe.src = getYouTubeEmbedUrl(url);
           iframe.title = 'YouTube video player';
-          iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+          iframe.allow =
+            'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
           iframe.allowFullscreen = true;
-          iframe.onload = () => { lightboxLoader.style.display = 'none'; };
+          iframe.onload = () => {
+            lightboxLoader.style.display = 'none';
+          };
           videoContainer.appendChild(iframe);
         } else if (platform === 'instagram') {
           const blockquote = document.createElement('blockquote');
@@ -295,8 +320,12 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
           const mutationObserver = new MutationObserver(() => {
             const iframe = videoContainer.querySelector('iframe');
             if (iframe) {
-              iframe.onload = () => { lightboxLoader.style.display = 'none'; };
-              setTimeout(() => { lightboxLoader.style.display = 'none'; }, 2000);
+              iframe.onload = () => {
+                lightboxLoader.style.display = 'none';
+              };
+              setTimeout(() => {
+                lightboxLoader.style.display = 'none';
+              }, 2000);
               mutationObserver.disconnect();
             }
           });
