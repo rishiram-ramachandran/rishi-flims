@@ -1,168 +1,64 @@
 ---
 const steps = [
   {
-    num: "01",
-    title: "BRIEF & DISCOVERY",
-    desc: "We start with a conversation. I learn your brand, your audience, and the story you need told.",
+    number: "01",
+    title: "Discovery",
+    description: "We discuss your vision, goals, and the story you want to tell. I understand your brand, audience, and the message that needs to land."
   },
   {
-    num: "02",
-    title: "CONCEPT & STORYBOARD",
-    desc: "Every shoot starts on paper. I map out the visual story — scenes, angles, mood, and messaging.",
+    number: "02",
+    title: "Shoot",
+    description: "On-location or studio filming with professional gear. I handle the lighting, composition, and direction to capture every frame with intent."
   },
   {
-    num: "03",
-    title: "PRODUCTION",
-    desc: "On-location shoot with professional lighting, stabilization, and direction.",
+    number: "03",
+    title: "Edit",
+    description: "Color grading, sound design, pacing, and polish. Every cut is deliberate. Every transition serves the story. Delivered in DaVinci Resolve."
   },
   {
-    num: "04",
-    title: "POST-PRODUCTION",
-    desc: "Color grading, sound design, motion graphics, and pacing in DaVinci Resolve.",
-  },
-  {
-    num: "05",
-    title: "DELIVERY & PUBLISHING",
-    desc: "Final files delivered, with optional publishing support for brand promotions.",
-  },
+    number: "04",
+    title: "Delivery",
+    description: "Final files delivered in your preferred formats. Revisions included. Your content is ready to publish, promote, and perform."
+  }
 ];
 ---
 
-<section id="process" class="py-16 md:py-20 lg:py-24 bg-[var(--color-bg-secondary)]/30">
+<section id="process" class="py-32 md:py-40 lg:py-48">
   <div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-    <div class="text-center mb-10 md:mb-14" data-reveal="fade-up">
-      <p class="text-[var(--color-accent)] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Process</p>
-      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
-        HOW WE WORK
+    <div class="text-center mb-16 md:mb-24 animate-on-scroll">
+      <p class="text-[var(--color-accent)] text-sm font-semibold tracking-[0.2em] uppercase mb-4">Process</p>
+      <h2 class="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[0.9] tracking-wide text-[var(--color-text)]">
+        HOW IT WORKS
       </h2>
     </div>
 
-    <!-- Mobile / Tablet: Vertical Process Cards -->
-    <div class="lg:hidden max-w-2xl mx-auto">
-      <div class="relative">
-        <!-- Vertical connector line -->
-        <div class="absolute left-[19px] top-6 bottom-6 w-0.5 bg-gradient-to-b from-[var(--color-accent)]/30 via-[var(--color-accent)]/20 to-[var(--color-accent)]/5"></div>
+    <div class="relative">
+      <!-- Timeline line -->
+      <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-[var(--color-border)] -translate-x-1/2"></div>
 
-        <div class="space-y-6" data-reveal-stagger>
-          {steps.map((step, i) => (
-            <div
-              class="process-card relative pl-14 p-5 rounded-2xl bg-[var(--color-bg-secondary)]/50 border border-[var(--color-border)] transition-all duration-400 hover:border-[var(--color-accent)]/20 hover:bg-[var(--color-bg-secondary)]/80"
-              data-reveal="fade-up"
-              data-cursor-grow
-            >
-              <!-- Step number circle -->
-              <div class="absolute left-0 top-5 w-10 h-10 rounded-full bg-[var(--color-bg)] border-2 border-[var(--color-accent)] flex items-center justify-center">
-                <span class="font-mono text-[10px] font-semibold text-[var(--color-accent)]">
-                  {step.num}
-                </span>
-              </div>
-
-              <!-- Content -->
-              <div>
-                <h3 class="font-display text-base md:text-lg tracking-wide text-[var(--color-text)] uppercase mb-1.5">
-                  {step.title}
-                </h3>
-                <p class="text-[var(--color-text-muted)] text-sm leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
+      <div class="space-y-16 md:space-y-24">
+        {steps.map((step, index) => (
+          <div class={`relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center ${index % 2 === 1 ? 'md:[direction:rtl]' : ''}`}>
+            <!-- Content -->
+            <div class={`animate-on-scroll ${index % 2 === 0 ? 'fade-left md:text-right' : 'fade-right md:text-left'} md:[direction:ltr]`}>
+              <span class="font-display text-6xl md:text-7xl text-[var(--color-accent)]/20 leading-none">
+                {step.number}
+              </span>
+              <h3 class="font-display text-2xl md:text-3xl tracking-wide text-[var(--color-text)] mt-2 mb-4">
+                {step.title}
+              </h3>
+              <p class="text-[var(--color-text-muted)] leading-relaxed max-w-md md:ml-auto md:mr-0">
+                {step.description}
+              </p>
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
 
-    <!-- Desktop: Horizontal Timeline -->
-    <div class="hidden lg:block">
-      <div class="relative">
-        <!-- Horizontal connector line -->
-        <div class="absolute left-0 right-0 top-[52px] h-0.5 bg-gradient-to-r from-[var(--color-accent)]/30 via-[var(--color-accent)]/20 to-[var(--color-accent)]/30"></div>
-
-        <div class="grid grid-cols-5 gap-4" data-reveal-stagger>
-          {steps.map((step, i) => (
-            <div
-              class="process-card relative text-center"
-              data-reveal="fade-up"
-              style={`transition-delay: ${i * 100}ms;`}
-              data-cursor-grow
-            >
-              <!-- Step number circle -->
-              <div class="relative z-10 w-10 h-10 mx-auto mb-5 rounded-full bg-[var(--color-bg)] border-2 border-[var(--color-accent)] flex items-center justify-center">
-                <span class="font-mono text-[10px] font-semibold text-[var(--color-accent)]">
-                  {step.num}
-                </span>
-              </div>
-
-              <!-- Content -->
-              <div class="p-4 rounded-xl bg-[var(--color-bg-secondary)]/50 border border-[var(--color-border)] transition-all duration-400 hover:border-[var(--color-accent)]/20 hover:bg-[var(--color-bg-secondary)]/80">
-                <h3 class="font-display text-sm tracking-wide text-[var(--color-text)] uppercase mb-2">
-                  {step.title}
-                </h3>
-                <p class="text-[var(--color-text-muted)] text-xs leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
+            <!-- Dot on timeline -->
+            <div class="hidden md:flex items-center justify-center">
+              <div class="w-4 h-4 rounded-full bg-[var(--color-accent)] border-4 border-[var(--color-bg)] shadow-[0_0_20px_rgba(200,169,107,0.3)] z-10"></div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  .process-card {
-    will-change: transform, background-color;
-  }
-
-  /* Animated progress line on cards */
-  .process-card::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 2px;
-    height: 0;
-    background: var(--color-accent);
-    border-radius: 2px;
-    transition: height 0.4s var(--ease-out-expo);
-  }
-
-  .process-card:hover::before {
-    height: 100%;
-  }
-
-  /* Desktop version */
-  @media (min-width: 1024px) {
-    .process-card::before {
-      left: auto;
-      top: auto;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      height: 2px;
-    }
-  }
-</style>
-
-<script>
-  (function() {
-    // Staggered reveal for process cards
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (!prefersReducedMotion) {
-      const cards = document.querySelectorAll('.process-card');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-
-      cards.forEach((card) => observer.observe(card));
-    }
-  })();
-</script>
