@@ -30,7 +30,7 @@
 |---|---|---|
 | **Framework** | Astro | `^4.4.0` |
 | **CSS** | TailwindCSS v4 via `@tailwindcss/vite` plugin | `^4.3.1` |
-| **Carousel / Slider** | Swiper.js | `^12.2.0` |
+| **Animation** | GSAP + ScrollTrigger | `^3.x` |
 | **Output mode** | Static (`output: 'static'`) | — |
 | **TypeScript** | Yes (`strict` via `tsconfig.json`) | `^5.3.0` |
 | **Node** | `@types/node` | `^20.10.0` |
@@ -42,6 +42,12 @@
 - The design token layer is `@theme { ... }` inside `src/styles/global.css` — **never** `tailwind.config.js`.
 - Use CSS custom properties (`var(--color-accent)`) in Astro markup. Use `[var(--token)]` syntax when using them as Tailwind arbitrary values.
 - Do NOT add a `tailwind.config.js` or `tailwind.config.ts` file.
+
+### 2.2 GSAP + ScrollTrigger
+- GSAP and ScrollTrigger are now part of the project for advanced animations.
+- Import: `import gsap from 'gsap'; import ScrollTrigger from 'gsap/ScrollTrigger'; gsap.registerPlugin(ScrollTrigger);`
+- Used for: parallax effects, timeline animations, scroll-driven reveals.
+- All GSAP animations must respect `prefers-reduced-motion`.
 
 ---
 
@@ -63,7 +69,6 @@ rishi-flims/
 │   ├── components/            ← All section components (one file per section)
 │   │   ├── icons/             ← SVG icon components (LogoMark.astro, LogoFull.astro)
 │   │   ├── About.astro
-│   │   ├── Brands.astro
 │   │   ├── Contact.astro
 │   │   ├── Footer.astro
 │   │   ├── Hero.astro
@@ -78,22 +83,27 @@ rishi-flims/
 │   │   ├── testimonials.json  ← Testimonials array
 │   │   └── videos.json        ← Video portfolio categories + URLs
 │   ├── layouts/
-│   │   └── Layout.astro       ← Root HTML, head, lightbox, global scripts
+│   │   └── Layout.astro       ← Root HTML, head, lightbox, global scripts, page loader
 │   ├── pages/
 │   │   └── index.astro        ← Single page — imports all components in order
 │   └── styles/
-│       └── global.css         ← Design tokens, base styles, utility classes
+│       └── global.css         ← Design tokens, base styles, utility classes, animation system
 ├── astro.config.mjs           ← Astro + Tailwind v4 config
 ├── package.json
 └── tsconfig.json
 ```
 
-### 3.1 File Placement Rules
-- **New sections** → new `src/components/<SectionName>.astro` file + import in `src/pages/index.astro`.
-- **New content data** → add to `src/data/` as JSON, import in the relevant component.
-- **New utility CSS** → append to `src/styles/global.css` under a clearly commented section block.
-- **New icon SVGs** → create as `src/components/icons/<Name>.astro` with `size` and `color` props.
-- **New public static assets** → `public/images/` or `public/logo/`. Always use `BASE_URL` prefix.
+### 3.1 Section Order (Homepage)
+The homepage sections are ordered as follows:
+1. Navbar
+2. Hero
+3. About
+4. Services
+5. Portfolio
+6. Process
+7. Testimonials
+8. Contact
+9. Footer
 
 ---
 
@@ -117,9 +127,10 @@ All colours are defined in `@theme` in `global.css`. **Never use raw hex codes i
 ### 4.2 Typography
 - **Display / Headings**: `font-family: 'Bebas Neue', sans-serif` → utility class `.font-display`
 - **Body**: `font-family: 'Inter', sans-serif` → utility class `.font-body`
-- Section heading size: `clamp(2rem, 4vw, 3rem)` (display), page hero: `clamp(4rem, 15vw, 12rem)`
+- Section heading size: `clamp(2rem, 4vw, 3rem)` (display)
+- Hero headline (split): `clamp(4rem, 14vw, 11rem)` for CINEMATIC/STORIES
 - Letter-spacing on display headings: `tracking-wide` or `tracking-[0.08em]`
-- Leading on display headings: `leading-[0.9]` — tight, cinematic
+- Leading on display headings: `leading-[0.85]` — tight, cinematic
 
 ### 4.3 Spacing and Layout
 - Max page width: `max-w-[1440px] mx-auto`
@@ -129,6 +140,7 @@ All colours are defined in `@theme` in `global.css`. **Never use raw hex codes i
 
 ### 4.4 Easing
 - Custom easing: `--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1)` (use `ease-[var(--ease-out-expo)]` in Tailwind)
+- `--ease-in-out-expo: cubic-bezier(0.76, 0, 0.24, 1)` for exit/enter animations
 - Default transition duration: `duration-300` for hover, `duration-500` for entrance animations
 
 ### 4.5 Glassmorphism
@@ -137,30 +149,72 @@ All colours are defined in `@theme` in `global.css`. **Never use raw hex codes i
 
 ---
 
-## 5. Component Authoring Standards
+## 5. GLOBAL ANIMATION SYSTEM
 
-### 5.1 Astro Component Rules
+### 5.1 Page Loader
+- Fullscreen dark overlay with "RISHI FILMS" logotype centered.
+- Horizontal progress bar fills over ~800ms (CSS animation).
+- After 1000ms, overlay slides up (`translateY(-100%)`) over 700ms.
+- Sets `data-loaded="true"` on body when complete.
+- Skipped on `prefers-reduced-motion: reduce` and Astro View Transitions.
+
+### 5.2 Custom Cursor (Desktop Only)
+- Two-layer cursor: 8px dot (fast lerp 0.25) + 40px ring (slow lerp 0.12).
+- On hover of `[data-cursor-grow]`: ring expands to 80px, background fills.
+- On hover of `[data-cursor-play]`: shows "PLAY" text label.
+- Hidden on touch devices (`@media (hover: none)`).
+
+### 5.3 Data Reveal System
+Use `[data-reveal]` attributes for scroll-triggered animations:
+- `data-reveal="fade-up"`: opacity 0→1, translateY 40px→0
+- `data-reveal="fade-left"`: opacity 0→1, translateX -40px→0
+- `data-reveal="fade-right"`: opacity 0→1, translateX 40px→0
+- `data-reveal="scale-in"`: opacity 0→1, scale 0.94→1
+- `data-reveal="line"`: Text splits into words, each slides up (curtain reveal)
+- Add `data-reveal-stagger` on parent for staggered delays.
+
+### 5.4 Noise Texture Overlay
+- Fixed SVG noise overlay at z-index 9999, opacity 0.035, pointer-events: none.
+- Creates analog film grain feel over the entire site.
+
+### 5.5 Legacy Animation System
+- `.animate-on-scroll` class still supported for backwards compatibility.
+- Variants: `.fade-left`, `.fade-right`, `.scale-in`.
+- `.stagger-children` for staggered delays.
+
+---
+
+## 6. COMPONENT AUTHORING STANDARDS
+
+### 6.1 Astro Component Rules
 - **One component = one section** (or one reusable UI atom).
 - Keep the frontmatter (`---`) block clean: only imports, interface definitions, and data access.
-- Inline JavaScript must be wrapped in `<script>` tags as an IIFE: `(function() { ... })();`
-- Prefer TypeScript in frontmatter (`.astro` files already type-check); annotate all interfaces.
-- **No external JS libraries** may be added without explicit approval and updating `package.json`.
+- GSAP imports go inside `<script>` tags.
 - If a component needs data, import from `src/data/` — never hardcode content into markup.
+- Add `data-cursor-grow` to interactive elements for cursor effects.
 
-### 5.2 Script Architecture (Client-Side)
-- All client-side JS is vanilla TypeScript inside `<script>` tags in `.astro` files.
-- Global events for cross-component communication use the `window.dispatchEvent` / `window.addEventListener` pattern (e.g., `open-lightbox` event in `Layout.astro`).
-- The Intersection Observer for scroll animations is registered globally in `Layout.astro`. Components only need to add the `.animate-on-scroll` class.
-- The lightbox system lives entirely in `Layout.astro`. To open it from any component, dispatch: `window.dispatchEvent(new CustomEvent('open-lightbox', { detail: { platform, url } }))`.
+### 6.2 Hero Section (Redesigned)
+- Split viewport layout: 55% left (content) / 45% right (image).
+- Desktop: vertical divider line with animation, availability badge in top-right.
+- Mobile: Image on top (45vh), content below.
+- Entrance animations: staggered delays from `[data-delay]` attributes.
+- Rotating circle text (SVG textPath) at bottom-left desktop.
+- Parallax effect on right-panel image via GSAP ScrollTrigger.
 
-### 5.3 Scroll Animation System
-- To animate any element on scroll: add `class="animate-on-scroll"`.
-- Variant classes: `fade-left`, `fade-right`, `scale-in` (combine with `animate-on-scroll`).
-- Stagger children: wrap parent in `class="stagger-children"` and children get `animate-on-scroll`.
-- Transition delays can be applied inline: `style="transition-delay: 200ms;"`.
-- Respects `prefers-reduced-motion` — all animations are disabled for users who opt out.
+### 6.3 Services Section (Redesigned)
+- Premium card grid: 1 col mobile, 2 col tablet, 3 col desktop.
+- Cards use `.service-card` class with hover lift/scale/glow effects.
+- Stats bar with count-up animation on scroll.
 
-### 5.4 Section ID Convention
+### 6.4 Process Section (Redesigned)
+- Mobile-first vertical cards with connector line.
+- Desktop: horizontal timeline with circular step indicators.
+- Uses `data-reveal-stagger` for reveal animations.
+
+---
+
+## 7. SECTION ID CONVENTION
+
 Every `<section>` MUST have an `id` attribute matching the navbar data-target. Current IDs:
 
 | Section | ID |
@@ -169,99 +223,32 @@ Every `<section>` MUST have an `id` attribute matching the navbar data-target. C
 | About | `about` |
 | Services | `services` |
 | Portfolio | `portfolio` |
-| Contact | `contact` |
+| Process | `process` |
 | Testimonials | `testimonials` |
-
-If a new section is added that should appear in the Navbar, add a `{ label, href }` entry to the `navLinks` array in `Navbar.astro` AND update this table.
-
----
-
-## 6. Data Management Rules
-
-### 6.1 `src/data/site.json` — Contact and Social
-- Single source of truth for all personal/contact data.
-- **Never** hardcode phone numbers, emails, or social URLs directly in components.
-- Schema:
-  ```json
-  {
-    "profileImage": "<cloudinary_url>",
-    "contact": {
-      "name": "Rishiram",
-      "phone": "+91 XXXXX-XXXXXX",
-      "email": "...",
-      "location": "Tamil Nadu, India",
-      "whatsapp": "https://wa.me/91...",
-      "instagram": "https://www.instagram.com/...",
-      "instagram_secondary": "https://www.instagram.com/..."
-    },
-    "social": {
-      "instagram": "...",
-      "whatsapp": "...",
-      "email": "mailto:..."
-    }
-  }
-  ```
-
-### 6.2 `src/data/videos.json` — Portfolio Videos
-- Videos are grouped into **categories**, each with an `id`, `title`, and `videos[]` array.
-- Current categories (in order): `brands`, `cinematic`, `talking-head`.
-- Each video object:
-  ```json
-  {
-    "id": "unique-kebab-id",
-    "platform": "instagram",
-    "url": "https://...",
-    "label": "Brand Name"
-  }
-  ```
-  - `id`: REQUIRED. Unique across all videos.
-  - `platform`: `"instagram"` or `"youtube"`
-  - `url`: Full URL to the reel/video
-  - `label`: Optional. Shown on brand cards only.
-- Adding a new category: add the entry to `categories[]` and update this section.
-- Instagram URLs must be full reel URLs (not short links).
-
-### 6.3 `src/data/testimonials.json` — Testimonials Array
-- Array of testimonial objects.
-- Schema:
-  ```json
-  {
-    "quote": "...",
-    "author": "...",
-    "company": "...",
-    "location": "...",
-    "rating": 5
-  }
-  ```
-  - `location` is optional.
-  - `rating` is always 5 for this portfolio.
+| Contact | `contact` |
 
 ---
 
-## 7. Lightbox System
+## 8. LIGHTBOX SYSTEM
 
 - The lightbox lives in `Layout.astro` — the `#video-lightbox` modal.
 - Supports two platforms: `"instagram"` and `"youtube"`.
-- **Instagram**: Dynamically injects a `<blockquote class="instagram-media">` and processes it via `window.instgrm.Embeds.process()`. The Instagram embed script is lazy-loaded once per session.
-- **YouTube**: Dynamically injects an `<iframe>` with `autoplay=1`. Supports standard, `youtu.be`, and YouTube Shorts URLs.
+- **Instagram**: Dynamically injects a `<blockquote class="instagram-media">`.
+- **YouTube**: Dynamically injects an `<iframe>` with `autoplay=1`.
 - Closed by: close button click, backdrop click, or `Escape` key.
-- CSS: `.lightbox-modal`, `.lightbox-content`, `.lightbox-backdrop`, `.lightbox-close`, `.lightbox-loader`, `.spinner` — all defined in `global.css`.
-- The loader spinner uses `--color-accent` as the animated border color.
 
 ---
 
-## 8. Navbar Behaviour
+## 9. NAVBAR BEHAVIOUR
 
-- Fixed, pill-shaped, glassmorphism Navbar (`#navbar`).
-- **Hidden by default** (opacity 0, translate-y -24). Becomes visible after 80px of scroll.
-- Mobile menu (`#mobile-menu`): toggled by `#mobile-menu-btn`; closes on mobile link click.
-- Active link detection: reads `section[id]` positions and updates `.nav-link.active` class with `--color-accent` color.
-- Smooth scroll: all `a[href^="#"]` clicks call `.scrollIntoView({ behavior: 'smooth' })`.
-- **Never modify Navbar behaviour** without thorough testing on both mobile and desktop.
+- Fixed, pill-shaped navbar.
+- **Transparent over hero** (no backdrop), transitions to blurred glass after 80px scroll.
+- Mobile menu: clip-path circle reveal animation.
+- Active link: small accent-color dot **above** the text (not underline).
 
 ---
 
-## 9. Contact Form
+## 10. CONTACT FORM
 
 - Backend: `formsubmit.co` (no server). POST target: `https://formsubmit.co/rishiramramachandran@gmail.com`.
 - Hidden fields (MUST preserve):
@@ -269,142 +256,103 @@ If a new section is added that should appear in the Navbar, add a `{ label, href
   - `_captcha`: "false"
   - `_template`: "table"
   - `_next`: redirects to `?form=success` on the live URL
-- Success state: detected via `?form=success` URL param. Form hides, success message appears. URL is cleaned with `history.replaceState`.
-- Submit button: disabled + spinner shown on submit click to prevent double-sends.
-- Form ID: `contact-form`. All input IDs must match their `for` labels.
+- Submit button: liquid fill hover effect from bottom-up.
 
 ---
 
-## 10. SEO and Meta Tags
+## 11. SEO AND META TAGS
 
 All SEO is managed in `src/layouts/Layout.astro`. Rules:
 - Each page MUST have a unique `<title>` and `<meta name="description">`.
-- Open Graph tags: `og:type`, `og:title`, `og:description`, `og:image`, `og:image:alt`, `og:url` — all required.
-- Twitter card: `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image` — all required.
-- Theme color: `#0B0B0B` (matches site dark background).
-- `og:image` uses Cloudinary profile image URL (with `f_auto,q_auto` transforms).
-- Currently a single-page app — if additional pages are added, pass `title` and `description` as Layout props.
+- Open Graph tags: required: `og:type`, `og:title`, `og:description`, `og:image`, `og:image:alt`, `og:url`.
+- Twitter card: required: `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`.
+- Theme color: `#0B0B0B`.
 
 ---
 
-## 11. Performance Rules
+## 12. PERFORMANCE RULES
 
-- **LCP image** (hero background): `loading="eager"`, `fetchpriority="high"`. Never change this.
+- **LCP image** (hero profile image): `loading="eager"`, `fetchpriority="high"`. Never change this.
 - All non-hero images: `loading="lazy"`.
 - Font loading: `preconnect` to both `fonts.googleapis.com` and `fonts.gstatic.com` in `<head>`.
-- External scripts (Instagram embed): lazy-loaded client-side only when lightbox opens — never in `<head>`.
-- Thumbnails for the video carousel are pre-downloaded by `scripts/download-thumbnails.cjs` before build.
-- Avoid adding `<script src="...">` tags in `<head>` that block rendering.
-- CSS is statically imported in Layout — no dynamic CSS loading.
+- External scripts (Instagram embed): lazy-loaded client-side only when lightbox opens.
+- **will-change**: Only on actively animating elements; remove after animation completes or use GSAP's built-in optimization.
 
 ---
 
-## 12. Accessibility Rules
+## 13. ACCESSIBILITY RULES
 
 - All interactive elements must have `aria-label` or visible text labels.
+- Support `prefers-reduced-motion: reduce` — all animations must degrade gracefully.
 - Lightbox modal uses `aria-hidden="true/false"` toggling and `role="dialog"`.
 - Mobile menu button uses `aria-expanded="true/false"`.
-- Keyboard navigation: Escape closes lightbox (implemented). Tab order must be logical.
-- Focus styles: `button:focus-visible`, `a:focus-visible`, `input:focus-visible`, `textarea:focus-visible` all use `outline: 2px solid var(--color-accent); outline-offset: 2px;` — do not remove.
-- Decorative background images use `alt=""` (empty, not missing).
-- Meaningful images require descriptive alt text.
+- Focus styles: `outline: 2px solid var(--color-accent); outline-offset: 2px;` — do not remove.
+- Custom cursor must degrade when JS is disabled (CSS fallback).
 
 ---
 
-## 13. Deployment and CI/CD
+## 14. DEPLOYMENT AND CI/CD
 
 - **Build command**: `node scripts/download-thumbnails.cjs && astro build`
 - **Dev command**: `node scripts/download-thumbnails.cjs && astro dev`
 - Output: `dist/` directory (static, do not commit).
-- GitHub Pages deployment: automated via `.github/workflows/`. Do not break the workflow files.
-- `astro.config.mjs` settings are locked:
-  - `site: 'https://rishiram-ramachandran.github.io'`
-  - `base: '/rishi-flims'`
-  - `output: 'static'`
-- Any new env variables must be prefixed `PUBLIC_` if used client-side.
+- GitHub Pages deployment: automated via `.github/workflows/`.
+- `astro.config.mjs` settings are locked.
 
 ---
 
-## 14. Code Quality Standards
+## 15. CODE QUALITY STANDARDS
 
 - **No unused imports** in frontmatter.
-- **No `!important`** in CSS unless overriding third-party embed styles (e.g., Instagram `min-width`).
-- **Comments**: Use `<!-- Comment -->` for HTML landmarks in long templates. Use `/* === SECTION === */` dividers in CSS.
-- **Z-index scale** (document any new additions here):
+- **No `!important`** in CSS unless overriding third-party embed styles.
+- **Comments**: Use `<!-- Comment -->` for HTML landmarks. Use `/* === SECTION === */` dividers in CSS.
+- **Z-index scale**:
 
   | Layer | Z-index |
   |---|---|
+  | Noise overlay | `9999` |
+  | Page loader | `10000` |
+  | Custom cursor | `10001` |
   | Navbar | `1000` |
   | Lightbox modal | `2000` |
   | Lightbox content | `2010` |
   | Lightbox close btn | `2020` |
-  | Lightbox loader | `2005` |
-
-- **No inline styles** for design tokens — always use Tailwind utility classes or CSS variables.
-- TypeScript: use `as HTMLElement` casts where necessary; do not use `any` unless interfacing with third-party globals (e.g., `(window as any).instgrm`).
 
 ---
 
-## 15. Branding and Copy Rules
+## 16. BRAND AND COPY RULES
 
 - Brand name in UI: **"RISHI FILMS"** (all-caps display, Bebas Neue).
-- Tagline: "Cinematic stories for businesses that mean business."
-- Sub-tagline: "Videography and Video Editing for Brands and Business Owners"
-- Profile handles: `@iam_.anonymous__` (travel/vlogging, 194K+ followers), `@rishi_.films_` (work portfolio)
-- Brands worked with (must always be accurate): TVS, TVS Racing, Oppo India, Vivo India, Insta360, Decathlon, Resort owners
-- Location: Tamil Nadu, India
-- Do NOT change the brand voice — it is premium, confident, and cinematic.
+- Hero headline: **"CINEMATIC STORIES"** (CINEMATIC solid, STORIES outlined).
+- Tagline: "For businesses that mean business."
+- Profile handles: `@iam_.anonymous__` (194K+ followers), `@rishi_.films_`
+- Brands worked with: TVS, TVS Racing, Oppo India, Vivo India, Insta360, Decathlon.
 
 ---
 
-## 16. Current Services Catalogue
+## 17. CURRENT SERVICES
 
-Data lives inline in `src/components/Services.astro` (frontmatter `services[]` array). If services change, update **both** the component AND this section.
-
-| ID | Title | Icon |
-|---|---|---|
-| `videography` | Business Videography | `camera` |
-| `editing` | Video Editing | `scissors` |
-| `branding` | Brand Promotions | `trending-up` |
-| `storytelling` | Cinematic Storytelling | `film` |
-| `talking-head` | Talking Head Content | `mic` |
-
-Icon names map to SVG strings defined in the `getIcon()` function in `Services.astro`.
+| Title | Description |
+|---|---|
+| Business Videography | On-location shoots for products, spaces, processes, and people. |
+| Video Editing | Color grading, sound design, pacing — raw footage becomes story. |
+| Brand Promotions | End-to-end influencer marketing — concept, shoot, edit, publish. |
+| Cinematic Storytelling | Narrative-driven short films and reels that captivate and convert. |
+| Talking Head Content | Professional presenter-style videos for founders and creators. |
 
 ---
 
-## 17. When Adding or Modifying Features — MANDATORY CHECKLIST
+## 18. PROHIBITED ACTIONS
 
-Before marking any task complete, verify ALL of the following:
-
-- [ ] **AGENTS.md updated** — Does this change affect any section of this file? If yes, update it now.
-- [ ] **Data-driven** — Is content that may change in the future stored in `src/data/`?
-- [ ] **Design tokens used** — Are colours, fonts, and spacing referencing tokens, not hardcoded values?
-- [ ] **Animation class added** — Do new elements use `.animate-on-scroll` where appropriate?
-- [ ] **Section ID registered** — If a new `<section>` was added, does it have a unique `id`? Is the Navbar section table in AGENTS.md updated?
-- [ ] **SEO preserved** — Title, description, and OG tags intact.
-- [ ] **Accessibility** — All interactive elements have `aria-label`, `alt`, or visible labels.
-- [ ] **Mobile responsive** — Layout works correctly on small screens.
-- [ ] **Base URL handled** — Any new internal asset links use `import.meta.env.BASE_URL`.
-- [ ] **No new npm packages** without explicit approval from user.
-- [ ] **Lightbox event** — If adding new video thumbnails, do they dispatch the `open-lightbox` CustomEvent?
-- [ ] **Comments preserved** — Existing inline comments not removed by edits.
-
----
-
-## 18. Prohibited Actions
-
-- Do NOT run `astro build` and commit the `dist/` folder manually (CI handles this).
+- Do NOT run `astro build` and commit the `dist/` folder manually.
 - Do NOT swap TailwindCSS for v3 config (`tailwind.config.js`).
-- Do NOT introduce React, Vue, Svelte or any framework components without explicit approval.
-- Do NOT add Google Analytics, Hotjar, or any tracking scripts without approval.
+- Do NOT introduce React, Vue, Svelte without explicit approval.
+- Do NOT add Google Analytics, Hotjar, or tracking scripts without approval.
 - Do NOT modify `.github/workflows/` files without explicit instruction.
-- Do NOT hardcode personal contact info (phone, email) outside `src/data/site.json`.
-- Do NOT use placeholder images (use `generate_image` tool or Cloudinary URLs instead).
+- Do NOT hardcode personal contact info outside `src/data/site.json`.
 - Do NOT leave `console.log` statements in committed code.
-- Do NOT use `document.write` or synchronous XHR anywhere.
 
 ---
 
-*Last updated: 2026-06-27 — Initial industrial-level rules creation.*
+*Last updated: 2026-06-27 — Premium design and animation overhaul.*
 *Update this timestamp and the relevant section whenever a feature change is made.*
