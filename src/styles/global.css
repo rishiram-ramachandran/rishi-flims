@@ -37,7 +37,24 @@ body {
   overflow-x: hidden;
 }
 
+/* ============================================
+   FIXED CONTACT BUTTON
+   ============================================ */
 
+@keyframes fct-ping {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+.fct-ping {
+  animation: fct-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fct-ping {
+    animation: none;
+  }
+}
 
 img {
   max-width: 100%;

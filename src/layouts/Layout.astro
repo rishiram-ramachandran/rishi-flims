@@ -78,30 +78,16 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
 
     <!-- Fixed Contact Button -->
     <a
-      href="#contact"
-      class="fixed-contact-btn fixed right-4 bottom-20 md:top-1/2 md:bottom-auto md:-translate-y-1/2 z-[900] flex flex-col items-center justify-center gap-2 px-3 py-4 rounded-full bg-[var(--color-bg)]/90 backdrop-blur-md border border-[var(--color-accent)]/30 hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)]/10 transition-all duration-300 group"
-      aria-label="Contact us"
-      data-cursor-grow
+      href="#get-in-touch"
+      class="fixed bottom-6 right-5 z-[900] inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[var(--color-accent)] text-[var(--color-bg)] font-semibold text-sm tracking-wide shadow-[0_4px_24px_rgba(200,169,107,0.35)] hover:bg-[var(--color-accent-light)] hover:shadow-[0_6px_32px_rgba(200,169,107,0.5)] transition-all duration-300"
+      aria-label="Let's Talk — Contact"
     >
-      <svg
-        class="w-5 h-5 text-[var(--color-accent)] group-hover:scale-110 transition-transform duration-300"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-        ></path>
-        <polyline points="22,6 12,13 2,6"></polyline>
-      </svg>
-      <span
-        class="font-display text-[10px] tracking-[0.15em] text-[var(--color-accent)] rotate-180 hidden md:block"
-        style="writing-mode: vertical-rl;"
-      >
-        Let's Talk
+      <!-- Live dot -->
+      <span class="relative flex h-2 w-2 shrink-0">
+        <span class="fct-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-bg)] opacity-60"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-bg)]"></span>
       </span>
+      Let's Talk
     </a>
 
     <slot />
