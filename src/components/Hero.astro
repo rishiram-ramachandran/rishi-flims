@@ -253,38 +253,18 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
           <span
             class="font-display text-[clamp(1rem,4vw,1.5rem)] tracking-[0.3em] text-[var(--color-accent)] uppercase inline-block"
           >
-            <span
-              class="brand-letter"
-              style="display: inline-block; opacity: 0; transform: translateY(100%);">R</span
-            ><span
-              class="brand-letter"
-              style="display: inline-block; opacity: 0; transform: translateY(100%);">I</span
-            ><span
-              class="brand-letter"
-              style="display: inline-block; opacity: 0; transform: translateY(100%);">S</span
-            ><span
-              class="brand-letter"
-              style="display: inline-block; opacity: 0; transform: translateY(100%);">H</span
-            ><span
-              class="brand-letter"
-              style="display: inline-block; opacity: 0; transform: translateY(100%);">I</span
+            <span class="brand-letter">R</span
+            ><span class="brand-letter">I</span
+            ><span class="brand-letter">S</span
+            ><span class="brand-letter">H</span
+            ><span class="brand-letter">I</span
             >
             <span class="mx-2"></span>
-            <span
-              class="brand-letter"
-              style="display: inline-block; opacity: 0; transform: translateY(100%);">F</span
-            ><span
-              class="brand-letter"
-              style="display: inline-block; opacity: 0; transform: translateY(100%);">I</span
-            ><span
-              class="brand-letter"
-              style="display: inline-block; opacity: 0; transform: translateY(100%);">L</span
-            ><span
-              class="brand-letter"
-              style="display: inline-block; opacity: 0; transform: translateY(100%);">M</span
-            ><span
-              class="brand-letter"
-              style="display: inline-block; opacity: 0; transform: translateY(100%);">S</span
+            <span class="brand-letter">F</span
+            ><span class="brand-letter">I</span
+            ><span class="brand-letter">L</span
+            ><span class="brand-letter">M</span
+            ><span class="brand-letter">S</span
             >
           </span>
         </div>
@@ -400,13 +380,18 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
   </div>
 </section>
 
-<style>
+<style is:global>
+  /* Default: content visible without JS */
   .hero-element {
-    opacity: 0;
-    transform: translateY(20px);
     transition:
       opacity 0.5s var(--ease-out-expo),
       transform 0.5s var(--ease-out-expo);
+  }
+
+  /* JS enabled: start hidden, animate in */
+  .js .hero-element {
+    opacity: 0;
+    transform: translateY(20px);
   }
 
   .hero-element.hero-revealed {
@@ -414,7 +399,17 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
     transform: translateY(0);
   }
 
-  h1 .hero-element {
+  /* Brand letter: default visible, hidden when JS runs */
+  .brand-letter {
+    display: inline-block;
+  }
+
+  .js .brand-letter {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  .js h1 .hero-element {
     transform: translateX(-40px);
   }
 
@@ -560,10 +555,11 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-element {
-      opacity: 1;
-      transform: none;
-      transition: none;
+    .hero-element,
+    .js .hero-element {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
     }
 
     .hero-divider {
@@ -575,8 +571,14 @@ const baseUrl = base.endsWith('/') ? base : `${base}/`;
     .rotating-circle,
     .mobile-orb,
     .brand-letter,
+    .js .brand-letter,
     .lens-flare {
       animation: none;
+    }
+
+    .js .brand-letter {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
     }
 
     .mobile-orb {
