@@ -174,7 +174,7 @@ const navLinks = [
     handleScroll();
 
     // Mobile menu functions
-    const closeMobileMenu = () => {
+    function closeMobileMenu() {
       if (mobileMenuBtn) {
         mobileMenuBtn.classList.remove('open');
         mobileMenuBtn.setAttribute('aria-expanded', 'false');
@@ -182,9 +182,9 @@ const navLinks = [
       if (mobileMenu) {
         mobileMenu.classList.remove('open');
       }
-    };
+    }
 
-    const openMobileMenu = () => {
+    function openMobileMenu() {
       if (mobileMenuBtn) {
         mobileMenuBtn.classList.add('open');
         mobileMenuBtn.setAttribute('aria-expanded', 'true');
@@ -192,15 +192,15 @@ const navLinks = [
       if (mobileMenu) {
         mobileMenu.classList.add('open');
       }
-    };
+    }
 
-    const toggleMobileMenu = () => {
+    function toggleMobileMenu() {
       if (mobileMenuBtn?.classList.contains('open')) {
         closeMobileMenu();
       } else {
         openMobileMenu();
       }
-    };
+    }
 
     // Click handler
     mobileMenuBtn?.addEventListener('click', (e) => {
